@@ -1,0 +1,11 @@
+﻿h1 {
+    color: black;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
