@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Database;
+using llama_journal.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 
 
 // Add DB context
-builder.Services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
+builder.Services.AddDbContext<llama_journal.ModelsContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
 
 
 var app = builder.Build();

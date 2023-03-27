@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Database;
+namespace llama_journal.Models;
 
 [Index(nameof(Name), IsUnique=true)]
 public class Organization

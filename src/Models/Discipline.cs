@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Database;
+namespace llama_journal.Models;
 
 
 public class Discipline
