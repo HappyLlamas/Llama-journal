@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Database;
+namespace llama_journal.Models;
 
-public class DatabaseContext : DbContext
+public class llama_journal.ModelsContext : DbContext
 {
 	// Add your models here
 	// Format: public DbSet<Model> ModelName { get; set; }
@@ -13,5 +13,5 @@ public class DatabaseContext : DbContext
 	public DbSet<Discipline> Disciplines { get; set; }
 	public DbSet<Attendance> Attendances { get; set; }
 
-	public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options){}
+	public llama_journal.ModelsContext(DbContextOptions<llama_journal.ModelsContext> options) : base(options){}
 }
