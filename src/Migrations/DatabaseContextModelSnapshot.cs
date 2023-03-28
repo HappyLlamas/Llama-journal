@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace llama_journal.Migrations
 {
-    [DbContext(typeof(llama_journal.ModelsContext))]
-    partial class llama_journal.ModelsContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ModelsContext))]
+    partial class ModelsContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

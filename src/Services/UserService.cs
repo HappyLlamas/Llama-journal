@@ -18,16 +18,16 @@ public class UserService
 	{
 		return _userRepository.GetUsers().ToList();
 	}
-	public void SetUserGroup(int uesrId, string groupName)
+	public void SetUserGroup(string userId, string groupName)
     {
         var user = _userRepository.GetById(userId);
-        var result = _userRepository.SetGroup(user, groupName);
+        _userRepository.SetGroup(user, groupName);
     }
 
-	public void SetUserRole(int userId, RoleEnum role)
+	public void SetUserRole(string userId, RoleEnum role)
     {
         var user = _userRepository.GetById(userId);
-        var result = _userRepository.SetRole(user, role);
+        _userRepository.SetRole(user, role);
     }
 	public void CreateUser(string email, string fullname)
 	{

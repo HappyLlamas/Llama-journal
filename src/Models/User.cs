@@ -26,6 +26,12 @@ public class User
 
 	[Required]
 	public Group Group { get; set; } = null!;
+	
+	[Required]
+	[DataType(DataType.Password)]
+	public string Password { get; set; } = null!;
+	
+	public string PasswordSalt { get; set; }
 
 
 	public ICollection<Discipline> TeacherDisciplines { get; set; } = new List<Discipline>();

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace llama_journal.Models;
 
-public class llama_journal.ModelsContext : DbContext
+public class ModelsContext : DbContext
 {
 	// Add your models here
 	// Format: public DbSet<Model> ModelName { get; set; }
@@ -12,6 +12,7 @@ public class llama_journal.ModelsContext : DbContext
 	public DbSet<User> Users { get; set; }
 	public DbSet<Discipline> Disciplines { get; set; }
 	public DbSet<Attendance> Attendances { get; set; }
+	public DbSet<Grade> Grades { get; set; }
 
-	public llama_journal.ModelsContext(DbContextOptions<llama_journal.ModelsContext> options) : base(options){}
+	public ModelsContext(DbContextOptions<ModelsContext> options) : base(options){}
 }
