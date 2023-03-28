@@ -20,20 +20,20 @@ public class GradesService
 		_groupRepository = groupRepository;
 	}
 
-	public List<Grade> GetGradesForUser(int userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
+	public List<Grade> GetGradesForUser(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
 	{
 		var user = _userRepository.GetById(userId);
 		var discipline = _disciplineRepository.GetById(disciplineId);
-		return _disciplineRepository.GetGradesForUserInPeriod(discipline, user, start_datetime, end_datetime);
+		return _disciplineRepository.GetGradesForUserInPeriod(discipline, userId, start_datetime, end_datetime);
 	}
 
-	public List<Grade> GetGradesForUser(int userId, int disciplineId)
+	public List<Grade> GetGradesForUser(string userId, int disciplineId)
 	{
 		var user = _userRepository.GetById(userId);
 		var discipline = _disciplineRepository.GetById(disciplineId);
 		return _gradeRepository.GetGradesForUser(discipline, user);
 	}
-	public double GetAvarangeGrade(int userId, int disciplineId)
+	public double GetAvarangeGrade(string userId, int disciplineId)
 	{
 		var user = _userRepository.GetById(userId);
 		var discipline = _disciplineRepository.GetById(disciplineId);
@@ -44,31 +44,37 @@ public class GradesService
 			sum += grade.Score;
 		return sum / grades.Count;
 	}
-	public String GetFileWithGrades(int userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
+	public String GetFileWithGrades(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
 	{
 		var user = _userRepository.GetById(userId);
 		var discipline = _disciplineRepository.GetById(disciplineId);
 
-		var grades = _gradeRepository.GetGradesForUserInPeriod(user, start_datetime, end_datetime, discipline);
+		var grades = _gradeRepository.GetGradesForUserInPeriod(discipline, user, start_datetime, end_datetime);
 
 		// TODO: generate file for grades
 		string filename = "";
 
 		return filename;
 	}
-	public Dictionary<String, String> GetGradesForAllUserDisciplines(int userId, DateTime start_datetime, DateTime end_datetime)
+	public Dictionary<string, string> GetGradesForAllUserDisciplines(string userId, DateTime startDatetime, DateTime endDatetime)
 	{
 		var user = _userRepository.GetById(userId);
-		List<Grade> grades = _gradeRepository.GetGradesForUserInPeriod(user, start_datetime, end_datetime);
+		var disciplines = _disciplineRepository.GetAll();
+
 		var result = new Dictionary<string, string>();
-		foreach (var grade in grades) {
-			if (!result.ContainsKey(grade.Discipline.Name))
-				result[grade.Discipline.Name] = 0;
-			result[grade.Discipline.Name] += grade.Score;
+		foreach (var discipline in disciplines)
+		{
+			List<Grade> grades = _gradeRepository.GetGradesForUserInPeriod(discipline, user, startDatetime, endDatetime);
+			if (grades.Any())
+			{
+				double average = grades.Average(g => g.Score);
+				result.Add(discipline.Name, average.ToString());
+			}
 		}
+
 		return result;
 	}
-	public void AddGrade(int userId, int score, DateTime date)
+	public void AddGrade(string userId, int score, DateTime date)
 	{
 		_gradeRepository.AddGrade(userId, score, date);
 	}
@@ -77,7 +83,7 @@ public class GradesService
 		var grade = _gradeRepository.GetById(gradeId);
 		_gradeRepository.SetGradeComment(grade, comment);
 	}
-	public Grade GetGradesForGroup(int disciplineId, int groupId, DateTime start_datetime, DateTime end_datetime)
+	public List<Grade> GetGradesForGroup(int disciplineId, int groupId, DateTime start_datetime, DateTime end_datetime)
 	{
 		var discipline = _disciplineRepository.GetById(disciplineId);
 		var group = _groupRepository.GetById(groupId);
