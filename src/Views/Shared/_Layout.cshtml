@@ -3,43 +3,42 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="../../src/css/navbar.css" rel="stylesheet" />
-    <link href="../../src/css/site.css" rel="stylesheet" />
-    <link href="../../src/lib/css/bootstrap.css" rel="stylesheet"/>
+    @* <link href= "~/src/css/navbar.css" rel="stylesheet" type="text/css"/> *@
+    <link href= "~/lib/css/bootstrap.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <nav class="navbar">
-
-<div class="logo">@ViewBag.Title</div>
-
-<ul class="nav-links">
     
+    <div class="logo">@ViewBag.Title</div>
 
-<input type="checkbox" id="checkbox_toggle" />
+    <ul class="nav-links">
 
-<label for="checkbox_toggle" class="hamburger">&#9776;</label>
 
-<div class="menu">
+        <input type="checkbox" id="checkbox_toggle"/>
 
-    <li><a href="/">Аналіз успішності</a></li>
+        <label for="checkbox_toggle" class="hamburger">&#9776;</label>
 
-    <li><a href="/">Підсумкові бали</a></li>
+        <div class="menu">
 
-    <li class="services">
+            <li><a href="/">Аналіз успішності</a></li>
 
-    <a href="/">Вибрати предмет</a>
-        
-    <ul class="dropdown">
-        <li><a href="/">Алгебра</a></li>
-        <li><a href="/">Dropdown 2</a></li>
-        <li><a href="/">Dropdown 2</a></li>
-        <li><a href="/">Dropdown 3</a></li>
-        <li><a href="/">Dropdown 4</a></li>
+            <li><a href="/">Підсумкові бали</a></li>
+
+            <li class="services">
+
+                <a href="/">Вибрати предмет</a>
+
+                <ul class="dropdown">
+                    <li><a href="/">Алгебра</a></li>
+                    <li><a href="/">Dropdown 2</a></li>
+                    <li><a href="/">Dropdown 2</a></li>
+                    <li><a href="/">Dropdown 3</a></li>
+                    <li><a href="/">Dropdown 4</a></li>
+                </ul>
+            </li>
+        </div>
+
     </ul>
-    </li>
-</div>
-
-</ul>
 
 </nav>
 <div>

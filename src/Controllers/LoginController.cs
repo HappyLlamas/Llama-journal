@@ -16,6 +16,6 @@ public class LoginController: Controller
     {
         if(!ModelState.IsValid)
             return View("Index");
-        return Redirect("/");
+        return Redirect("Views/Progress/Index.cshtml");
     }
 }
