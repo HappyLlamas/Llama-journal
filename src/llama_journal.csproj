@@ -18,6 +18,17 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations" />
+    <Folder Include="Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Components\Notifcation\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\UserAccount\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Views\Login\Index.cshtml" />
+    <AdditionalFiles Include="Views\UserAccount\Index.cshtml" />
   </ItemGroup>
 
 </Project>

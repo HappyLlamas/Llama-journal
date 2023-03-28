@@ -9,3 +9,6 @@ button {
     padding: 10px;
     border-radius: 5px;
 }
+.btn {
+    width: 80px;
+}

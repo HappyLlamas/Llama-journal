@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="../../src/css/navbar.css" rel="stylesheet" />
+    <link href="../../src/css/site.css" rel="stylesheet" />
+    <link href="../../src/lib/css/bootstrap.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar">
+
+<div class="logo">@ViewBag.Title</div>
+
+<ul class="nav-links">
+    
+
+<input type="checkbox" id="checkbox_toggle" />
+
+<label for="checkbox_toggle" class="hamburger">&#9776;</label>
+
+<div class="menu">
+
+    <li><a href="/">Аналіз успішності</a></li>
+
+    <li><a href="/">Підсумкові бали</a></li>
+
+    <li class="services">
+
+    <a href="/">Вибрати предмет</a>
+        
+    <ul class="dropdown">
+        <li><a href="/">Алгебра</a></li>
+        <li><a href="/">Dropdown 2</a></li>
+        <li><a href="/">Dropdown 2</a></li>
+        <li><a href="/">Dropdown 3</a></li>
+        <li><a href="/">Dropdown 4</a></li>
+    </ul>
+    </li>
+</div>
+
+</ul>
+
+</nav>
+<div>
+    @RenderBody()
+</div>
+</body>
+</html>

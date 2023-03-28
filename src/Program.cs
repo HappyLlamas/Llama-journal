@@ -1,16 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 using Database;
+using llama_journal.Data.Repositories;
+using llama_journal.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add controllers and html templates
 builder.Services.AddRazorPages();
+builder.Services.AddAuthentication();
 
 
 // Add DB context
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
 
+builder.Services.AddControllersWithViews();
+
+// Add services and repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
@@ -22,12 +29,33 @@ if (!app.Environment.IsDevelopment())
 }
 
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+if (builder.Environment.IsDevelopment())
+{
+	app.UseDeveloperExceptionPage();
+}
+else
+{
+	app.UseExceptionHandler("/Home/Error");
+}
+
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllerRoute(
+		name: "default",
+		pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.MapRazorPages();
 
