@@ -1,0 +1,33 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "llama_journal", "LlamaJournal\LlamaJournal.csproj", "{1B644BDF-4364-4DA3-A991-E4BFBDAA96D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{1E3B2284-C9DE-45F1-8821-1B98216ED3A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinnesLayer", "BusinnesLayer\BusinnesLayer.csproj", "{0109B53F-F6B5-4F1A-9108-5FACFAFA0271}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B644BDF-4364-4DA3-A991-E4BFBDAA96D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B644BDF-4364-4DA3-A991-E4BFBDAA96D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B644BDF-4364-4DA3-A991-E4BFBDAA96D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B644BDF-4364-4DA3-A991-E4BFBDAA96D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E3B2284-C9DE-45F1-8821-1B98216ED3A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E3B2284-C9DE-45F1-8821-1B98216ED3A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E3B2284-C9DE-45F1-8821-1B98216ED3A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E3B2284-C9DE-45F1-8821-1B98216ED3A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0109B53F-F6B5-4F1A-9108-5FACFAFA0271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0109B53F-F6B5-4F1A-9108-5FACFAFA0271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0109B53F-F6B5-4F1A-9108-5FACFAFA0271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0109B53F-F6B5-4F1A-9108-5FACFAFA0271}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

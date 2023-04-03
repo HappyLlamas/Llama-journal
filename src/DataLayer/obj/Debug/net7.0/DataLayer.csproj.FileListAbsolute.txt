@@ -1,0 +1,14 @@
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/DataLayer.csproj.AssemblyReference.cache
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/DataLayer.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/DataLayer.AssemblyInfoInputs.cache
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/DataLayer.AssemblyInfo.cs
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/DataLayer.csproj.CoreCompileInputs.cache
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/bin/Debug/net7.0/DataLayer.deps.json
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/bin/Debug/net7.0/DataLayer.runtimeconfig.json
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/bin/Debug/net7.0/DataLayer.dll
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/bin/Debug/net7.0/DataLayer.pdb
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/DataLayer.dll
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/refint/DataLayer.dll
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/DataLayer.pdb
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/DataLayer.genruntimeconfig.cache
+/mnt/1/Documents/labs/3.2/program_injeneria/src/DataLayer/obj/Debug/net7.0/ref/DataLayer.dll

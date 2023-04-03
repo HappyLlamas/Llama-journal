@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dgSpecHash": "gtLVBkGJeHA02z11X2T6eUTsm9a+uC3qgWZPctwQsctQIsqgM8k1tpQPATEvH+GZhhkTmCJApGtkfrqQ62Zjww==",
+  "success": true,
+  "projectFilePath": "/mnt/1/Documents/labs/3.2/program_injeneria/src/BusinnesLayer/BusinnesLayer.csproj",
+  "expectedPackageFiles": [
+    "/home/lolpie/.nuget/packages/microsoft.entityframeworkcore/7.0.3/microsoft.entityframeworkcore.7.0.3.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.3/microsoft.entityframeworkcore.abstractions.7.0.3.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.3/microsoft.entityframeworkcore.analyzers.7.0.3.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.3/microsoft.entityframeworkcore.relational.7.0.3.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.configuration.abstractions/7.0.0/microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.dependencyinjection/7.0.0/microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.logging/7.0.0/microsoft.extensions.logging.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.0/microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/npgsql/7.0.2/npgsql.7.0.2.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.3/npgsql.entityframeworkcore.postgresql.7.0.3.nupkg.sha512",
+    "/home/lolpie/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.3/microsoft.aspnetcore.app.ref.7.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
