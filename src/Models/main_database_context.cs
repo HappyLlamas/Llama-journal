@@ -14,6 +14,7 @@ public class ModelsContext : DbContext
 	public DbSet<User> Users { get; set; }
 	public DbSet<Discipline> Disciplines { get; set; }
 	public DbSet<Attendance> Attendances { get; set; }
+	public DbSet<Grade> Grades { get; set; }
 
 	public ModelsContext(DbContextOptions<ModelsContext> options) : base(options){}
 }
