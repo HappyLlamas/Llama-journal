@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace llama_journal.Models;
 
-public class llama_journal.ModelsContext : DbContext
+[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+public class ModelsContext : DbContext
 {
 	// Add your models here
 	// Format: public DbSet<Model> ModelName { get; set; }
@@ -13,5 +15,5 @@ public class llama_journal.ModelsContext : DbContext
 	public DbSet<Discipline> Disciplines { get; set; }
 	public DbSet<Attendance> Attendances { get; set; }
 
-	public llama_journal.ModelsContext(DbContextOptions<llama_journal.ModelsContext> options) : base(options){}
+	public ModelsContext(DbContextOptions<ModelsContext> options) : base(options){}
 }

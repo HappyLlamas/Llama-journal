@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 
 
 // Add DB context
-builder.Services.AddDbContext<llama_journal.ModelsContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
+builder.Services.AddDbContext<ModelsContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
 
 
 var app = builder.Build();
@@ -17,8 +17,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Error");
-	app.UseHsts();
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
 }
 
 

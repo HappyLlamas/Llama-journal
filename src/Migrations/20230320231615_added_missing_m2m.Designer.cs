@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace llama_journal.Migrations
 {
-    [DbContext(typeof(llama_journal.ModelsContext))]
+    [DbContext(typeof(ModelsContext))]
     [Migration("20230320231615_added_missing_m2m")]
     partial class added_missing_m2m
     {
