@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace llama_journal.Migrations
 {
-    [DbContext(typeof(llama_journal.ModelsContext))]
+    [DbContext(typeof(ModelsContext))]
     [Migration("20230320225158_init_models")]
     partial class init_models
     {

@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace llama_journal.Models;
 
+[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
 public class ModelsContext : DbContext
 {
 	// Add your models here
