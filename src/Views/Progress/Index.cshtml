@@ -1,0 +1,51 @@
+@model List<llama_journal.Controllers.Card>
+@{
+    const int pageSize = 2;
+    const int rowsCards = 2;
+    ViewBag.Title = "Progress";
+    Layout = "_Layout";
+}
+
+
+<head>
+    
+</head>
+
+<div class="cards_info" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+    @for (int i = 0; i < rowsCards; i++)
+    {
+        <div class="row_cards_info" style="padding:20px; margin-bottom: 30px;">
+            @foreach (var card in Model)
+            {
+                <div class="card" style="display: flex; justify-content: space-evenly; margin: 30px;">
+                    <div class="card-header" style="width: 140px">
+                        <h5 class="card-title">@card.Subject</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@card.FullName</p>
+                        <p class="card-text">@card.GradesUrl</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+
+
+
+
+<nav class="nav-pagination" style="display: flex; justify-content: center; padding-top: 20px;">
+    <ul class="pagination">
+        @for (int i = 1; i <= Math.Ceiling((double) Model.Count() / pageSize); i++)
+        {
+            <li class="page-item @(i == ViewBag.PageIndex ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new {pageIndex = i})">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
+
+
+
