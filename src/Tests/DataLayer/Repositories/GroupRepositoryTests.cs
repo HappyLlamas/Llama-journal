@@ -1,21 +1,13 @@
 ﻿using Xunit;
-using llama_journal.Data.Repositories;
-using llama_journal.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
+using DataLayer.Repositories;
+using DataLayer.Models;
+using Tests.Fixtures;
 
-namespace llama_journal.Data.Repositories.Tests;
+namespace Tests.DataLayer.Repositories;
 
 
 public class GroupRepositoryTests
 {
-    private JsonElement Connection;
-    private string ConnectionString;
     private GroupRepository GroupRepository;
 
     private Group TestGroup = new Group
@@ -28,22 +20,18 @@ public class GroupRepositoryTests
         Name = "Another Group",
     };
 
+    private Group DbGroup = new Group
+    {
+		Id = 0,
+        Name = "Admins",
+    };
+
     public GroupRepositoryTests()
     {
-        this.Connection = JsonSerializer
-        .Deserialize<JsonElement>(
-            json: File.ReadAllText(
-                path: "D:\\навчання\\preng\\PerformanceTracker\\PerformanceTracker\\TestProject\\appsettings.Development.json"))!;
-        this.ConnectionString = this.Connection
-            .GetProperty(propertyName: "ConnectionStrings")
-            .GetProperty(propertyName: "Connection")
-            .ToString();
-        DbContextOptionsBuilder<ModelsContext> db
-            = new DbContextOptionsBuilder<ModelsContext>()
-            .UseNpgsql(this.ConnectionString);
-        this.GroupRepository = new GroupRepository(
-           context: new ModelsContext(options: db.Options));
-        return;
+		var db = TestDbContext.Get();
+        this.GroupRepository = new GroupRepository(db);
+		db.Groups.Add(DbGroup);
+		db.SaveChanges();
     }
 
     [Fact()]

@@ -18,7 +18,7 @@ public class DisciplineRepository : IDisciplineRepository
 
     public Discipline GetById(int id)
     {
-        var result = _context.Disciplines.Find(id);
+        var result = _context.Disciplines.FirstOrDefault(g => g.Id == id);
 		if(result == null)
 			throw new Exception($"Discipline with id {id} not found");
 		return result;

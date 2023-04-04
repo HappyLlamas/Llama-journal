@@ -1,21 +1,12 @@
-﻿using Xunit;
-using llama_journal.Data.Repositories;
-using llama_journal.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
+﻿using DataLayer.Repositories;
+using DataLayer.Models;
+using Tests.Fixtures;
 
-namespace llama_journal.Data.Repositories.Tests;
+namespace Tests.DataLayer.Repositories;
 
 
 public class DisciplineRepositoryTests
 {
-    private JsonElement Connection;
-    private string ConnectionString;
     private DisciplineRepository DisciplineRepository;
 
     private Discipline TestDiscipline = new Discipline
@@ -30,20 +21,10 @@ public class DisciplineRepositoryTests
 
     public DisciplineRepositoryTests()
     {
-        this.Connection = JsonSerializer
-        .Deserialize<JsonElement>(
-            json: File.ReadAllText(
-                path: "D:\\навчання\\preng\\PerformanceTracker\\PerformanceTracker\\TestProject\\appsettings.Development.json"))!;
-        this.ConnectionString = this.Connection
-            .GetProperty(propertyName: "ConnectionStrings")
-            .GetProperty(propertyName: "Connection")
-            .ToString();
-        DbContextOptionsBuilder<ModelsContext> db
-            = new DbContextOptionsBuilder<ModelsContext>()
-            .UseNpgsql(this.ConnectionString);
-        this.DisciplineRepository = new DisciplineRepository(
-           context: new ModelsContext(options: db.Options));
-        return;
+		var db = TestDbContext.Get();
+        this.DisciplineRepository = new DisciplineRepository(db);
+		db.Disciplines.Add(TestDiscipline);
+		db.SaveChanges();
     }
 
     [Fact()]
@@ -67,7 +48,7 @@ public class DisciplineRepositoryTests
     [Fact()]
     public void GetByIdTest()
     {
-        Discipline testDiscipline = this.DisciplineRepository.GetById(id: 0);
+        Discipline testDiscipline = this.DisciplineRepository.GetById((int)TestDiscipline.Id);
         Assert.Equal(testDiscipline.Name, this.TestDiscipline.Name);
         return;
     }
@@ -99,7 +80,7 @@ public class DisciplineRepositoryTests
     [Fact()]
     public void UpdateTest()
     {
-        Discipline testDiscipline = this.DisciplineRepository.GetById(id: 0);
+        Discipline testDiscipline = this.DisciplineRepository.GetById(id: (int)TestDiscipline.Id);
         testDiscipline.Name = "Changed";
         this.DisciplineRepository.Update(testDiscipline);
         List<Discipline> testGroups = this.DisciplineRepository.GetAll();
