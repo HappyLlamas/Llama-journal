@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using llama_journal.Models;
-using Database;
 using llama_journal.Data.Repositories;
 using llama_journal.Services;
 

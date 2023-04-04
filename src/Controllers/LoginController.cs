@@ -1,4 +1,3 @@
-using Database;
 using llama_journal.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +7,7 @@ public class LoginController: Controller
 {
     public IActionResult Index()
     {
-        return View();
+        return this.View();
     }
 
     [HttpPost]
@@ -20,10 +19,9 @@ public class LoginController: Controller
             {
                 return this.RedirectToAction("Index", "Progress");
             }
-            else
-            {
-                this.ModelState.AddModelError("", "Invalid login credentials");
-            }
+
+            this.ModelState.AddModelError(" ", "Invalid login credentials");
+
         }
 
         return this.View(model);
