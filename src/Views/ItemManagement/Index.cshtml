@@ -3,15 +3,15 @@
 @{
     ViewBag.Title = "ItemManagement";
     Layout = "_Layout";
-    string stringGrades="";
+    var stringGrades="";
 }
 
-<div class="cards_info" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-    <div class="row_cards_info" style="padding:20px; margin-bottom: 30px;">
+<div class="cards_info" style="padding:20px; margin-bottom: 30px;">
+    <div class="row_cards_info" style="width: 200px">
             @foreach (var card in Model)
             {
-                <div class="card" >
-                    <div class="card-header" style="width: 140px">
+                <div class="card" style="width: 4000px; padding: 5px " >
+                    <div class="card-header">
                         <h5 class="card-title">@card.Subject</h5>
                         <p class="card-text">@card.FullName</p>
                 </div>

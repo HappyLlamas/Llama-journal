@@ -7,19 +7,14 @@
     Layout = "_Layout";
 }
 
-
-<head>
-    
-</head>
-
 <div class="cards_info" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-    @for (int i = 0; i < rowsSize; i++)
+    @for (int i = 0; i < columnSize; i++)
     {
         <div class="row_cards_info" style="padding:20px; margin-bottom: 30px;">
             @foreach (var card in Model)
             {
-                <div class="card" style="display: flex; justify-content: space-evenly; margin: 30px;">
-                    <div class="card-header" style="width: 140px">
+                <div class="card flex-grow-1" style="display: flex; margin: 30px;">
+                    <div class="card-header" style="width: 220px">
                         <h5 class="card-title">@card.Subject</h5>
                     </div>
                     <div class="card-body">
@@ -31,10 +26,6 @@
         </div>
     }
 </div>
-
-
-
-
 
 
 <nav class="nav-pagination" style="display: flex; justify-content: center; padding-top: 20px;">
