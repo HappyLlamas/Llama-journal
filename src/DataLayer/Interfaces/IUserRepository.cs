@@ -12,5 +12,6 @@ public interface IUserRepository
     void CreateUser(string email, string fullname);
     void SetUserPassword(User user, string password);
     bool CheckPassword(User user, string password);
+    public void DeleteUser(User user);
 }
 }
