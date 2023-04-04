@@ -1,7 +1,8 @@
 @model List<llama_journal.Controllers.Card>
 @{
-    const int pageSize = 2;
-    const int rowsCards = 2;
+    const int columnSize = 2;
+    const int rowsSize = 2;
+    const int pageSize = rowsSize * columnSize;
     ViewBag.Title = "Progress";
     Layout = "_Layout";
 }
@@ -12,7 +13,7 @@
 </head>
 
 <div class="cards_info" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-    @for (int i = 0; i < rowsCards; i++)
+    @for (int i = 0; i < rowsSize; i++)
     {
         <div class="row_cards_info" style="padding:20px; margin-bottom: 30px;">
             @foreach (var card in Model)

@@ -1,3 +1,4 @@
+using llama_journal.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -18,6 +19,8 @@ public class Card
 }
 public class ProgressController: Controller
 {
+    
+    private readonly IUserRepository _userRepository;
     private const int PageSize = 2;
     public IList<Card> Cards = new List<Card>
     {
@@ -31,6 +34,7 @@ public class ProgressController: Controller
    
     public IActionResult Index(int pageIndex = 1)
     {
+        // витягти усі дисципліни з юзера, і замити ним клас Cards
         var cards = Cards.OrderBy(c => c.Subject)
             .Skip((pageIndex - 1) * PageSize)
             .Take(PageSize)

@@ -3,31 +3,42 @@
 <head>
   <meta name="viewport" content="width=device-width" />
   <link href= "~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  <script>
+    $(function () {
+      $('[data-toggle="dropdown"]').dropdown()
+    })
+  </script>
+
+  
 </head>
 <body>
 @if (ViewBag.Title == "Progress")
 {
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#" style="padding-left: 20px;">@ViewBag.Title</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" style="padding-left: 20px;">@ViewBag.Title</a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center">
       <ul class="navbar-nav nav-fill">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Аналіз Успішності</a>
+          <a class="nav-link" href="@Url.Action("Index", "PerformanceAnalysis")">Аналіз Успішності</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Підсумкові бали</a>
+          <a class="nav-link" href="@Url.Action("Index", "ItemManagement")">Підсумкові бали</a>
         </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Вибрати предмет
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#">Математика</a>
+            <a class="dropdown-item" href="#">Комп'ютерна інженерія</a>
+            <a class="dropdown-item" href="#">Методи оптимізації</a>
         </div>
       </li>
       </ul>
@@ -37,11 +48,8 @@
 @if (ViewBag.Title == "Login")
 {
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#" style="padding-left: 20px;">@ViewBag.Title</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: left">
+    <a class="navbar-brand" style="padding-left: 20px;">@ViewBag.Title</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: right">
     <ul class="navbar-nav nav-fill">
       <li class="nav-item active">
         <a class="nav-link" href="#">Забув Пароль</a>
@@ -55,62 +63,57 @@
 @if (ViewBag.Title == "PerfomanceAnalysis")
 {
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#" style="padding-left: 20px;">@ViewBag.Title</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" style="padding-left: 20px;">@ViewBag.Title</a>
+     <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center">
     <ul class="navbar-nav nav-fill">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Вибрати графік
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="#">Гістограма</a>
+          <a class="dropdown-item" href="#">Звичайний графік</a>
         </div>
       </li>
       
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Вибрати предмет
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#">Математика</a>
+            <a class="dropdown-item" href="#">Комп'ютерна інженерія</a>
+            <a class="dropdown-item" href="#">Методи оптимізації</a>
           </div>
         </li>
     </ul>
-    
+    </div>
   </nav>
 }
 
 @if (ViewBag.Title == "ItemManagement")
 {
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#" style="padding-left: 20px;">@ViewBag.Title</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-          <ul class="navbar-nav nav-fill">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Вибрати графік
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-            
-              <li class="nav-item">
-                <a class="nav-link" href="#">Успішність</a>
-              </li>
-          </ul>
-    </nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" style="padding-left: 20px;">@ViewBag.Title</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center">
+    <ul class="navbar-nav mr-auto nav-fill">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Сортувати
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">По предметах</a>
+          <a class="dropdown-item" href="#">По викладачах</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "Progress")">Прогрес</a>
+      </li>
+    </ul>
+  
+    </div>
+  </nav>
+
 }
 
 
