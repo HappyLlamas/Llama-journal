@@ -1,0 +1,7 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=CSS_005CMYCUSTOMSTYLESHEET_002ECSS/@EntryIndexedValue">css\MyCustomStyleSheet.css</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=WWWROOT_005CVIEWS_005CPERFORMANCEANALYSIS/@EntryIndexedValue">wwwroot\Views\PerformanceAnalysis</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/MappedPaths/=VIEWS_005CSHARED_005CSRC/@EntryIndexedValue"></s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=CSS_005CMYCUSTOMSTYLESHEET_002ECSS/@EntryIndexedValue">css\MyCustomStyleSheet.css</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=VIEWS_005CSHARED_005CSRC/@EntryIndexedValue">Views\Shared\src</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=WWWROOT_005CVIEWS_005CPERFORMANCEANALYSIS/@EntryIndexedValue">wwwroot\Views\PerformanceAnalysis</s:String></wpf:ResourceDictionary>

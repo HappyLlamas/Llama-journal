@@ -1,0 +1,30 @@
+@model llama_journal.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "_Layout";
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/css/bootstrap.css" rel="stylesheet"/>
+    <script></script>
+</head>
+
+<div class="registration-cssave" style="justify-content: center; display: flex; padding-top: 20px;">
+    <form method="post" asp-controller="Login" asp-action="Index" style="width: 300px">
+        <h3 class="text-center">@ViewBag.Title</h3>
+        <div class="form-group">
+            <input class="form-control item" type="text" name="Id" maxlength="15" minlength="4"
+                   id="username" placeholder="Номер залікової книги" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control item" type="password" name="Password" minlength="6" id="password" placeholder="Пароль" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control item" type="email" name="Email" id="email" placeholder="Електрона пошта" required>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block create-account" type="submit">Вхід</button>
+        </div>
+    </form>
+</div>

@@ -6,6 +6,10 @@ namespace llama_journal.Controllers
     {
         public IActionResult Index()
         {
+            return View();;
+        }
+        public IActionResult About()
+        {
             return View();
         }
     }
