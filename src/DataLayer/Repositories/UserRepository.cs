@@ -71,4 +71,9 @@ public class UserRepository : IUserRepository
         string hashedPassword = password;
         return user.Password == hashedPassword;
     }
+    public void DeleteUser(User user)
+    {
+        _context.Users.Remove(user);
+        _context.SaveChanges();
+    }
 }

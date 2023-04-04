@@ -1,41 +1,78 @@
+using DataLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
-namespace llama_journal.Controllers;
-
-
-public class ItemManagementController:Controller
+namespace llama_journal.Controllers
 {
-    private const int PageSize = 4;
-    public IList<InfoItemCard> InfoCards = new List<InfoItemCard>
+    [Authorize(Roles = "Teacher, Admin")]
+    public class ItemManagementController : Controller
     {
-        new InfoItemCard( "lector_1", new List<int> { 4, 3, 3, 5 }, "math"),
-        new InfoItemCard ("lector_2", new List<int> { 4, 3, 3, 5 }, "math"),
-        new InfoItemCard ("lector_3", new List<int> { 4, 3, 3, 5 }, "math"),
-    };
-    public IActionResult Index(int pageIndex = 1)
-    {
-        // витягти усі дисципліни з юзера, і замити ним клас Cards
-        var infoCards = InfoCards.OrderBy(c => c.Subject)
-            .Skip((pageIndex - 1) * PageSize)
-            .Take(PageSize)
-            .ToList();
+        private readonly ModelsContext _context;
 
-        return this.View(infoCards);
-    }
-}
+        public ItemManagementController(ModelsContext context)
+        {
+            _context = context;
+        }
 
-public class InfoItemCard
-{
-    public string Subject { get; set; }
+        public IActionResult Index()
+        {
+            var disciplines = _context.Disciplines.Include(d => d.Groups).ToList();
+            return View(disciplines);
+        }
 
-    public string FullName { get; set; }
+        public IActionResult EditGrade(long id)
+        {
+            var grade = _context.Grades.Include(g => g.User).Include(g => g.Discipline).FirstOrDefault(g => g.Id == id);
+            if (grade == null)
+            {
+                return NotFound();
+            }
 
-    public List<int> Grades { get; set; }
+            return View(grade);
+        }
 
-    public InfoItemCard(string fullName, List<int> grades, string subject)
-    {
-        FullName = fullName;
-        Grades = grades;
-        Subject = subject;
+        [HttpPost]
+        public IActionResult EditGrade(long id, Grade model)
+        {
+            if (id != model.Id)
+            {
+                return BadRequest();
+            }
+
+            var grade = _context.Grades.FirstOrDefault(g => g.Id == id);
+            if (grade == null)
+            {
+                return NotFound();
+            }
+
+            grade.Score = model.Score;
+            grade.Comment = model.Comment;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!GradeExists(model.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        private bool GradeExists(long id)
+        {
+            return _context.Grades.Any(e => e.Id == id);
+        }
     }
 }
