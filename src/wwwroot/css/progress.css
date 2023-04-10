@@ -1,0 +1,12 @@
+.cards_info{
+    display: flex; justify-content: center; align-items: center; margin-top: 10px;
+}
+.row_cards_info{
+    padding:20px; margin-bottom: 30px;
+}
+.card_flex-grow{
+    display: flex; margin: 30px;
+}
+.card-header{
+    width: 220px
+}

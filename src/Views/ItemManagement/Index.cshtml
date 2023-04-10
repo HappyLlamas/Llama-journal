@@ -5,12 +5,15 @@
     Layout = "_Layout";
     var stringGrades="";
 }
+<head>
+        <link href="~/css/ItemManagement.css" rel="stylesheet"/>
+</head>
 
-<div class="cards_info" style="padding:20px; margin-bottom: 30px;">
-    <div class="row_cards_info" style="width: 200px">
+<div class="cards_info">
+    <div class="row_cards_info">
             @foreach (var card in Model)
             {
-                <div class="card" style="width: 4000px; padding: 5px " >
+                <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">@card.Subject</h5>
                         <p class="card-text">@card.FullName</p>
