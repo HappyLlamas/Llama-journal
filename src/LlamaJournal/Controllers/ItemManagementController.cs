@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using DataLayer.Repositories;
 
 namespace llama_journal.Controllers
 {
@@ -11,15 +12,18 @@ namespace llama_journal.Controllers
     public class ItemManagementController : Controller
     {
         private readonly ModelsContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public ItemManagementController(ModelsContext context)
+        public ItemManagementController(ModelsContext context, IUserRepository userRepository)
         {
             _context = context;
+            _userRepository = userRepository;
         }
 
         public IActionResult Index()
         {
             var disciplines = _context.Disciplines.Include(d => d.Groups).ToList();
+            var user = _userRepository.FindByEmail(User.Identity.Name);
             return View(disciplines);
         }
 
@@ -76,3 +80,25 @@ namespace llama_journal.Controllers
         }
     }
 }
+
+public class InfoItemCard
+{
+    public string Subject { get; set; }
+
+    public List<string> FullNameTeachers { get; set; }
+
+    public List<int> Grades { get; set; }
+
+    public InfoItemCard(List<string> fullNameTeachers, List<int> grades, string subject)
+    {
+        FullNameTeachers = fullNameTeachers;
+        Grades = grades;
+        Subject = subject;
+    }
+}
+//
+// [HttpGet]
+// public IActionResult DescribeMarks()
+// {
+//     return View();
+// }

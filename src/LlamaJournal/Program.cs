@@ -27,8 +27,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -38,7 +36,7 @@ app.UseAuthorization();
 
 if (builder.Environment.IsDevelopment())
 {
-	app.UseDeveloperExceptionPage();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -53,7 +51,7 @@ app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
 		name: "default",
-		pattern: "{controller=Progress}/{action=Index}/{id?}");
+        pattern: "{controller=Login}/{action=Index}/{id?}");
 });
 
 app.MapRazorPages();

@@ -3,16 +3,28 @@ using DataLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace llama_journal.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProgressController : Controller
     {
         private readonly IGradeRepository _gradeRepository;
         private readonly IUserRepository _userRepository;
+        public IList<Card> cards = new List<Card>
+        {
+            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
+            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
+            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
+            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
+            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
+            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
+            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
+            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
+        };
 
         public ProgressController(IGradeRepository gradeRepository, IUserRepository userRepository)
         {
@@ -61,11 +73,13 @@ namespace llama_journal.Controllers
                 PassingGradePercentage = passingGradePercentage,
                 FailingGradePercentage = failingGradePercentage
             };
-
-            return View(viewModel);
+            
+            return View(cards);
         }
     }
 
+
+    
     public class ProgressViewModel
     {
         public User User { get; set; }
@@ -78,5 +92,23 @@ namespace llama_journal.Controllers
         public int FailingGrades { get; set; }
         public double PassingGradePercentage { get; set; }
         public double FailingGradePercentage { get; set; }
+        public string Subject { get; set; }
+        public string FullName { get; set; }
     }
+    
+    public class Card
+    {
+        public string Subject { get; set; }
+        public string FullName { get; set; }
+        public List<int> Grades { get; set; }
+
+        public Card(string subject, string fullName, List<int> gradesUrl)
+        {
+            Subject = subject;
+            FullName = fullName;
+            Grades = gradesUrl;
+        }
+    }
+    
+    
 }
