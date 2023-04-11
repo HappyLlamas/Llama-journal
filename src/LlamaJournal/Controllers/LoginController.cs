@@ -10,24 +10,23 @@ using System.Threading.Tasks;
 
 namespace llama_journal.Controllers
 {
-    public class AccountController : Controller
+    public class LoginController : Controller
     {
         private readonly IUserRepository _userRepository;
 
-        public AccountController(IUserRepository userRepository)
+        public LoginController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
-
-        [HttpGet]
-        public IActionResult Login()
+        
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Index([FromForm]LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -52,22 +51,23 @@ namespace llama_journal.Controllers
                         new ClaimsPrincipal(claimsIdentity),
                         authProperties);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Progress");
                 }
-                ModelState.AddModelError("", "Invalid login attempt.");
+                this.ModelState.AddModelError(" ", "Invalid login attempt.");
             }
+
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Signup()
+        public IActionResult SignUp()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Signup(SignupViewModel model)
+        public IActionResult SignUp([FromForm]SignupViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace llama_journal.Controllers
                     return View(model);
                 }
                 _userRepository.CreateUser(model.Email, model.FullName);
-                return RedirectToAction("Login");
+                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -88,7 +88,13 @@ namespace llama_journal.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Login");
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
         }
     }
 

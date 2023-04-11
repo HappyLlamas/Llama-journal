@@ -1,0 +1,65 @@
+@{
+    ViewBag.Title = "DescribeMarks";
+    Layout = null;
+}
+
+
+<!-- Add the CSS for Bootstrap -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0UglyR+jN6C+IcZ3fKpLX6Po5SMv9nH5PLw5SMtK7Kt2vSlgRkvRy1abEK7L3Xm" crossorigin="anonymous">
+
+<!-- Add the JavaScript for jQuery and Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-RJ3mTCjwIWXp0+3zv8FmLJHA26D0hqAgFjq+T8T6TlK6G7U6eqhqjQ2zUeaWabt0Q" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6C+IcZ3fKpLX6Po5SMv9nH5PLw5SMtK7Kt2vSlgRkvRy1abEK7L3Xm" crossorigin="anonymous"></script>
+
+<!-- Button or link to trigger the dialog box -->
+<a href="#" data-toggle="modal" data-target="#myModal">Open Dialog Box</a>
+
+<!-- The modal component for the dialog box -->
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Add the content for the dialog box -->
+            <div class="modal-header">
+                <h5 class="modal-title">Dialog Box Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Dialog Box Content</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add the content for the dialog box -->
+<div class="modal-header">
+    <h5 class="modal-title">Dialog Box Title</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p>Dialog Box Content</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+</div>
+
+<!-- Add the JavaScript to handle the button click event -->
+<script>
+    $(document).ready(function () {
+        $('#saveChangesBtn').on('click', function () {
+            // Perform action when "Save changes" button is clicked
+            // For example, you can submit a form, make an AJAX request, etc.
+            // Add your logic here
+            console.log('Save changes button clicked');
+        });
+    });
+</script>

@@ -11,6 +11,7 @@ public class ModelsContext : DbContext
 
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<Group> Groups { get; set; }
+
     public DbSet<User> Users { get; set; }
     public DbSet<Discipline> Disciplines { get; set; }
     public DbSet<Attendance> Attendances { get; set; }
