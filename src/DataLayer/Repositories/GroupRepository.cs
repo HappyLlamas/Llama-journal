@@ -1,4 +1,5 @@
 ﻿using DataLayer.Models;
+using System.Data.Entity;
 
 namespace DataLayer.Repositories
 {
@@ -11,33 +12,32 @@ public class GroupRepository : IGroupRepository
         _context = context;
     }
 
-    public List<Group> GetGroups()
+    public async Task<List<Group>> GetGroups()
     {
-        return _context.Groups.ToList();
+        return await _context.Groups.ToListAsync();
     }
 
-    public Group? GetById(long id)
+    public async Task<Group?> GetById(long id)
     {
-		var result = _context.Groups.FirstOrDefault(g => g.Id == id);
-        return result;
+		return await _context.Groups.FirstOrDefaultAsync(g => g.Id == id);
     }
 
-    public void Add(Group group)
+    public async Task Add(Group group)
     {
         _context.Groups.Add(group);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Update(Group group)
+    public async Task Update(Group group)
     {
         _context.Groups.Update(group);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Delete(Group group)
+    public async Task Delete(Group group)
     {
         _context.Groups.Remove(group);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 }
 }

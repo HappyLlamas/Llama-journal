@@ -3,7 +3,7 @@ using DataLayer.Models;
 
 namespace BusinnesLayer.Services;
 
-public class DisciplineService
+public class DisciplineService: IDisciplineService
 {
     private readonly IDisciplineRepository _disciplineRepository;
     private readonly IUserRepository _userRepository;
@@ -16,14 +16,14 @@ public class DisciplineService
         _groupRepository = groupRepository;
     }
 
-    public List<Discipline> GetAllDisciplines()
+    public async Task<List<Discipline>> GetAllDisciplines()
     {
-        return _disciplineRepository.GetDisciplines();
+        return await _disciplineRepository.GetDisciplines();
     }
-    public void AddGroupToDiscipline(int disciplineId, int groupId)
+    public async Task AddGroupToDiscipline(int disciplineId, int groupId)
     {
-        var group = _groupRepository.GetById(groupId);
-        var discipline = _disciplineRepository.GetById(disciplineId);
+        var group = await _groupRepository.GetById(groupId);
+        var discipline = await _disciplineRepository.GetById(disciplineId);
 
 		if(group == null)
 			throw new Exception($"Group with id {groupId} not found");
@@ -31,18 +31,17 @@ public class DisciplineService
 		if(discipline == null)
 			throw new Exception($"Discipline with id {disciplineId} not found");
 
-        _disciplineRepository.AddGroupToDiscipline(discipline, group);
+		discipline.Groups.Add(group);
+		await _disciplineRepository.Update(discipline);
     }
-    public bool ChangeDisciplineDescription(int disciplineId, string description)
+    public async Task ChangeDisciplineDescription(int disciplineId, string description)
     {
-        var discipline = _disciplineRepository.GetById(disciplineId);
+        var discipline = await _disciplineRepository.GetById(disciplineId);
 
 		if(discipline == null)
 			throw new Exception($"Discipline with id {disciplineId} not found");
 
         discipline.Description = description;
-
-        _disciplineRepository.Update(discipline);
-        return true;
+        await _disciplineRepository.Update(discipline);
     }
 }

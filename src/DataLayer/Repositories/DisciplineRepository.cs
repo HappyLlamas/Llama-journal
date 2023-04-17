@@ -1,4 +1,5 @@
 ﻿using DataLayer.Models;
+using System.Data.Entity;
 
 namespace DataLayer.Repositories
 {
@@ -11,39 +12,31 @@ public class DisciplineRepository : IDisciplineRepository
         _context = context;
     }
 
-    public List<Discipline> GetDisciplines()
+    public async Task<List<Discipline>> GetDisciplines()
     {
-        return _context.Disciplines.ToList();
+        return await _context.Disciplines.ToListAsync();
     }
 
-    public Discipline? GetById(int id)
+    public async Task<Discipline?> GetById(int id)
     {
-        var result = _context.Disciplines.FirstOrDefault(g => g.Id == id);
-		return result;
+        return await _context.Disciplines.FirstOrDefaultAsync(g => g.Id == id);
     }
 
-    public List<Discipline> GetAll()
+    public async Task<List<Discipline>> GetAll()
     {
-        return _context.Disciplines.ToList();
+        return await _context.Disciplines.ToListAsync();
     }
 
-
-    public void AddGroupToDiscipline(Discipline discipline, Group group)
+    public async Task Update(Discipline discipline)
     {
-        discipline.Groups.Add(group);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Update(Discipline discipline)
+    public async Task<List<Grade>> GetGradesForUserInPeriod(Discipline discipline, string userId, DateTime startDate, DateTime endDate)
     {
-        _context.SaveChanges();
-    }
-
-    public List<Grade> GetGradesForUserInPeriod(Discipline discipline, string userId, DateTime startDate, DateTime endDate)
-    {
-        return _context.Grades
+        return await _context.Grades
                .Where(g => g.Discipline == discipline && g.User.Id == userId && g.Date >= startDate && g.Date <= endDate)
-               .ToList();
+               .ToListAsync();
     }
 
 }

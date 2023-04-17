@@ -3,7 +3,7 @@ using DataLayer.Models;
 
 namespace BusinnesLayer.Services;
 
-public class GradesService
+public class GradesService: IGradeService
 {
     private readonly IGradeRepository _gradeRepository;
     private readonly IUserRepository _userRepository;
@@ -18,10 +18,10 @@ public class GradesService
         _groupRepository = groupRepository;
     }
 
-    public List<Grade> GetGradesForUser(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
+    public async Task<List<Grade>> GetGradesForUser(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
     {
-        var user = _userRepository.GetById(userId);
-        var discipline = _disciplineRepository.GetById(disciplineId);
+        var user = await _userRepository.GetById(userId);
+        var discipline = await _disciplineRepository.GetById(disciplineId);
 
 		if(discipline == null)
 			throw new Exception($"Discipline with id {disciplineId} not found");
@@ -29,13 +29,13 @@ public class GradesService
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
 
-        return _disciplineRepository.GetGradesForUserInPeriod(discipline, userId, start_datetime, end_datetime);
+        return await _disciplineRepository.GetGradesForUserInPeriod(discipline, userId, start_datetime, end_datetime);
     }
 
-    public List<Grade> GetGradesForUser(string userId, int disciplineId)
+    public async Task<List<Grade>> GetGradesForUser(string userId, int disciplineId)
     {
-        var user = _userRepository.GetById(userId);
-        var discipline = _disciplineRepository.GetById(disciplineId);
+        var user = await _userRepository.GetById(userId);
+        var discipline = await _disciplineRepository.GetById(disciplineId);
 
 		if(discipline == null)
 			throw new Exception($"Discipline with id {disciplineId} not found");
@@ -43,12 +43,12 @@ public class GradesService
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
 
-        return _gradeRepository.GetGradesForUser(discipline, user);
+        return await _gradeRepository.GetGradesForUser(discipline, user);
     }
-    public double GetAvarangeGrade(string userId, int disciplineId)
+    public async Task<double> GetAvarangeGrade(string userId, int disciplineId)
     {
-        var user = _userRepository.GetById(userId);
-        var discipline = _disciplineRepository.GetById(disciplineId);
+        var user = await _userRepository.GetById(userId);
+        var discipline = await _disciplineRepository.GetById(disciplineId);
 
 		if(discipline == null)
 			throw new Exception($"Discipline with id {disciplineId} not found");
@@ -56,16 +56,16 @@ public class GradesService
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
 
-        List<Grade> grades = _gradeRepository.GetGradesForGroup(discipline, user.Group);
+        List<Grade> grades = await _gradeRepository.GetGradesForGroup(discipline, user.Group);
         double sum = 0;
         foreach (var grade in grades)
             sum += grade.Score;
         return sum / grades.Count;
     }
-    public String GetFileWithGrades(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
+    public async Task<string> GetFileWithGrades(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
     {
-        var user = _userRepository.GetById(userId);
-        var discipline = _disciplineRepository.GetById(disciplineId);
+        var user = await _userRepository.GetById(userId);
+        var discipline = await _disciplineRepository.GetById(disciplineId);
 
 		if(discipline == null)
 			throw new Exception($"Discipline with id {disciplineId} not found");
@@ -73,25 +73,25 @@ public class GradesService
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
 
-        var grades = _gradeRepository.GetGradesForUserInPeriod(discipline, user, start_datetime, end_datetime);
+        var grades = await _gradeRepository.GetGradesForUserInPeriod(discipline, user, start_datetime, end_datetime);
 
         // TODO: generate file for grades
         string filename = "";
 
         return filename;
     }
-    public Dictionary<string, string> GetGradesForAllUserDisciplines(string userId, DateTime startDatetime, DateTime endDatetime)
+    public async Task<Dictionary<string, string>> GetGradesForAllUserDisciplines(string userId, DateTime startDatetime, DateTime endDatetime)
     {
-        var user = _userRepository.GetById(userId);
+        var user = await _userRepository.GetById(userId);
 
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
 
-        var disciplines = _disciplineRepository.GetAll();
+        var disciplines = await _disciplineRepository.GetAll();
 
         var result = new Dictionary<string, string>();
         foreach (var discipline in disciplines) {
-            List<Grade> grades = _gradeRepository.GetGradesForUserInPeriod(discipline, user, startDatetime, endDatetime);
+            List<Grade> grades = await _gradeRepository.GetGradesForUserInPeriod(discipline, user, startDatetime, endDatetime);
             if (grades.Any()) {
                 double average = grades.Average(g => g.Score);
                 result.Add(discipline.Name, average.ToString());
@@ -100,23 +100,29 @@ public class GradesService
 
         return result;
     }
-    public void AddGrade(string userId, int score, DateTime date)
+    public async Task AddGrade(string userId, int score, DateTime date)
     {
-        _gradeRepository.AddGrade(userId, score, date);
+		var user = await _userRepository.GetById(userId);
+
+		if(user == null)
+			throw new Exception($"User with id {userId} not found");
+
+        await _gradeRepository.AddGrade(user, score, date);
     }
-    public void AddGradeComment(int gradeId, string comment)
+    public async Task AddGradeComment(int gradeId, string comment)
     {
-        var grade = _gradeRepository.GetById(gradeId);
+        var grade = await _gradeRepository.GetById(gradeId);
 
 		if(grade == null)
 			throw new Exception($"Grade with id {gradeId} not found");
 
-        _gradeRepository.SetGradeComment(grade, comment);
+		grade.Comment = comment;
+		await _gradeRepository.Update(grade);
     }
-    public List<Grade> GetGradesForGroup(int disciplineId, int groupId, DateTime start_datetime, DateTime end_datetime)
+    public async Task<List<Grade>> GetGradesForGroup(int disciplineId, int groupId, DateTime start_datetime, DateTime end_datetime)
     {
-        var discipline = _disciplineRepository.GetById(disciplineId);
-        var group = _groupRepository.GetById(groupId);
+        var discipline = await _disciplineRepository.GetById(disciplineId);
+        var group = await _groupRepository.GetById(groupId);
 
 		if(discipline == null)
 			throw new Exception($"Discipline with id {disciplineId} not found");
@@ -124,6 +130,6 @@ public class GradesService
 		if(group == null)
 			throw new Exception($"Group with id {groupId} not found");
 
-        return _gradeRepository.GetGradesForGroup(discipline, group);
+        return await _gradeRepository.GetGradesForGroup(discipline, group);
     }
 }

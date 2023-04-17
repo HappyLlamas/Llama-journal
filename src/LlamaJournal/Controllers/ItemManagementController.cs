@@ -27,6 +27,7 @@ namespace llama_journal.Controllers
             return View(disciplines);
         }
 
+
         public IActionResult EditGrade(long id)
         {
             var grade = _context.Grades.Include(g => g.User).Include(g => g.Discipline).FirstOrDefault(g => g.Id == id);

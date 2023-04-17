@@ -4,11 +4,11 @@ namespace DataLayer.Repositories
 {
 public interface IGradeRepository
 {
-    Grade? GetById(long id);
-    List<Grade> GetGradesForUser(Discipline discipline, User user);
-    List<Grade> GetGradesForUserInPeriod(Discipline discipline, User user, DateTime startDatetime, DateTime endDatetime);
-    List<Grade> GetGradesForGroup(Discipline discipline, Group group);
-    void AddGrade(string userId, int score, DateTime date);
-    void SetGradeComment(Grade grade, string comment);
+    Task<Grade?> GetById(long id);
+    Task<List<Grade>> GetGradesForUser(Discipline discipline, User user);
+    Task<List<Grade>> GetGradesForUserInPeriod(Discipline discipline, User user, DateTime startDatetime, DateTime endDatetime);
+    Task<List<Grade>> GetGradesForGroup(Discipline discipline, Group group);
+    Task AddGrade(User user, int score, DateTime date);
+	Task Update(Grade grade);
 }
 }

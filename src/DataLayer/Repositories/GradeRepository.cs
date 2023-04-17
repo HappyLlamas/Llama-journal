@@ -1,4 +1,5 @@
 ﻿using DataLayer.Models;
+using System.Data.Entity;
 
 namespace DataLayer.Repositories
 {
@@ -10,41 +11,39 @@ public class GradeRepository : IGradeRepository
     public GradeRepository(ModelsContext context, IUserRepository userRepository)
     {
         _context = context;
-		_userRepository = userRepository;
+        _userRepository = userRepository;
     }
 
-    public Grade? GetById(long id)
+    public async Task<Grade?> GetById(long id)
     {
-        var result = _context.Set<Grade>().SingleOrDefault(g => g.Id == id);
-		return result;
+        return await _context.Grades.FirstOrDefaultAsync(g => g.Id == id);
     }
 
-    public List<Grade> GetGradesForUser(Discipline discipline, User user)
+    public async Task<List<Grade>> GetGradesForUser(Discipline discipline, User user)
     {
-        return _context.Set<Grade>().Where(g => g.Discipline == discipline && g.User == user).ToList();
+        return await _context.Grades.Where(g => g.Discipline == discipline && g.User == user).ToListAsync();
     }
 
-    public List<Grade> GetGradesForUserInPeriod(Discipline discipline, User user, DateTime startDatetime, DateTime endDatetime)
+    public async Task<List<Grade>> GetGradesForUserInPeriod(Discipline discipline, User user, DateTime startDatetime, DateTime endDatetime)
     {
-        return _context.Set<Grade>().Where(g => g.Discipline == discipline && g.User == user && g.Date >= startDatetime && g.Date <= endDatetime).ToList();
+        return await _context.Grades.Where(g => g.Discipline == discipline && g.User == user && g.Date >= startDatetime && g.Date <= endDatetime).ToListAsync();
     }
 
-    public List<Grade> GetGradesForGroup(Discipline discipline, Group group)
+    public async Task<List<Grade>> GetGradesForGroup(Discipline discipline, Group group)
     {
-        return _context.Set<Grade>().Where(g => g.Discipline == discipline && g.User.Group == group).ToList();
+        return await _context.Grades.Where(g => g.Discipline == discipline && g.User.Group == group).ToListAsync();
     }
 
-    public void AddGrade(string userId, int score, DateTime date)
+    public async Task AddGrade(User user, int score, DateTime date)
     {
-        var grade = new Grade { User = _userRepository.GetById(userId)!, Score = score, Date = date };
-        _context.Set<Grade>().Add(grade);
-        _context.SaveChanges();
+        var grade = new Grade { User = user, Score = score, Date = date };
+        _context.Grades.Add(grade);
+        await _context.SaveChangesAsync();
     }
 
-    public void SetGradeComment(Grade grade, string comment)
+    public async Task Update(Grade grade)
     {
-        grade.Comment = comment;
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 }
 }

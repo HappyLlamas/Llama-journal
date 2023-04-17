@@ -4,14 +4,11 @@ namespace DataLayer.Repositories
 {
 public interface IUserRepository
 {
-    IEnumerable<User> GetUsers();
-    User? GetById(string userId);
-    User? FindByEmail(string email);
-    void SetGroup(User user, string groupName);
-    void SetRole(User user, RoleEnum role);
-    void CreateUser(string email, string fullname);
-    void SetUserPassword(User user, string password);
-    bool CheckPassword(User user, string password);
-    public void DeleteUser(User user);
+    Task<List<User>> GetUsers();
+    Task<User?> GetById(string userId);
+    Task<User?> FindByEmail(string email);
+    Task Update(User user);
+    Task CreateUser(string email, string fullname);
+    Task DeleteUser(User user);
 }
 }

@@ -1,5 +1,5 @@
-﻿using System.Security.Cryptography;
-using DataLayer.Models;
+﻿using DataLayer.Models;
+using System.Data.Entity;
 
 namespace DataLayer.Repositories;
 
@@ -12,62 +12,36 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public IEnumerable<User> GetUsers()
+    public async Task<List<User>> GetUsers()
     {
-        return _context.Users.ToList();
+        return await _context.Users.ToListAsync();
     }
 
-    public User? GetById(string userId)
+    public async Task<User?> GetById(string userId)
     {
-        return _context.Users.Find(userId);
+        return await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
     }
 
-    public User? FindByEmail(string email)
+    public async Task<User?> FindByEmail(string email)
     {
-        return _context.Users.FirstOrDefault(u => u.Email == email)!;
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email)!;
     }
 
-    public void SetGroup(User user, string groupName)
+    public async Task Update(User user)
     {
-        user.Group = _context.Groups.FirstOrDefault(g => g.Name == groupName)!;
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void SetRole(User user, RoleEnum role)
-    {
-        user.Role = role;
-        _context.SaveChanges();
-    }
-
-    public void CreateUser(string email, string fullname)
+    public async Task CreateUser(string email, string fullname)
     {
         var user = new User { Email = email, FullName = fullname };
         _context.Users.Add(user);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void SetUserPassword(User user, string password)
-    {
-        byte[] salt = new byte[128 / 8];
-        using (var rng = RandomNumberGenerator.Create()) {
-            rng.GetBytes(salt);
-        }
-        // TODO: add password hash
-        // user.Password = hashedPassword;
-
-        _context.SaveChanges();
-    }
-
-    public bool CheckPassword(User user, string password)
-    {
-        // byte[] salt = Convert.FromBase64String(user.PasswordSalt);
-        // TODO: add password hash
-        string hashedPassword = password;
-        return user.Password == hashedPassword;
-    }
-    public void DeleteUser(User user)
+    public async Task DeleteUser(User user)
     {
         _context.Users.Remove(user);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 }

@@ -3,41 +3,51 @@ using DataLayer.Models;
 
 namespace BusinnesLayer.Services;
 
-public class UserService
+public class UserService: IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IGroupRepository _groupRepository;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, IGroupRepository groupRepository)
     {
         _userRepository = userRepository;
+		_groupRepository = groupRepository;
     }
 
-    public List<User> GetUsers()
+    public async Task<List<User>> GetUsers()
     {
-        return _userRepository.GetUsers().ToList();
+        return await _userRepository.GetUsers();
     }
-    public void SetUserGroup(string userId, string groupName)
+    public async Task SetUserGroup(string userId, int groupId)
     {
-        var user = _userRepository.GetById(userId);
+        var user = await _userRepository.GetById(userId);
+        var group = await _groupRepository.GetById(groupId);
 
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
 
-        _userRepository.SetGroup(user, groupName);
+		if(group == null)
+			throw new Exception($"Group with id {groupId} not found");
+
+		user.Group = group;
+
+		await _userRepository.Update(user);
     }
 
-    public void SetUserRole(string userId, RoleEnum role)
+    public async Task SetUserRole(string userId, RoleEnum role)
     {
-        var user = _userRepository.GetById(userId);
+        var user = await _userRepository.GetById(userId);
 
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
 
-        _userRepository.SetRole(user, role);
+		user.Role = role;
+
+        await _userRepository.Update(user);
     }
-    public void CreateUser(string email, string fullname)
+    public async Task CreateUser(string email, string fullname)
     {
-        _userRepository.CreateUser(email, fullname);
+        await _userRepository.CreateUser(email, fullname);
 	}
 }
 

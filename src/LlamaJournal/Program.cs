@@ -15,8 +15,9 @@ builder.Services.AddDbContext<ModelsContext>(options => options.UseNpgsql(builde
 builder.Services.AddControllersWithViews();
 
 // Add services and repositories
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<UserService>();
+
+builder.Services.AddDataLayerServices();
+builder.Services.AddBusinessLayerServices();
 
 var app = builder.Build();
 
