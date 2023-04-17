@@ -1,0 +1,16 @@
+﻿@model DataLayer.Models.User
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "_Layout";
+}
+
+
+<label>Повне ім'я</label>
+<span>@Model.FullName</span>
+
+<label asp-for="Group">Група</label>
+<span asp-for="Group">@Model.Group</span>
+
+<label asp-for="Role">Роль</label>
+<span asp-for="Role">@Model.Role</span>

@@ -14,17 +14,7 @@ namespace llama_journal.Controllers
     {
         private readonly IGradeRepository _gradeRepository;
         private readonly IUserRepository _userRepository;
-        public IList<Card> cards = new List<Card>
-        {
-            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
-            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
-            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
-            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
-            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
-            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
-            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
-            new Card("math", "Julian", new List<int> { 1, 2, 3 }),
-        };
+        public IList<Card> cards = new List<Card> { };
 
         public ProgressController(IGradeRepository gradeRepository, IUserRepository userRepository)
         {
@@ -32,7 +22,7 @@ namespace llama_journal.Controllers
             _userRepository = userRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageIndex = 1)
         {
             var user = _userRepository.FindByEmail(User.Identity.Name);
 
@@ -43,7 +33,12 @@ namespace llama_journal.Controllers
 
             // Get grades for the user's first discipline in their group
             var discipline = user.Group.Disciplines.FirstOrDefault();
+            var disciplines = user.Group.Disciplines.ToList();
             var grades = _gradeRepository.GetGradesForUser(discipline, user);
+            for (int i = 0; i < disciplines.Count; i++)
+            {
+                this.cards.Add(new Card(disciplines[i].Name, discipline.Teachers[0].FullName, grades));
+            }
 
             // Check if the user has access to grades for other users in the group
             var canAccessAllGrades = User.IsInRole(RoleEnum.Teacher.ToString())
@@ -74,7 +69,12 @@ namespace llama_journal.Controllers
                 FailingGradePercentage = failingGradePercentage
             };
             
-            return View(cards);
+            var resultCards = cards.OrderBy(c => c.Subject)
+                .Skip((pageIndex - 1) * 4)
+                .Take(4)
+                .ToList();
+            
+            return View(resultCards);
         }
     }
 
@@ -100,13 +100,13 @@ namespace llama_journal.Controllers
     {
         public string Subject { get; set; }
         public string FullName { get; set; }
-        public List<int> Grades { get; set; }
+        public List<Grade> Grades { get; set; }
 
-        public Card(string subject, string fullName, List<int> gradesUrl)
+        public Card(string subject, string fullName, List<Grade> grades)
         {
             Subject = subject;
             FullName = fullName;
-            Grades = gradesUrl;
+            Grades = grades;
         }
     }
     

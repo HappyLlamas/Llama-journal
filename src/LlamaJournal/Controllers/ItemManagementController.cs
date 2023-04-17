@@ -24,7 +24,13 @@ namespace llama_journal.Controllers
         {
             var disciplines = _context.Disciplines.Include(d => d.Groups).ToList();
             var user = _userRepository.FindByEmail(User.Identity.Name);
-            return View(disciplines);
+            var user_2 = disciplines[0];
+            List<InfoItemCard> listInfoItemCard = new List<InfoItemCard>();
+            for (int i = 0; i < user.Grades.Count; i++)
+            {
+                listInfoItemCard.Add(new InfoItemCard(disciplines[i].Teachers.ToList()[0], user.Grades, disciplines[i].Name));
+            }
+            return View(listInfoItemCard);
         }
 
         public IActionResult EditGrade(long id)
@@ -81,21 +87,7 @@ namespace llama_journal.Controllers
     }
 }
 
-public class InfoItemCard
-{
-    public string Subject { get; set; }
 
-    public List<string> FullNameTeachers { get; set; }
-
-    public List<int> Grades { get; set; }
-
-    public InfoItemCard(List<string> fullNameTeachers, List<int> grades, string subject)
-    {
-        FullNameTeachers = fullNameTeachers;
-        Grades = grades;
-        Subject = subject;
-    }
-}
 //
 // [HttpGet]
 // public IActionResult DescribeMarks()

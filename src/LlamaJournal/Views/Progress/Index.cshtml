@@ -1,41 +1,33 @@
 @model IList<llama_journal.Controllers.Card>
 @{
-        
-        const int columnSize = 2;
-        const int rowsSize = 2;
-        const int pageSize = rowsSize * columnSize;
-        ViewBag.Title = "Progress";
-        Layout = "_Layout";
+    const int rowsSize = 4;
+    const int pageSize = rowsSize;
+    ViewBag.Title = "Progress";
+    Layout = "_Layout";
 }
 
 <head>
     <link href= "~/css/progress.css" rel="stylesheet" type="text/css"/>
 </head>
 
-<div class="cards_info">
-    @for (int i = 0; i < columnSize; i++)
+<div class="row_cards_info">
+    @foreach (var card in Model)
     {
-        <div class="row_cards_info">
-            @foreach (var card in Model)
-            {
-                <div class="card_flex-grow">
-                    <div class="card-header">
-                        <h5 class="card-title">@card.Subject</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">@card.FullName</p>
-                        <p class="card-text">@card.Grades</p>
-                    </div>
-                </div>
-            }
+        <div class="card_flex-grow">
+            <div class="card-header">
+                <h5 class="card-title">@card.Subject</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@card.FullName</p>
+                <p class="card-text">@card.Grades</p>
+            </div>
         </div>
     }
 </div>
 
-
 <nav class="nav-pagination" style="display: flex; justify-content: center; padding-top: 20px;">
     <ul class="pagination">
-        @for (int i = 1; i <= Math.Ceiling((double) Model.Count / pageSize); i++)
+        @for (int i = 1; i <= Math.Ceiling((double) 12 / pageSize); i++)
         {
             <li class="page-item @(i == ViewBag.PageIndex ? "active" : "")">
                 <a class="page-link" href="@Url.Action("Index", new {pageIndex = i})">@i</a>

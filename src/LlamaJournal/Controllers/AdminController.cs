@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace llama_journal.Controllers
 {
-    public class UserController : Controller
+    public class AdminController : Controller
     {
         private readonly IUserRepository _userRepository;
 
-        public UserController(IUserRepository userRepository)
+        public AdminController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -49,6 +49,7 @@ namespace llama_journal.Controllers
 
         public IActionResult Edit(string id)
         {
+            //?
             var user = _userRepository.GetById(id);
             if (user == null)
             {

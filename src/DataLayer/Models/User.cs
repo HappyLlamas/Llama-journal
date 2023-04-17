@@ -32,5 +32,5 @@ public class User
     public string Password { get; set; } = null!;
 
     public ICollection<Discipline> TeacherDisciplines { get; set; } = new List<Discipline>();
-    public ICollection<Grade> Grades { get; set; } = new List<Grade>();
+    public List<Grade> Grades { get; set; } = new List<Grade>();
 }
