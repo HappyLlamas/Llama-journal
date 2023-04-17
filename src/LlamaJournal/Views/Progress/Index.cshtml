@@ -12,26 +12,20 @@
     <link href= "~/css/progress.css" rel="stylesheet" type="text/css"/>
 </head>
 
-<div class="cards_info">
-    @for (int i = 0; i < columnSize; i++)
+<div class="row_cards_info">
+    @foreach (var card in Model)
     {
-        <div class="row_cards_info">
-            @foreach (var card in Model)
-            {
-                <div class="card_flex-grow">
-                    <div class="card-header">
-                        <h5 class="card-title">@card.Subject</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">@card.FullName</p>
-                        <p class="card-text">@card.Grades</p>
-                    </div>
-                </div>
-            }
+        <div class="card_flex-grow">
+            <div class="card-header">
+                <h5 class="card-title">@card.Subject</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@card.FullName</p>
+                <p class="card-text">@card.Grades</p>
+            </div>
         </div>
     }
 </div>
-
 
 <nav class="nav-pagination" style="display: flex; justify-content: center; padding-top: 20px;">
     <ul class="pagination">

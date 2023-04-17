@@ -62,7 +62,7 @@ namespace llama_journal.Controllers
         [HttpGet]
         public IActionResult SignUp()
         {
-            return View();
+            return RedirectToAction("Signup", "Login");
         }
 
         [HttpPost]
@@ -94,7 +94,7 @@ namespace llama_journal.Controllers
         [HttpGet]
         public IActionResult ForgotPassword()
         {
-            return View();
+            return RedirectToAction("ForgotPassword", "Login");
         }
     }
 
