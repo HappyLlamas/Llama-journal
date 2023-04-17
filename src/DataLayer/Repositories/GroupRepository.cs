@@ -16,11 +16,9 @@ public class GroupRepository : IGroupRepository
         return _context.Groups.ToList();
     }
 
-    public Group GetById(long id)
+    public Group? GetById(long id)
     {
 		var result = _context.Groups.FirstOrDefault(g => g.Id == id);
-		if(result == null)
-			throw new Exception($"Group with id {id} not found");
         return result;
     }
 

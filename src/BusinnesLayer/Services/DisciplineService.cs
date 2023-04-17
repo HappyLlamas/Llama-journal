@@ -24,11 +24,21 @@ public class DisciplineService
     {
         var group = _groupRepository.GetById(groupId);
         var discipline = _disciplineRepository.GetById(disciplineId);
+
+		if(group == null)
+			throw new Exception($"Group with id {groupId} not found");
+
+		if(discipline == null)
+			throw new Exception($"Discipline with id {disciplineId} not found");
+
         _disciplineRepository.AddGroupToDiscipline(discipline, group);
     }
     public bool ChangeDisciplineDescription(int disciplineId, string description)
     {
         var discipline = _disciplineRepository.GetById(disciplineId);
+
+		if(discipline == null)
+			throw new Exception($"Discipline with id {disciplineId} not found");
 
         discipline.Description = description;
 

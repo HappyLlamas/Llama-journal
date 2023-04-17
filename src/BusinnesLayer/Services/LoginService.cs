@@ -15,12 +15,20 @@ public class LoginService
     public User SignUp(String email, String password)
     {
         var user = _userRepository.FindByEmail(email);
+
+		if(user == null)
+			throw new Exception($"User with email {email} not found");
+
         _userRepository.SetUserPassword(user, password);
         return user;
     }
     public User Login(String email, String password)
     {
         var user = _userRepository.FindByEmail(email);
+
+		if(user == null)
+			throw new Exception($"Incorrect email or password");
+
         var result = _userRepository.CheckPassword(user, password);
 
         return user;
@@ -33,6 +41,10 @@ public class LoginService
     public void ResetPassword(String email, String password, String restore_token)
     {
         var user = _userRepository.FindByEmail(email);
+
+		if(user == null)
+			throw new Exception($"User with email {email} not found");
+
         // TODO: check restore_token
         bool restore_token_is_valid = true;
         if (!restore_token_is_valid)
