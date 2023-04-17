@@ -12,11 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LlamaJournal.Migrations
 {
     [DbContext(typeof(ModelsContext))]
-    [Migration("20230320225158_init_models")]
-    partial class init_models
+    [Migration("20230404152748_AddedUserPassword")]
+    partial class AddedUserPassword
     {
         /// <inheritdoc />
-        protected void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,6 +73,41 @@ namespace LlamaJournal.Migrations
                     b.ToTable("Disciplines");
                 });
 
+            modelBuilder.Entity("DataLayer.Models.Grade", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(12)
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("Date");
+
+                    b.Property<long>("DisciplineId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DisciplineId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Grades");
+                });
+
             modelBuilder.Entity("DataLayer.Models.Group", b =>
                 {
                     b.Property<long>("Id")
@@ -127,9 +162,6 @@ namespace LlamaJournal.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<long?>("DisciplineId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -143,12 +175,14 @@ namespace LlamaJournal.Migrations
                     b.Property<long>("GroupId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DisciplineId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -173,6 +207,21 @@ namespace LlamaJournal.Migrations
                     b.ToTable("DisciplineGroup");
                 });
 
+            modelBuilder.Entity("DisciplineUser", b =>
+                {
+                    b.Property<long>("TeacherDisciplinesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TeachersId")
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("TeacherDisciplinesId", "TeachersId");
+
+                    b.HasIndex("TeachersId");
+
+                    b.ToTable("DisciplineUser");
+                });
+
             modelBuilder.Entity("DataLayer.Models.Attendance", b =>
                 {
                     b.HasOne("DataLayer.Models.Discipline", "Discipline")
@@ -183,6 +232,25 @@ namespace LlamaJournal.Migrations
 
                     b.HasOne("DataLayer.Models.User", "User")
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Discipline");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DataLayer.Models.Grade", b =>
+                {
+                    b.HasOne("DataLayer.Models.Discipline", "Discipline")
+                        .WithMany()
+                        .HasForeignKey("DisciplineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Models.User", "User")
+                        .WithMany("Grades")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -205,10 +273,6 @@ namespace LlamaJournal.Migrations
 
             modelBuilder.Entity("DataLayer.Models.User", b =>
                 {
-                    b.HasOne("DataLayer.Models.Discipline", null)
-                        .WithMany("Teachers")
-                        .HasForeignKey("DisciplineId");
-
                     b.HasOne("DataLayer.Models.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
@@ -233,9 +297,24 @@ namespace LlamaJournal.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DataLayer.Models.Discipline", b =>
+            modelBuilder.Entity("DisciplineUser", b =>
                 {
-                    b.Navigation("Teachers");
+                    b.HasOne("DataLayer.Models.Discipline", null)
+                        .WithMany()
+                        .HasForeignKey("TeacherDisciplinesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("TeachersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DataLayer.Models.User", b =>
+                {
+                    b.Navigation("Grades");
                 });
 #pragma warning restore 612, 618
         }

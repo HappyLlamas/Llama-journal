@@ -13,11 +13,9 @@ public class GradeRepository : IGradeRepository
 		_userRepository = userRepository;
     }
 
-    public Grade GetById(long id)
+    public Grade? GetById(long id)
     {
         var result = _context.Set<Grade>().SingleOrDefault(g => g.Id == id);
-		if(result == null)
-			throw new Exception($"Grade with id {id} not found");
 		return result;
     }
 
@@ -38,7 +36,7 @@ public class GradeRepository : IGradeRepository
 
     public void AddGrade(string userId, int score, DateTime date)
     {
-        var grade = new Grade { User = _userRepository.GetById(userId), Score = score, Date = date };
+        var grade = new Grade { User = _userRepository.GetById(userId)!, Score = score, Date = date };
         _context.Set<Grade>().Add(grade);
         _context.SaveChanges();
     }

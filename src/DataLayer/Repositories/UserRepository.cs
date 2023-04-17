@@ -17,20 +17,14 @@ public class UserRepository : IUserRepository
         return _context.Users.ToList();
     }
 
-    public User GetById(string userId)
+    public User? GetById(string userId)
     {
-        var result = _context.Users.Find(userId);
-		if(result == null)
-			throw new Exception($"User with id {userId} not found");
-		return result;
+        return _context.Users.Find(userId);
     }
 
-    public User FindByEmail(string email)
+    public User? FindByEmail(string email)
     {
-        var result = _context.Users.FirstOrDefault(u => u.Email == email)!;
-		if(result == null)
-			throw new Exception($"User with email {email} not found");
-		return result;
+        return _context.Users.FirstOrDefault(u => u.Email == email)!;
     }
 
     public void SetGroup(User user, string groupName)
