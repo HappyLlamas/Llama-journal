@@ -54,6 +54,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="@Url.Action("ForgotPassword", "Login")">Забув Пароль</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="@Url.Action("Index", "Admin")">Я адмін</a>
+      </li>
     </ul>
    </div>
  </nav>
@@ -121,7 +124,26 @@
   </nav>
 
 }
-
+@if (ViewBag.Title == "Admin")
+{
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" style="padding-left: 20px;">@ViewBag.Title</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center">
+      <ul class="navbar-nav mr-auto nav-fill">
+        <li class="nav-item">
+          <a class="nav-link" href="@Url.Action("Create", "Admin")">Створити</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="@Url.Action("Delete", "Admin")">Видалити</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="@Url.Action("Details", "Admin")">Деталі</a>
+        </li>
+      </ul>
+  
+    </div>
+  </nav>
+}
 
 <div>
   @RenderBody()

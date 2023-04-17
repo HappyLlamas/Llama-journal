@@ -1,0 +1,25 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/css/bootstrap.css" rel="stylesheet"/>
+</head>
+
+<div class="registration-cssave" style="justify-content: center; display: flex; padding-top: 20px;">
+    <form method="post" asp-controller="Admin" asp-action="Delete" style="width: 300px">
+        <h3 class="text-center">@ViewBag.Title</h3>
+        <div class="form-group">
+            <input class="form-control item" type="text" name="Id" minlength="4"
+                   id="id" placeholder="Номер залікової книги" required>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block create-account" type="submit">Видалити користувача з БД</button>
+        </div>
+    </form>
+</div>

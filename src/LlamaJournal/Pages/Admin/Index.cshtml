@@ -1,0 +1,107 @@
+﻿@page
+@model IList<DataLayer.Models.User>
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>People List</title>
+    <style>
+        /* Set the height of the table container to 50vh */
+        .table-container {
+            height: 50vh;
+            overflow-y: auto; /* Add scroll bar if the list exceeds 50vh */
+        }
+
+        /* Style for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Style for table header */
+        th {
+            background-color: #f2f2f2;
+            padding: 8px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        /* Style for table cells */
+        td {
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+<h6 style="text-align: center; padding: 10px"> Group: number group</h6>
+<div class="table-container">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Marks</th>
+        </tr>
+        @* @foreach (var person in Model) *@
+        @* { *@
+        @*     <tr> *@
+        @*         <td>@person.Id</td> *@
+        @*         <td>@person.FullName</td> *@
+        @*         <td>@person.Group</td> *@
+        @*     </tr> *@
+        @* } *@
+        
+        <tr>
+            <td>1</td>
+            <td>Surname Name MiddleName</td>
+            <td>44</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Surname2 Name2 MiddleName2</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Surname3 Name3 MiddleName3</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Surname Name MiddleName</td>
+            <td>49</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Surname2 Name2 MiddleName2</td>
+            <td>55</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Surname3 Name3 MiddleName3</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Surname Name MiddleName</td>
+            <td>44</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Surname2 Name2 MiddleName2</td>
+            <td>67</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Surname3 Name3 MiddleName3</td>
+            <td>75</td>
+        </tr>
+    </table>
+</div>
+<br/>
+</body>
+</html>
