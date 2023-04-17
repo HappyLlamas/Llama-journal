@@ -14,15 +14,28 @@ public class LoginService: ILoginService
         _userRepository = userRepository;
     }
 
-    public async Task<User> SignUp(String email, String password)
+    public async Task<User> SetPassword(string email, string password)
     {
         var user = await _userRepository.FindByEmail(email);
 
 		if(user == null)
-			throw new Exception($"User with email {email} not found");
+			throw new InvalidDataException($"User with email {email} not found");
 
 		// TODO: hash password
 		user.Password = password;
+        await _userRepository.Update(user);
+
+        return user;
+    }
+
+    public async Task<User> SignUp(string email, string fullName)
+    {
+        var user = await _userRepository.FindByEmail(email);
+
+		if(user == null)
+			throw new InvalidDataException($"User with email {email} not found");
+
+		user.FullName = fullName;
         await _userRepository.Update(user);
 
         return user;

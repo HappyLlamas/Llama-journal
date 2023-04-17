@@ -1,32 +1,26 @@
-using DataLayer.Models;
-using DataLayer.Repositories;
+using BusinnesLayer.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace llama_journal.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var users = _userRepository.GetUsers();
+            var users = await _userService.GetUsers();
             return View(users);
         }
 
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
-            var user = _userRepository.GetById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            var user = await _userService.GetUser(id);
             return View(user);
         }
 
@@ -35,69 +29,57 @@ namespace llama_journal.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(User user)
-        {
-            if (ModelState.IsValid)
-            {
-                _userRepository.CreateUser(user.Email, user.FullName);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
-        }
+        // public IActionResult Edit(string id)
+        // {
+        //     var user = _userRepository.GetById(id);
+        //     if (user == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return View(user);
+        // }
 
-        public IActionResult Edit(string id)
-        {
-            var user = _userRepository.GetById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(string id, User user)
-        {
-            if (id != user.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                _userRepository.SetGroup(user, user.Group.Name);
-                _userRepository.SetRole(user, user.Role);
-                _userRepository.SetUserPassword(user, user.Password);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
-        }
-
-        public IActionResult Delete(string id)
-        {
-            var user = _userRepository.GetById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(string id)
-        {
-            var user = _userRepository.GetById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _userRepository.DeleteUser(user);
-            return RedirectToAction(nameof(Index));
-        }
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Edit(string id, User user)
+        // {
+        //     if (id != user.Id)
+        //     {
+        //         return NotFound();
+        //     }
+        //
+        //     if (ModelState.IsValid)
+        //     {
+        //         _userRepository.SetGroup(user, user.Group.Name);
+        //         _userRepository.SetRole(user, user.Role);
+        //         _userRepository.SetUserPassword(user, user.Password);
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     return View(user);
+        // }
+        //
+        // public IActionResult Delete(string id)
+        // {
+        //     var user = _userRepository.GetById(id);
+        //     if (user == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return View(user);
+        // }
+        //
+        // [HttpPost, ActionName("Delete")]
+        // [ValidateAntiForgeryToken]
+        // public IActionResult DeleteConfirmed(string id)
+        // {
+        //     var user = _userRepository.GetById(id);
+        //     if (user == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //
+        //     _userRepository.DeleteUser(user);
+        //     return RedirectToAction(nameof(Index));
+        // }
     }
 }

@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
-using BusinnesLayer.Services;
-using DataLayer.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

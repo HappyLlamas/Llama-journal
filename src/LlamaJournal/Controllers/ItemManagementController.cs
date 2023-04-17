@@ -1,83 +1,54 @@
 using DataLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using DataLayer.Repositories;
+using BusinnesLayer.Services;
 
 namespace llama_journal.Controllers
 {
     [Authorize(Roles = "Teacher, Admin")]
     public class ItemManagementController : Controller
     {
-        private readonly ModelsContext _context;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
+        private readonly IDisciplineService _disciplineService;
+        private readonly IGradeService _gradeService;
 
-        public ItemManagementController(ModelsContext context, IUserRepository userRepository)
+        public ItemManagementController(IUserService userService, IDisciplineService disciplineService, IGradeService gradeService)
         {
-            _context = context;
-            _userRepository = userRepository;
+            _userService = userService;
+			_disciplineService = disciplineService;
+			_gradeService = gradeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var disciplines = _context.Disciplines.Include(d => d.Groups).ToList();
-            var user = _userRepository.FindByEmail(User.Identity.Name);
-            return View(disciplines);
+            return View(await _disciplineService.GetAllDisciplines());
         }
 
 
-        public IActionResult EditGrade(long id)
+        public async Task<IActionResult> EditGrade(long id)
         {
-            var grade = _context.Grades.Include(g => g.User).Include(g => g.Discipline).FirstOrDefault(g => g.Id == id);
-            if (grade == null)
-            {
-                return NotFound();
-            }
-
-            return View(grade);
+			try {
+				return View(await _gradeService.GetGrade(id));
+			}
+			catch (Exception error) {
+				return NotFound();
+			}
         }
 
         [HttpPost]
-        public IActionResult EditGrade(long id, Grade model)
+        public async Task<IActionResult> EditGrade(long id, Grade model)
         {
             if (id != model.Id)
             {
                 return BadRequest();
             }
-
-            var grade = _context.Grades.FirstOrDefault(g => g.Id == id);
-            if (grade == null)
-            {
-                return NotFound();
-            }
-
-            grade.Score = model.Score;
-            grade.Comment = model.Comment;
-
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GradeExists(model.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        private bool GradeExists(long id)
-        {
-            return _context.Grades.Any(e => e.Id == id);
+			try {
+				await _gradeService.EditGrade(id, model.Score, model.Comment);
+				return RedirectToAction("Index");
+			}
+			catch (Exception error) {
+				return NotFound();
+			}
         }
     }
 }

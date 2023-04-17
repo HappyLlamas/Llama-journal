@@ -18,6 +18,16 @@ public class UserService: IUserService
     {
         return await _userRepository.GetUsers();
     }
+
+    public async Task<User> GetUser(string userId)
+    {
+        var user = await _userRepository.GetById(userId);
+
+		if(user == null)
+			throw new Exception($"User with id {userId} not found");
+
+		return user;
+    }
     public async Task SetUserGroup(string userId, int groupId)
     {
         var user = await _userRepository.GetById(userId);

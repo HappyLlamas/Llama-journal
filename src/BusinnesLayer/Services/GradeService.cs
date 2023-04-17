@@ -1,5 +1,6 @@
 using DataLayer.Repositories;
 using DataLayer.Models;
+using BusinnesLayer.Models;
 
 namespace BusinnesLayer.Services;
 
@@ -17,6 +18,24 @@ public class GradesService: IGradeService
         _disciplineRepository = disciplineRipository;
         _groupRepository = groupRepository;
     }
+	public async Task<Grade> GetGrade(long gradeId)
+	{
+		var grade = await _gradeRepository.GetById(gradeId);
+		if(grade == null)
+			throw new Exception($"Grade with id {gradeId} not found");
+		return grade;
+	}
+	public async Task EditGrade(long gradeId, int score, string? comment)
+	{
+		var grade = await _gradeRepository.GetById(gradeId);
+		if(grade == null)
+			throw new Exception($"Grade with id {gradeId} not found");
+
+		grade.Score = score;
+		grade.Comment = comment;
+
+		await _gradeRepository.Update(grade);
+	}
 
     public async Task<List<Grade>> GetGradesForUser(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
     {
@@ -45,22 +64,15 @@ public class GradesService: IGradeService
 
         return await _gradeRepository.GetGradesForUser(discipline, user);
     }
-    public async Task<double> GetAvarangeGrade(string userId, int disciplineId)
+    public async Task<GradesDetailModel> GetGradesDetail(string userId, int disciplineId)
     {
-        var user = await _userRepository.GetById(userId);
-        var discipline = await _disciplineRepository.GetById(disciplineId);
-
-		if(discipline == null)
-			throw new Exception($"Discipline with id {disciplineId} not found");
-
-		if(user == null)
-			throw new Exception($"User with id {userId} not found");
-
-        List<Grade> grades = await _gradeRepository.GetGradesForGroup(discipline, user.Group);
-        double sum = 0;
-        foreach (var grade in grades)
-            sum += grade.Score;
-        return sum / grades.Count;
+		var grades = await this.GetGradesForUser(userId, disciplineId);
+		return new GradesDetailModel{
+			averageScore=grades.Average(g => g.Score),
+			maxScore=grades.Max(g => g.Score),
+			minScore=grades.Min(g => g.Score),
+			numGrades=grades.Count,
+		};
     }
     public async Task<string> GetFileWithGrades(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
     {
@@ -108,16 +120,6 @@ public class GradesService: IGradeService
 			throw new Exception($"User with id {userId} not found");
 
         await _gradeRepository.AddGrade(user, score, date);
-    }
-    public async Task AddGradeComment(int gradeId, string comment)
-    {
-        var grade = await _gradeRepository.GetById(gradeId);
-
-		if(grade == null)
-			throw new Exception($"Grade with id {gradeId} not found");
-
-		grade.Comment = comment;
-		await _gradeRepository.Update(grade);
     }
     public async Task<List<Grade>> GetGradesForGroup(int disciplineId, int groupId, DateTime start_datetime, DateTime end_datetime)
     {

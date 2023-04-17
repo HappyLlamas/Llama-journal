@@ -36,7 +36,7 @@ public class LoginController : Controller
                     authProperties);
 
                 return RedirectToAction("Index", "Progress");
-            } catch (InvalidDataException error) {
+            } catch (Exception error) {
                 this.ModelState.AddModelError(" ", error.Message);
             }
         }
@@ -51,17 +51,16 @@ public class LoginController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult SignUp([FromForm] SignupViewModel model)
+    public async Task<IActionResult> SignUp([FromForm] SignupViewModel model)
     {
         if (ModelState.IsValid) {
-            // var existingUser = _userRepository.FindByEmail(model.Email);
-            // if (existingUser != null)
-            // {
-            //     ModelState.AddModelError("", "A user with this email already exists.");
-            //     return View(model);
-            // }
-            // _userRepository.CreateUser(model.Email, model.FullName);
-            // return RedirectToAction("Index");
+			try {
+				await _loginService.SignUp(model.Email, model.FullName);
+				return RedirectToAction("Index");
+			}
+			catch (Exception error) {
+				this.ModelState.AddModelError("", error.Message);
+			}
         }
         return View(model);
     }
@@ -75,7 +74,7 @@ public class LoginController : Controller
     }
 
     [HttpGet]
-    public IActionResult ForgotPassword()
+    public async Task<IActionResult> ForgotPassword()
     {
         return View();
     }
