@@ -3,6 +3,12 @@ using DataLayer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
+
 // Add controllers and html templates
 builder.Services.AddRazorPages();
 builder.Services.AddAuthentication();

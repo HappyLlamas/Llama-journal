@@ -10,10 +10,14 @@ namespace llama_journal.Controllers
 public class LoginController : Controller
 {
     private readonly ILoginService _loginService;
+	private readonly ILogger _logger;
 
-    public LoginController(ILoginService loginService)
+
+    public LoginController(ILoginService loginService, ILogger<LoginController> logger)
     {
         _loginService = loginService;
+		_logger = logger;
+		_logger.LogInformation("In controller init");
     }
     public IActionResult Index()
     {
@@ -23,8 +27,10 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Index([FromForm] LoginViewModel model)
     {
+		_logger.LogInformation("At index start");
         if (ModelState.IsValid) {
             try {
+				_logger.LogInformation("Before service");
                 var claimsIdentity = await _loginService.Login(model.Email, model.Password);
                 var authProperties = new AuthenticationProperties {
                     IsPersistent = model.RememberMe
@@ -36,6 +42,7 @@ public class LoginController : Controller
 
                 return RedirectToAction("Index", "Progress");
             } catch (Exception error) {
+				_logger.LogError(error.Message);
                 this.ModelState.AddModelError(" ", error.Message);
             }
         }
