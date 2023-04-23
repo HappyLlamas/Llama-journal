@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDataLayerServices();
 builder.Services.AddBusinessLayerServices();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 var app = builder.Build();
 
@@ -59,6 +63,8 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Login}/{action=Index}/{id?}");
 });
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
