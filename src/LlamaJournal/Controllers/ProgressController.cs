@@ -19,7 +19,7 @@ namespace llama_journal.Controllers
         {
 			try {
 				var viewModel = await _gradeService.GetGradesDetail(User.Identity!.Name!, model.disciplineId);
-				return View(viewModel);
+				return View();
 			}
 			catch (Exception error) {
 				return NotFound();

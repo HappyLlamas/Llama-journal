@@ -15,12 +15,15 @@
         <div class="form-group">
             <input class="form-control item" type="text" name="Id" maxlength="15" minlength="4"
                    id="username" placeholder="Номер залікової книги" required>
+           <p asp-validation-for="Username"></p> 
         </div>
         <div class="form-group">
             <input class="form-control item" type="password" name="Password" minlength="6" id="password" placeholder="Пароль" required>
+            <p asp-validation-for="Password"></p>
         </div>
         <div class="form-group">
             <input class="form-control item" type="email" name="Email" id="email" placeholder="Електрона пошта" required>
+            <p asp-validation-for="Email"></p>
         </div>
         <div class="form-group">
             <button class="btn btn-primary btn-block create-account" type="submit">Вхід</button>

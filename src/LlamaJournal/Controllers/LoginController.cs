@@ -21,7 +21,6 @@ public class LoginController : Controller
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Index([FromForm] LoginViewModel model)
     {
         if (ModelState.IsValid) {
@@ -46,7 +45,7 @@ public class LoginController : Controller
     [HttpGet]
     public IActionResult SignUp()
     {
-        return View();
+        return View("Signup");
     }
 
     [HttpPost]
@@ -56,7 +55,7 @@ public class LoginController : Controller
         if (ModelState.IsValid) {
 			try {
 				await _loginService.SignUp(model.Email, model.FullName);
-				return RedirectToAction("Index");
+				return RedirectToAction("Signup");
 			}
 			catch (Exception error) {
 				this.ModelState.AddModelError("", error.Message);
@@ -76,7 +75,7 @@ public class LoginController : Controller
     [HttpGet]
     public async Task<IActionResult> ForgotPassword()
     {
-        return View();
+        return View("ForgotPassword");
     }
 }
 
