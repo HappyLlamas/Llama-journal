@@ -1,5 +1,5 @@
 ﻿using DataLayer.Models;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Repositories;
 
