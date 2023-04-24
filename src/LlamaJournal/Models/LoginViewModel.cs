@@ -5,11 +5,11 @@ namespace llama_journal.Models;
 
 public class LoginViewModel
 {
-	[Required]
 	[EmailAddress]
+	[Required(ErrorMessage = "incorrect email")]
 	public string Email { get; set; }
 
-	[Required]
+	[Required(ErrorMessage = "incorrect password")]
 	[DataType(DataType.Password)]
 	public string Password { get; set; }
 

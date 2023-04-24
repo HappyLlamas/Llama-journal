@@ -1,7 +1,7 @@
 @model llama_journal.Models.SignupViewModel
 @{
     ViewBag.Title = "Sing up";
-    Layout = "_Layout";
+    Layout = null;
 }
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -18,15 +18,18 @@
         </div>
             <div class="form-group">
                 <input class="form-control item" type="password" name="Password" minlength="6" id="Password" placeholder="Пароль" required>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         <div class="form-group">
             <input class="form-control item" type="password" name="ConfirmPassword" minlength="6" id="ConfirmPassword" placeholder="Пароль" required>
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <input class="form-control item" type="email" name="Email" id="email" placeholder="Електрона пошта" required>
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <button class="btn btn-primary btn-block create-account" type="submit">Реєстрація</button>
+        <div class="form-group" style="display: flex; align-content: space-around">
+            <button class="btn btn-primary btn-block create-account" type="submit" >Реєстрація</button>
             <a class="nav-link" href="@Url.Action("Index", "Login")" style="text-align: center">Є аккаунт?</a>
         </div>
     </form>

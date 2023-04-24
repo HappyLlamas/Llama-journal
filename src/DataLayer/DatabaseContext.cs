@@ -17,7 +17,5 @@ public class ModelsContext : DbContext
     
     public ModelsContext() {}
 
-	public ModelsContext() {}
-
     public ModelsContext(DbContextOptions<ModelsContext> options) : base(options) {}
 }

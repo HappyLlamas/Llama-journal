@@ -1,5 +1,6 @@
 using BusinnesLayer.Services;
 using DataLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace llama_journal.Controllers
@@ -13,12 +14,14 @@ namespace llama_journal.Controllers
         public ProgressController(IGradeService gradeService)
         {
 			_gradeService = gradeService;
+			
         }
 
         public async Task<IActionResult> Index(GradesViewModel model)
         {
+	        
 			try {
-				var viewModel = await _gradeService.GetGradesDetail(User.Identity!.Name!, model.disciplineId);
+				//var viewModel = await _gradeService.GetGradesDetail(User.Identity!.Name!, model.disciplineId);
 				return View();
 			}
 			catch (Exception error) {

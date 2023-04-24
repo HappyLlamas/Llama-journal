@@ -27,7 +27,7 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Index([FromForm] LoginViewModel model)
     {
-		_logger.LogInformation("At index start");
+        _logger.LogInformation("At index start");
         if (ModelState.IsValid) {
             try {
 				_logger.LogInformation("Before service");
@@ -43,9 +43,12 @@ public class LoginController : Controller
                 return RedirectToAction("Index", "Progress");
             } catch (Exception error) {
 				_logger.LogError(error.Message);
-                this.ModelState.AddModelError(" ", error.Message);
+                ModelState.AddModelError("Password", "Пароль неправильний");
+                ModelState.AddModelError("Email", "Неправильна електрона пошта");
             }
+
         }
+
         return View(model);
     }
 
@@ -56,29 +59,33 @@ public class LoginController : Controller
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> SignUp([FromForm] SignupViewModel model)
     {
-        if (ModelState.IsValid) {
-			try {
-				await _loginService.SignUp(model.Email, model.FullName);
-				return RedirectToAction("Signup");
-			}
-			catch (Exception error) {
-				this.ModelState.AddModelError("", error.Message);
-			}
+        if (!ModelState.IsValid) {
+            return View(model);
         }
+
+        await _loginService.SignUp(model.Email, model.FullName);
+        return View(model);
+        
         return View(model);
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Index", "Login");
     }
 
+    
+    [HttpPost]
+    public async Task<IActionResult> ForgotPassword([FromForm] string email)
+    {
+        //connect with email
+        return View("Index");
+    }
+    
     [HttpGet]
     public async Task<IActionResult> ForgotPassword()
     {
