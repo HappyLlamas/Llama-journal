@@ -5,37 +5,38 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace llama_journal.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ProgressController : Controller
     {
         private readonly IGradeService _gradeService;
-        // private readonly IUserService _gradeService;
+        private readonly IUserService _userService;
 
-        public ProgressController(IGradeService gradeService)
+        public ProgressController(IGradeService gradeService, IUserService userService)
         {
-			_gradeService = gradeService;
-			
+            _gradeService = gradeService;
+            _userService = userService;
         }
 
-        public async Task<IActionResult> Index(GradesViewModel model)
+        [HttpGet]
+        public IActionResult Index(GradesViewModel model)
         {
-	        
-			try {
-				//var viewModel = await _gradeService.GetGradesDetail(User.Identity!.Name!, model.disciplineId);
-				return View();
-			}
-			catch (Exception error) {
-				return NotFound();
-			}
+            List<Card> cards = new List<Card>()
+            {
+                new Card("math", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+            };
+            return View(cards);
+        }
+
+
+        public class GradesViewModel
+        {
+            public int disciplineId;
         }
     }
-
-
-    public class GradesViewModel
-	{
-		public int disciplineId;
-	}
-
+    
     public class ProgressViewModel
     {
         public User User { get; set; }
@@ -51,7 +52,6 @@ namespace llama_journal.Controllers
         public string Subject { get; set; }
         public string FullName { get; set; }
     }
-    
     public class Card
     {
         public string Subject { get; set; }
@@ -65,6 +65,5 @@ namespace llama_journal.Controllers
             Grades = gradesUrl;
         }
     }
-    
-    
 }
+
