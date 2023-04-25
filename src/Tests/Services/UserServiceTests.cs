@@ -47,7 +47,7 @@ public class UserServiceTests
     }
 
     [Fact()]
-    public void GetUsersTest()
+    public void GetUsersTest_ReturnsEmptyList()
     {
         List<User>? users = this.UserService.GetUsers();
         Assert.NotNull(users);
@@ -55,7 +55,7 @@ public class UserServiceTests
     }
 
     [Fact()]
-    public void SetUserGroupTest()
+    public void SetUserGroupTest_EmptyUser_ThrowsException()
     {
         Assert.Throws<Exception>(
             () => this.UserService.SetUserGroup(null!, ""));
@@ -63,7 +63,7 @@ public class UserServiceTests
     }
 
     [Fact()]
-    public void SetUserRoleTest()
+    public void SetUserRoleTest_EmptyUser_ThrowsException()
     {
         Assert.Throws<Exception>(
             () => this.UserService.SetUserRole(null!, RoleEnum.User));
@@ -71,7 +71,7 @@ public class UserServiceTests
     }
 
     [Fact()]
-    public void CreateUserTest()
+    public void CreateUserTest_EmptyUser_ThrowsArgumentBullException()
     {
         Assert.Throws<ArgumentNullException>(
             () => this.UserService.CreateUser(null!, null!));

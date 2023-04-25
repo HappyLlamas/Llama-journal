@@ -75,14 +75,14 @@ public class DisciplineServiceTests
     }
 
     [Fact()]
-    public void GetAllDisciplinesTest()
+    public void GetAllDisciplinesTest_ReturnsEmptyList()
     {
         Assert.NotNull(this.DisciplineService.GetAllDisciplines());
         return;
     }
 
     [Fact()]
-    public void AddGroupToDisciplineTest()
+    public void AddGroupToDisciplineTest_EmptyGroup_ThrowsException()
     {
         Assert.Throws<Exception>(
             () => this.DisciplineService.AddGroupToDiscipline(
@@ -91,7 +91,7 @@ public class DisciplineServiceTests
     }
 
     [Fact()]
-    public void ChangeDisciplineDescriptionTest()
+    public void ChangeDisciplineDescriptionTest_BlankDescription_ReturnsTrue()
     {
         Assert.True(this.DisciplineService.ChangeDisciplineDescription(
             disciplineId: 0, description: ""));
