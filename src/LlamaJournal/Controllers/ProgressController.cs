@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace llama_journal.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProgressController : Controller
     {
         private readonly IGradeService _gradeService;
@@ -18,16 +18,25 @@ namespace llama_journal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(GradesViewModel model)
+        public IActionResult Index(int pageIndex=1)
         {
             List<Card> cards = new List<Card>()
             {
-                new Card("math", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
-                new Card("math", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
-                new Card("math", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
-                new Card("math", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math1", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math2", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math3", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math4", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math1", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math2", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math3", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
+                new Card("math4", "Zubenko Muhail Petrovych", new List<int>() { 3, 5, 3, 6 }),
             };
-            return View(cards);
+            
+            var resultCards = cards.OrderBy(c => c.Subject)
+                .Skip((pageIndex - 1) * 4)
+                .Take(4)
+                .ToList();
+            return View(resultCards);
         }
 
 
@@ -58,11 +67,11 @@ namespace llama_journal.Controllers
         public string FullName { get; set; }
         public List<int> Grades { get; set; }
 
-        public Card(string subject, string fullName, List<int> gradesUrl)
+        public Card(string subject, string fullName, List<int> grades)
         {
             Subject = subject;
             FullName = fullName;
-            Grades = gradesUrl;
+            Grades = grades;
         }
     }
 }

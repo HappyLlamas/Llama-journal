@@ -3,6 +3,7 @@
 @{
     const int rowsSize = 4;
     const int pageSize = rowsSize;
+    int sum = 0;
     ViewBag.Title = "Progress";
     Layout = "_Layout";
 }
@@ -20,7 +21,11 @@
             </div>
             <div class="card-body">
                 <p class="card-text">@card.FullName</p>
-                <p class="card-text">@card.Grades</p>
+                @foreach (var mark in @card.Grades)
+                {
+                    sum += mark;
+                }
+                <p class="card-text">sum</p>
             </div>
         </div>
     }

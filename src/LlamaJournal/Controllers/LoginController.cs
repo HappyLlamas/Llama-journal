@@ -67,7 +67,7 @@ public class LoginController : Controller
 
         await _loginService.SignUp(model.Email, model.FullName);
         
-        return View(model);
+        return View("Index");
     }
 
     [HttpPost]
