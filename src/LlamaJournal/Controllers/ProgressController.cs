@@ -3,9 +3,11 @@ using llama_journal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace llama_journal.Controllers
 {
-    //[Authorize]
+
+	[Authorize]
     public class ProgressController : Controller
     {
         private readonly IGradeService _gradeService;
@@ -22,14 +24,18 @@ namespace llama_journal.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(GradesViewModel model)
         {
-			var grades = await _gradeService.GetGradesForUser("1111");
+			_logger.LogInformation("Logged in user id: " + User.Identity.Name);
+
+			var grades = await _gradeService.GetGradesForUser(User.Identity.Name);
 			var cards = new List<Card>();
-			foreach(var grade in grades)
+			foreach(var grade in grades) {
 				cards.Add(new Card(
 					grade.disciplineName,
 					grade.teacherName,
-					grade.grades
+					grade.totalGrades
 				));
+			}
+			_logger.LogInformation("Count of cards in ProgressIndex: " + cards.Count.ToString());
             return View(cards);
         }
 

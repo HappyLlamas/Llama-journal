@@ -1,6 +1,7 @@
 using DataLayer.Repositories;
 using DataLayer.Models;
 using BusinnesLayer.Models;
+using Microsoft.Extensions.Logging;
 
 namespace BusinnesLayer.Services;
 
@@ -10,13 +11,15 @@ public class GradesService: IGradeService
     private readonly IUserRepository _userRepository;
     private readonly IDisciplineRepository _disciplineRepository;
     private readonly IGroupRepository _groupRepository;
+	private readonly ILogger _logger;
 
-    public GradesService(IGradeRepository gradeRepository, IUserRepository userRepository, IDisciplineRepository disciplineRipository, IGroupRepository groupRepository)
+    public GradesService(IGradeRepository gradeRepository, IUserRepository userRepository, IDisciplineRepository disciplineRipository, IGroupRepository groupRepository, ILogger<GradesService> logger)
     {
         _gradeRepository = gradeRepository;
         _userRepository = userRepository;
         _disciplineRepository = disciplineRipository;
         _groupRepository = groupRepository;
+		_logger = logger;
     }
 	public async Task<Grade> GetGrade(long gradeId)
 	{
@@ -47,13 +50,14 @@ public class GradesService: IGradeService
 		var result = new List<GradesPerDiscipline>();
 
 		var disciplines = await _disciplineRepository.GetDisciplines(user);
+		_logger.LogInformation("Discipline count for user: " + disciplines.Count.ToString());
 
 		foreach(var discipline in disciplines) {
 			var grades = await _disciplineRepository.GetGradesForUserInPeriod(discipline, user, start_datetime, end_datetime);
 			result.Add(new GradesPerDiscipline{
 				disciplineName = discipline.Name,
 				teacherName = discipline.Teachers.First().FullName,
-				grades = grades.Select(g => g.Score).ToList()
+				totalGrades = grades.Select(g => g.Score).Sum(),
 			});
 		}
 

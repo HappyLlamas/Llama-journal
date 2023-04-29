@@ -5,7 +5,7 @@ volumes:
 
 services:
   postgres:
-    container_name: crm-postgres
+    container_name: postgres
     image: postgres:15.2
     environment:
       POSTGRES_USER: 'postgres'

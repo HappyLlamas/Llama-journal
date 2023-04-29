@@ -7,3 +7,10 @@ in src folder run command:
 dotnet restore
 dotnet tool install --global dotnet-ef
 ```
+
+# Migrations
+
+Apply migrations:
+```
+dotnet-ef database update --project Llama-journal
+```

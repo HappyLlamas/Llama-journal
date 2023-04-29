@@ -23,12 +23,12 @@ public class Card
 {
 	public string Subject { get; set; }
 	public string FullName { get; set; }
-	public List<int> Grades { get; set; }
+	public int TotalGrades { get; set; }
 
-	public Card(string subject, string fullName, List<int> gradesUrl)
+	public Card(string subject, string fullName, int totalGrades)
 	{
 		Subject = subject;
 		FullName = fullName;
-		Grades = gradesUrl;
+		TotalGrades = totalGrades;
 	}
 }

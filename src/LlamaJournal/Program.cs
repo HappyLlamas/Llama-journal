@@ -9,6 +9,7 @@ builder.Host.ConfigureLogging(logging =>
 {
     logging.ClearProviders();
     logging.AddConsole();
+	logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.None);
 });
 
 // Add controllers and html templates
@@ -18,16 +19,22 @@ builder.Services.AddAuthentication();
 // Add DB context
 builder.Services.AddDbContext<ModelsContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
 
-builder.Services.AddControllersWithViews();
 
 // Add services and repositories
 
 builder.Services.AddDataLayerServices();
 builder.Services.AddBusinessLayerServices();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+	options => //CookieAuthenticationOptions
+	{
+		options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/");
+	}
+);
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -35,13 +42,10 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
-
-app.UseAuthorization();
+app.UseAuthentication();
 
 if (builder.Environment.IsDevelopment())
 {
@@ -56,6 +60,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
@@ -63,8 +68,6 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Login}/{action=Index}/{id?}");
 });
 
-app.UseAuthentication();
-app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();

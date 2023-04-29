@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> GetById(string userId)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        return await _context.Users.Include(u => u.Group).FirstOrDefaultAsync(u => u.Id == userId);
     }
 
     public async Task<User?> FindByEmail(string email)

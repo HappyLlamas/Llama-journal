@@ -11,5 +11,5 @@ public class GradesPerDiscipline
 {
 	public string disciplineName { get; set; }
 	public string teacherName { get; set; }
-	public List<int> grades { get; set; }
+	public int totalGrades { get; set; }
 }

@@ -15,8 +15,8 @@ public class DisciplineRepository : IDisciplineRepository
     public async Task<List<Discipline>> GetDisciplines(User? user=null)
     {
 		if(user != null)
-			return await _context.Disciplines.Where(discipline => discipline.Groups.Contains(user.Group)).ToListAsync();
-        return await _context.Disciplines.ToListAsync();
+			return await _context.Disciplines.Include(d => d.Teachers).Where(discipline => discipline.Groups.Contains(user.Group)).ToListAsync();
+        return await _context.Disciplines.Include(d => d.Teachers).ToListAsync();
     }
 
     public async Task<Discipline?> GetById(int id)

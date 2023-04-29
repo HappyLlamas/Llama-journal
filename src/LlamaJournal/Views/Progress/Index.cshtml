@@ -21,11 +21,7 @@
             </div>
             <div class="card-body">
                 <p class="card-text">@card.FullName</p>
-                @foreach (var mark in @card.Grades)
-                {
-                    sum += mark;
-                }
-                <p class="card-text">sum</p>
+                <p class="card-text">@card.TotalGrades</p>
             </div>
         </div>
     }
