@@ -1,5 +1,5 @@
 ﻿using DataLayer.Models;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Repositories
 {
@@ -12,8 +12,10 @@ public class DisciplineRepository : IDisciplineRepository
         _context = context;
     }
 
-    public async Task<List<Discipline>> GetDisciplines()
+    public async Task<List<Discipline>> GetDisciplines(User? user=null)
     {
+		if(user != null)
+			return await _context.Disciplines.Where(discipline => discipline.Groups.Contains(user.Group)).ToListAsync();
         return await _context.Disciplines.ToListAsync();
     }
 
@@ -32,11 +34,17 @@ public class DisciplineRepository : IDisciplineRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<Grade>> GetGradesForUserInPeriod(Discipline discipline, string userId, DateTime startDate, DateTime endDate)
+    public async Task<List<Grade>> GetGradesForUserInPeriod(Discipline discipline, User user, DateTime? startDate=null, DateTime? endDate=null)
     {
-        return await _context.Grades
-               .Where(g => g.Discipline == discipline && g.User.Id == userId && g.Date >= startDate && g.Date <= endDate)
-               .ToListAsync();
+		var query = _context.Grades.Where(g => g.Discipline == discipline && g.User.Id == user.Id);
+
+		if(startDate != null)
+			query = query.Where(g => g.Date >= startDate);
+
+		if(endDate != null)
+			query = query.Where(g => g.Date <= endDate);
+
+		return await query.ToListAsync();
     }
 
 }

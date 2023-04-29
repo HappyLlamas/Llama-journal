@@ -37,18 +37,27 @@ public class GradesService: IGradeService
 		await _gradeRepository.Update(grade);
 	}
 
-    public async Task<List<Grade>> GetGradesForUser(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
+    public async Task<List<GradesPerDiscipline>> GetGradesForUser(string userId, DateTime? start_datetime=null, DateTime? end_datetime=null)
     {
         var user = await _userRepository.GetById(userId);
-        var discipline = await _disciplineRepository.GetById(disciplineId);
-
-		if(discipline == null)
-			throw new Exception($"Discipline with id {disciplineId} not found");
 
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
 
-        return await _disciplineRepository.GetGradesForUserInPeriod(discipline, userId, start_datetime, end_datetime);
+		var result = new List<GradesPerDiscipline>();
+
+		var disciplines = await _disciplineRepository.GetDisciplines(user);
+
+		foreach(var discipline in disciplines) {
+			var grades = await _disciplineRepository.GetGradesForUserInPeriod(discipline, user, start_datetime, end_datetime);
+			result.Add(new GradesPerDiscipline{
+				disciplineName = discipline.Name,
+				teacherName = discipline.Teachers.First().FullName,
+				grades = grades.Select(g => g.Score).ToList()
+			});
+		}
+
+        return result;
     }
 
     public async Task<List<Grade>> GetGradesForUser(string userId, int disciplineId)

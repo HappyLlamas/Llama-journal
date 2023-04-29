@@ -21,7 +21,7 @@ namespace llama_journal.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _disciplineService.GetAllDisciplines());
+            return View(await _disciplineService.GetAllDisciplines("1111"));
         }
 
 

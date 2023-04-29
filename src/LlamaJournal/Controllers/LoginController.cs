@@ -77,14 +77,14 @@ public class LoginController : Controller
         return RedirectToAction("Index", "Login");
     }
 
-    
+
     [HttpPost]
     public async Task<IActionResult> ForgotPassword([FromForm] string email)
     {
         //connect with email
         return View("Index");
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> ForgotPassword()
     {

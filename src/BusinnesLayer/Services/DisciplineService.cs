@@ -16,9 +16,13 @@ public class DisciplineService: IDisciplineService
         _groupRepository = groupRepository;
     }
 
-    public async Task<List<Discipline>> GetAllDisciplines()
+    public async Task<List<Discipline>> GetAllDisciplines(string userId)
     {
-        return await _disciplineRepository.GetDisciplines();
+		var user = await _userRepository.GetById(userId);
+		if(user == null)
+			throw new Exception($"User with id {userId} not found");
+
+        return await _disciplineRepository.GetDisciplines(user: user);
     }
     public async Task AddGroupToDiscipline(int disciplineId, int groupId)
     {
