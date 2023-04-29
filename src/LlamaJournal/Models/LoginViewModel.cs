@@ -19,6 +19,8 @@ public class LoginViewModel
 public class SignupViewModel
 {
 	[Required]
+	public string Id { get; set; }
+	[Required]
 	[EmailAddress]
 	public string Email { get; set; }
 

@@ -65,7 +65,13 @@ public class LoginController : Controller
             return View(model);
         }
 
-        await _loginService.SignUp(model.Email, model.FullName);
+        if (model.Password != model.ConfirmPassword)
+        {
+            ModelState.AddModelError("Password", "Паролі неспівпадають");
+            ModelState.AddModelError("ConfirmPassword", "Паролі неспівпадають");
+        }
+
+        await _loginService.SignUp(model.FullName, model.Email);
         
         return View("Index");
     }

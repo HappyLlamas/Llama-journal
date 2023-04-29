@@ -28,17 +28,9 @@ public class LoginService: ILoginService
         return user;
     }
 
-    public async Task<User> SignUp(string email, string fullName)
+    public async Task SignUp(string fullName, string email)
     {
-        var user = await _userRepository.FindByEmail(email);
-
-		if(user == null)
-			throw new InvalidDataException($"User with email {email} not found");
-
-		user.FullName = fullName;
-        await _userRepository.Update(user);
-
-        return user;
+	    await _userRepository.CreateUser(email, fullName);
     }
     public async Task<ClaimsIdentity> Login(String email, String password)
 	{

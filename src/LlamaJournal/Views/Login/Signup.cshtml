@@ -11,26 +11,26 @@
 
 <div class="registration-cssave" style="justify-content: center; display: flex; padding-top: 20px;">
         <form method="post" asp-controller="Login" asp-action="SignUp" style="width: 300px">
-        <h3 class="text-center">@ViewBag.Title</h3>
-        <div class="form-group">
-            <input class="form-control item" type="text" name="FullName" maxlength="50" minlength="4"
-                   id="FullName" placeholder="ПІБ" required>
-        </div>
+            <h3 class="text-center">@ViewBag.Title</h3>
+            <div class="form-group">
+                <input class="form-control item" type="text" name="FullName" maxlength="50" minlength="4"
+                       id="FullName" placeholder="ПІБ" required>
+            </div>
             <div class="form-group">
                 <input class="form-control item" type="password" name="Password" minlength="6" id="Password" placeholder="Пароль" required>
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
-        <div class="form-group">
-            <input class="form-control item" type="password" name="ConfirmPassword" minlength="6" id="ConfirmPassword" placeholder="Пароль" required>
-            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            <input class="form-control item" type="email" name="Email" id="email" placeholder="Електрона пошта" required>
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group" style="display: flex; align-content: space-around">
-            <button class="btn btn-primary btn-block create-account" type="submit" >Реєстрація</button>
-            <a class="nav-link" href="@Url.Action("Index", "Login")" style="text-align: center">Є аккаунт?</a>
-        </div>
+            <div class="form-group">
+                <input class="form-control item" type="password" name="ConfirmPassword" minlength="6" id="ConfirmPassword" placeholder="Підтвердіть пароль" required>
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input class="form-control item" type="email" name="Email" id="email" placeholder="Електрона пошта" required>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group" style="display: flex; align-content: space-around">
+                <button class="btn btn-primary btn-block create-account" type="submit" >Реєстрація</button>
+                <a class="nav-link" href="@Url.Action("Index", "Login")" style="text-align: center">Є аккаунт?</a>
+            </div>
     </form>
 </div>

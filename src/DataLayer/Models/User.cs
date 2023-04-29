@@ -33,4 +33,5 @@ public class User
 
     public ICollection<Discipline> TeacherDisciplines { get; set; } = new List<Discipline>();
     public ICollection<Grade> Grades { get; set; } = new List<Grade>();
+    
 }

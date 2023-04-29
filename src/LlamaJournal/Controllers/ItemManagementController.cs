@@ -21,12 +21,14 @@ namespace llama_journal.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // дисципліни, які веде викладач
             return View(await _disciplineService.GetAllDisciplines("1111"));
         }
 
 
         public async Task<IActionResult> EditGrade(long id)
         {
+            // добавлення оцінки у бд для конкрентого юзера
 			try {
 				return View(await _gradeService.GetGrade(id));
 			}
@@ -34,22 +36,7 @@ namespace llama_journal.Controllers
 				return NotFound();
 			}
         }
-
-        [HttpPost]
-        public async Task<IActionResult> EditGrade(long id, Grade model)
-        {
-            if (id != model.Id)
-            {
-                return BadRequest();
-            }
-			try {
-				await _gradeService.EditGrade(id, model.Score, model.Comment);
-				return RedirectToAction("Index");
-			}
-			catch (Exception error) {
-				return NotFound();
-			}
-        }
+        
     }
 }
 
