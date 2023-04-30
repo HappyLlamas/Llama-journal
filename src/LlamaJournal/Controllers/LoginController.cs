@@ -72,7 +72,7 @@ public class LoginController : Controller
 		}
         return View(model);
     }
-	
+
 
     [HttpGet, Authorize]
     public async Task<IActionResult> Logout()
@@ -87,9 +87,15 @@ public class LoginController : Controller
     {
 		var role = User.FindFirstValue(ClaimTypes.Role);
 		if (role == RoleEnum.Admin.ToString())
-			return View("AdminCompleteRegistration");
+			return RedirectToAction("AdminCompleteRegistration");
 		return View("CompleteRegistration");
     }
+
+	[HttpGet, Authorize]
+    public async Task<IActionResult> AdminCompleteRegistration()
+	{
+		return View("AdminCompleteRegistration");
+	}
 
 	[HttpPost, Authorize]
     public async Task<IActionResult> AdminCompleteRegistration([FromForm] AdminCompleteRegistrationModel model)

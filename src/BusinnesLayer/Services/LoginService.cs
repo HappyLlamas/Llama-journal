@@ -50,7 +50,7 @@ public class LoginService: ILoginService
     {
 		if (password != confirmPassword)
         	throw new InvalidDataException("Паролі не співпадають");
-		
+
 		if (_userRepository.FindByEmail(email) != null)
 			throw new InvalidDataException("Юзер з таким email вже існує");
 
