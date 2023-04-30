@@ -7,24 +7,27 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/lib/css/bootstrap.css" rel="stylesheet"/>
+	<link href= "~/css/panel.css" rel="stylesheet" type="text/css"/>
 </head>
 
-<div class="registration-cssave" style="justify-content: center; display: flex; padding-top: 20px;">
-    <form method="post" asp-controller="Login" asp-action="Index" style="width: 300px">
-        <h3 class="text-center">@ViewBag.Title</h3>
-
-        <div class="form-group">
-            <input class="form-control item" type="email" name="Email" id="email" placeholder="Електрона пошта" required>
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-        
-        <div class="form-group">
-            <input class="form-control item" type="password" name="Password" minlength="6" id="password" placeholder="Пароль" required>
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            <button class="btn btn-primary btn-block create-account" type="submit">Вхід</button>
-        </div>
-    </form>
+<div class="center">
+	<form class="w-25 panel" id="loginForm" method="post" asp-controller="Login" asp-action="Index">
+		<h1>Вхід</h1>
+		<div class="form-floating">
+			<input class="form-control item" name="Email" placeholder="Електронна пошта" id="email" required>
+			@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+			<label for="email">Електронна пошта</label>
+		</div>
+		<div class="form-floating">
+			<input class="form-control item" type="password" name="Password" placeholder="Пароль" id="password" required>
+			@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+			<label for="Password">Пароль</label>
+		</div>
+		<button class="btn btn-primary btn-block w-100 create-account" type="submit">Вхід</button>
+		<div style="margin-top: 1%;">
+			<a style="float: left" href="signup.html">Забули пароль?</a>
+			<a style="float: right" href="@Url.Action("Signup", "Login")">Створити організацію</a>
+		</div>
+	</form>
 </div>
+

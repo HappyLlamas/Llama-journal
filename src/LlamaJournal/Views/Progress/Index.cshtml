@@ -12,16 +12,16 @@
     <link href= "~/css/progress.css" rel="stylesheet" type="text/css"/>
 </head>
 
-<div class="row_cards_info">
+<div class="row_cards_info d-flex">
     @foreach (var card in Model)
     {
-        <div class="card_flex-grow">
+        <div class="card mx-3">
             <div class="card-header">
                 <h5 class="card-title">@card.Subject</h5>
             </div>
             <div class="card-body">
+                <p class="card-text h3">@card.TotalGrades</p>
                 <p class="card-text">@card.FullName</p>
-                <p class="card-text">@card.TotalGrades</p>
             </div>
         </div>
     }

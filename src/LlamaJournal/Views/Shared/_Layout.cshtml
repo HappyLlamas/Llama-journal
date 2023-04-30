@@ -45,20 +45,6 @@
     </div>
   </nav>
 }
-@if (ViewBag.Title == "Login")
-{
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" style="padding-left: 20px;">@ViewBag.Title</a>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: right">
-    <ul class="navbar-nav nav-fill">
-      <li class="nav-item active">
-        <a class="nav-link" href="@Url.Action("ForgotPassword", "Login")">Забув Пароль</a>
-      </li>
-    </ul>
-   </div>
- </nav>
-}
-
 
 @if (ViewBag.Title == "PerformanceAnalysis")
 {

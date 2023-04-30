@@ -72,13 +72,14 @@ public class LoginController : Controller
         }
 
         await _loginService.SignUp(model.FullName, model.Email);
-        
+
         return View("Index");
     }
 
-    [HttpPost]
+    [HttpGet]
     public async Task<IActionResult> Logout()
     {
+		_logger.LogInformation("In loggout");
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Index", "Login");
     }
