@@ -38,7 +38,7 @@
     </style>
 </head>
 <body>
-<h6 style="text-align: center; padding: 10px"> Group: number group</h6>
+<h6 style="text-align: center; padding: 10px">@Model[0].Group</h6>
 <div class="table-container">
     <table>
         <tr>
@@ -46,60 +46,15 @@
             <th>Name</th>
             <th>Marks</th>
         </tr>
-        @* @foreach (var person in Model) *@
-        @* { *@
-        @*     <tr> *@
-        @*         <td>@person.Id</td> *@
-        @*         <td>@person.FullName</td> *@
-        @*         <td>@person.Group</td> *@
-        @*     </tr> *@
-        @* } *@
+        @foreach (var person in Model)
+        {
+            <tr>
+                <td>@person.Id</td>
+                <td>@person.FullName</td>
+                <td>@person.Group</td>
+            </tr>
+        }
         
-        <tr>
-            <td>1</td>
-            <td>Surname Name MiddleName</td>
-            <td>[1,4,4,3]</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Surname2 Name2 MiddleName2</td>
-            <td>[2,1,5,3]</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Surname3 Name3 MiddleName3</td>
-            <td>[1,5,4,2]</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Surname Name MiddleName</td>
-            <td>[1,4,4,3]</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Surname2 Name2 MiddleName2</td>
-            <td>[2,1,5,3]</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Surname3 Name3 MiddleName3</td>
-            <td>[1,5,4,2]</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Surname Name MiddleName</td>
-            <td>[1,4,4,3]</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Surname2 Name2 MiddleName2</td>
-            <td>[2,1,5,3]</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Surname3 Name3 MiddleName3</td>
-            <td>[1,5,4,2]</td>
-        </tr>
     </table>
 </div>
 <br/>

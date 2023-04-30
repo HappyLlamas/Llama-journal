@@ -1,11 +1,12 @@
 @model IList<llama_journal.Models.Card>
-
+@inject BusinnesLayer.Services.GradesService _gradeService
 @{
     const int rowsSize = 4;
     const int pageSize = rowsSize;
     int sum = 0;
     ViewBag.Title = "Progress";
     Layout = "_Layout";
+    var grades = await _gradeService.GetGradesForUser(User.Identity.Name);
 }
 
 <head>
@@ -29,7 +30,7 @@
 
 <nav class="nav-pagination" style="display: flex; justify-content: center; padding-top: 20px;">
     <ul class="pagination">
-        @for (int i = 1; i <= Math.Ceiling((double) 12 / pageSize); i++)
+        @for (int i = 1; i <= Math.Ceiling((double) grades.Count / pageSize); i++)
         {
             <li class="page-item @(i == ViewBag.PageIndex ? "active" : "")">
                 <a class="page-link" href="@Url.Action("Index", new {pageIndex = i})">@i</a>

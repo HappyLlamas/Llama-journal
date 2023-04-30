@@ -1,31 +1,25 @@
-@* @model List<llama_journal.Controllers.InfoItemCard> *@
-@* *@
-@* @{ *@
-@*     ViewBag.Title = "ItemManagement"; *@
-@*     Layout = "_Layout"; *@
-@*     var stringGrades=""; *@
-@* } *@
-@* <head> *@
-@*     <link href="~/css/ItemManagement.css" rel="stylesheet"/> *@
-@* </head> *@
-@* *@
-@* <div class="cards_info"> *@
-@*     <div class="row_cards_info"> *@
-@*         @foreach (var card in Model) *@
-@*         { *@
-@*             <div class="card" style="padding: 10px; padding-top: 20px;padding-bottom: 20px;"> *@
-@*                 <div class="card-header"> *@
-@*                     <h5 class="card-title">@card.Subject</h5> *@
-@*                     <p class="card-text">@card.FullName</p> *@
-@*                 </div> *@
-@*                 @foreach(var grade in @card.Grades) *@
-@*                 { *@
-@*                     stringGrades += $"{grade.ToString()}, "; *@
-@*                 } *@
-@*                 <div class="card-body"> *@
-@*                     <p class="card-text">@stringGrades</p> *@
-@*                 </div> *@
-@*             </div> *@
-@*         } *@
-@*     </div> *@
-@* </div> *@
+@model List<llama_journal.Controllers.InfoItemCard>
+
+@{
+    ViewBag.Title = "ItemManagement";
+    Layout = "_Layout";
+}
+<head>
+    <link href="~/css/ItemManagement.css" rel="stylesheet"/>
+</head>
+
+<div class="cards_info">
+    <div class="row_cards_info">
+        @foreach (var card in Model)
+        {
+            <div class="card" style="padding: 10px; padding-top: 20px;padding-bottom: 20px;">
+                <div class="card-header">
+                    <h5 class="card-title">@card.Subject</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@card.Group</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -22,39 +22,28 @@ namespace llama_journal.Controllers
         public async Task<IActionResult> Index()
         {
             // дисципліни, які веде викладач
-            return View(await _disciplineService.GetAllDisciplines("1111"));
+            var userId = "myId";
+            var disciplines = await _disciplineService.GetAllDisciplines(userId);
+            var infoItemCards = new List<InfoItemCard>
+            {
+                new InfoItemCard("phycics", "PMI-35"),
+                new InfoItemCard("phycics", "PMI-35"),
+                new InfoItemCard("phycics", "PMI-35"),
+                new InfoItemCard("phycics", "PMI-35"),
+            };
+            return View(infoItemCards);
         }
 
 
-        public async Task<IActionResult> EditGrade(long id)
+        public async void AddGrade(int id)
         {
             // добавлення оцінки у бд для конкрентого юзера
-			try {
-				return View(await _gradeService.GetGrade(id));
-			}
-			catch (Exception error) {
-				return NotFound();
-			}
         }
         
     }
 }
 
-public class InfoItemCard
-{
-    public string Subject { get; set; }
 
-    public List<string> FullNameTeachers { get; set; }
-
-    public List<int> Grades { get; set; }
-
-    public InfoItemCard(List<string> fullNameTeachers, List<int> grades, string subject)
-    {
-        FullNameTeachers = fullNameTeachers;
-        Grades = grades;
-        Subject = subject;
-    }
-}
 //
 // [HttpGet]
 // public IActionResult DescribeMarks()
