@@ -8,29 +8,53 @@ namespace BusinnesLayer.Services;
 public class LoginService: ILoginService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IOrganizationRepository _organizationRepository;
 
-    public LoginService(IUserRepository userRepository)
+    public LoginService(IUserRepository userRepository, IOrganizationRepository organizationRepository)
     {
         _userRepository = userRepository;
+		_organizationRepository = organizationRepository;
     }
 
-    public async Task<User> SetPassword(string email, string password)
+    public async Task CompleteRegistration(string userId, string password, string confirmPassword)
     {
-        var user = await _userRepository.FindByEmail(email);
+        var user = await _userRepository.GetById(userId);
 
 		if(user == null)
-			throw new InvalidDataException($"User with email {email} not found");
+			throw new InvalidDataException($"User with id {userId} not found");
+
+		if (password != confirmPassword)
+        	throw new InvalidDataException("Паролі не співпадають");
 
 		// TODO: hash password
 		user.Password = password;
+		user.CompleteRegistration = true;
         await _userRepository.Update(user);
-
-        return user;
     }
 
-    public async Task SignUp(string fullName, string email)
+    public async Task AdminCompleteRegistration(string userId, string fullName, string organizationName)
     {
-	    await _userRepository.CreateUser(email, fullName);
+        var user = await _userRepository.GetById(userId);
+
+		if(user == null)
+			throw new InvalidDataException($"User with id {userId} not found");
+
+		await _organizationRepository.CreateOrganization(organizationName, user);
+		user.FullName = fullName;
+		user.CompleteRegistration = true;
+
+		await _userRepository.Update(user);
+    }
+
+    public async Task SignUp(string email, string password, string confirmPassword)
+    {
+		if (password != confirmPassword)
+        	throw new InvalidDataException("Паролі не співпадають");
+		
+		if (_userRepository.FindByEmail(email) != null)
+			throw new InvalidDataException("Юзер з таким email вже існує");
+
+	    await _userRepository.CreateUser(email, password, RoleEnum.Admin);
     }
     public async Task<ClaimsIdentity> Login(String email, String password)
 	{

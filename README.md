@@ -12,5 +12,5 @@ dotnet tool install --global dotnet-ef
 
 Apply migrations:
 ```
-dotnet-ef database update --project Llama-journal
+dotnet ef database update --project LlamaJournal
 ```

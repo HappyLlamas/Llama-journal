@@ -18,10 +18,6 @@
 			<label for="Email">Електрона пошта</label>
 		</div>
 		<div class="form-floating">
-			<input class="form-control item" type="text" name="FullName" maxlength="50" minlength="4" id="FullName" placeholder="ПІБ" required>
-			<label for="FullName">ПІБ</label>
-		</div>
-		<div class="form-floating">
 			<input class="form-control item" type="password" name="Password" minlength="6" id="Password" placeholder="Пароль" required>
 			@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 			<label for="Password">Пароль</label>

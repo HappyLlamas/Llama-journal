@@ -1,0 +1,26 @@
+@model llama_journal.Models.AdminCompleteRegistrationModel
+@{
+    ViewBag.Title = "Продовження реєстрації";
+    Layout = null;
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/css/bootstrap.css" rel="stylesheet"/>
+	<link href= "~/css/panel.css" rel="stylesheet" type="text/css"/>
+</head>
+<div class="center">
+	<form class="w-25 panel" method="post" asp-controller="Login" asp-action="AdminCompleteRegistration">
+		<h1>Продовження реєстрації</h1>
+		<div class="form-floating">
+			<input class="form-control item" type="text" name="FullName" maxlength="50" minlength="4" placeholder="ПІБ" required>
+			<label for="FullName">ПІБ</label>
+		</div>
+		<div class="form-floating">
+			<input class="form-control item" type="text" name="OrganizationName" maxlength="50" placeholder="Назва організації" required>
+			<label for="OrganizationName">Назва організації</label>
+		</div>
+		<button class="btn btn-primary btn-block create-account w-100" type="submit" >Продовжити</button>
+	</form>
+</div>
+

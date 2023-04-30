@@ -26,9 +26,8 @@ builder.Services.AddDataLayerServices();
 builder.Services.AddBusinessLayerServices();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
-	options => //CookieAuthenticationOptions
-	{
-		options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/");
+	options => 	{
+		options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login");
 	}
 );
 builder.Services.AddControllersWithViews();
@@ -65,7 +64,7 @@ app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
 		name: "default",
-        pattern: "{controller=Login}/{action=Index}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 app.MapRazorPages();

@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using llama_journal.Models;
+using Microsoft.AspNetCore.Authorization;
+using DataLayer.Models;
+
 
 namespace llama_journal.Controllers
 {
@@ -17,7 +20,6 @@ public class LoginController : Controller
     {
         _loginService = loginService;
 		_logger = logger;
-		_logger.LogInformation("In controller init");
     }
     public IActionResult Index()
     {
@@ -40,11 +42,10 @@ public class LoginController : Controller
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                return RedirectToAction("Index", "Progress");
+				return RedirectToAction("Index", "Home");
             } catch (Exception error) {
 				_logger.LogError(error.Message);
-                ModelState.AddModelError("Password", "Пароль неправильний");
-                ModelState.AddModelError("Email", "Неправильна електрона пошта");
+				TempData["Error"] = error.Message;
             }
 
         }
@@ -61,27 +62,64 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> SignUp([FromForm] SignupViewModel model)
     {
-        if (!ModelState.IsValid) {
-            return View(model);
-        }
-
-        if (model.Password != model.ConfirmPassword)
-        {
-            ModelState.AddModelError("Password", "Паролі неспівпадають");
-            ModelState.AddModelError("ConfirmPassword", "Паролі неспівпадають");
-        }
-
-        await _loginService.SignUp(model.FullName, model.Email);
-
-        return View("Index");
+		if (ModelState.IsValid) {
+			try {
+				await _loginService.SignUp(model.Email, model.Password, model.ConfirmPassword);
+				return View("Index");
+			} catch (Exception error) {
+				_logger.LogError(error.Message);
+			}
+		}
+        return View(model);
     }
+	
 
-    [HttpGet]
+    [HttpGet, Authorize]
     public async Task<IActionResult> Logout()
     {
 		_logger.LogInformation("In loggout");
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Index", "Login");
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet, Authorize]
+    public IActionResult CompleteRegistration()
+    {
+		var role = User.FindFirstValue(ClaimTypes.Role);
+		if (role == RoleEnum.Admin.ToString())
+			return View("AdminCompleteRegistration");
+		return View("CompleteRegistration");
+    }
+
+	[HttpPost, Authorize]
+    public async Task<IActionResult> AdminCompleteRegistration([FromForm] AdminCompleteRegistrationModel model)
+    {
+		_logger.LogInformation("In complete registration");
+		if (ModelState.IsValid) {
+			try {
+				await _loginService.AdminCompleteRegistration(User.Identity.Name, model.FullName, model.OrganizationName);
+				_logger.LogInformation("Admin complete registration");
+				return RedirectToAction("Index", "Home");
+			} catch (Exception error) {
+				_logger.LogError(error.Message);
+			}
+		}
+        return View(model);
+    }
+
+	[HttpPost, Authorize]
+    public async Task<IActionResult> CompleteRegistration([FromForm] CompleteRegistrationModel model)
+    {
+		if (ModelState.IsValid) {
+			try {
+				await _loginService.CompleteRegistration(User.Identity.Name, model.Password, model.ConfirmPassword);
+				_logger.LogInformation("User complete registration");
+				return RedirectToAction("Index", "Home");
+			} catch (Exception error) {
+				_logger.LogError(error.Message);
+			}
+		}
+        return View(model);
     }
 
 

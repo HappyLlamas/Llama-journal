@@ -32,9 +32,9 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task CreateUser(string email, string fullname)
+    public async Task CreateUser(string email, string password, RoleEnum role)
     {
-        var user = new User { Email = email, FullName = fullname };
+        var user = new User { Email = email, Password = password, Role = role };
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
         return;

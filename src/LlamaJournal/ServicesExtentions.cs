@@ -18,5 +18,6 @@ public static class ServicesExtentions
         services.AddScoped<IGradeRepository, GradeRepository>();
         services.AddScoped<IGroupRepository, GroupRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IOrganizationRepository, OrganizationRepository>();
     }
 }

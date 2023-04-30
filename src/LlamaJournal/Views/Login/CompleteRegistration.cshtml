@@ -1,4 +1,4 @@
-@model llama_journal.Models.SignupViewModel
+@model llama_journal.Models.CompleteRegistrationModel
 @{
     ViewBag.Title = "Продовження реєстрації";
     Layout = null;
@@ -10,17 +10,8 @@
 	<link href= "~/css/panel.css" rel="stylesheet" type="text/css"/>
 </head>
 <div class="center">
-	<form class="w-25 panel" method="post" asp-controller="Login" asp-action="SignUp">
-		<h1>Створення організації</h1>
-		<div class="form-floating">
-			<input class="form-control item" type="email" name="Email" id="email" placeholder="Електрона пошта" required>
-			@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-			<label for="Email">Електрона пошта</label>
-		</div>
-		<div class="form-floating">
-			<input class="form-control item" type="text" name="FullName" maxlength="50" minlength="4" id="FullName" placeholder="ПІБ" required>
-			<label for="FullName">ПІБ</label>
-		</div>
+	<form class="w-25 panel" method="post" asp-controller="Login" asp-action="CompleteRegistration">
+		<h1>Продовження реєстрації</h1>
 		<div class="form-floating">
 			<input class="form-control item" type="password" name="Password" minlength="6" id="Password" placeholder="Пароль" required>
 			@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
@@ -31,7 +22,7 @@
 			@Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
 			<label for="ConfirmPassword">Підтвердіть пароль</label>
 		</div>
-		<button class="btn btn-primary btn-block create-account w-100" type="submit" >Зареєструватись</button>
+		<button class="btn btn-primary btn-block create-account w-100" type="submit" >Продовжити</button>
 	</form>
 </div>
 

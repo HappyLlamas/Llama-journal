@@ -55,9 +55,9 @@ public class UserService: IUserService
 
         await _userRepository.Update(user);
     }
-    public async Task CreateUser(string email, string fullname)
+    public async Task CreateUser(string email, string password, RoleEnum role)
     {
-        await _userRepository.CreateUser(email, fullname);
+        await _userRepository.CreateUser(email, password, role);
 	}
 }
 

@@ -11,4 +11,7 @@ public class Organization
 
     [MaxLength(250)]
     public string Name { get; set; } = null!;
+
+	public ICollection<Group> Groups { get; set; } = new List<Group>();
+
 }
