@@ -10,6 +10,7 @@ public static class ServicesExtentions
         services.AddScoped<IGradeService, GradesService>();
         services.AddScoped<ILoginService, LoginService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAnalysisService, AnalysisService>();
     }
 
     public static void AddDataLayerServices(this IServiceCollection services)

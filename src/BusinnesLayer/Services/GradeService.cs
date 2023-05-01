@@ -63,30 +63,6 @@ public class GradesService: IGradeService
 
         return result;
     }
-
-    public async Task<List<Grade>> GetGradesForUser(string userId, int disciplineId)
-    {
-        var user = await _userRepository.GetById(userId);
-        var discipline = await _disciplineRepository.GetById(disciplineId);
-
-		if(discipline == null)
-			throw new Exception($"Discipline with id {disciplineId} not found");
-
-		if(user == null)
-			throw new Exception($"User with id {userId} not found");
-
-        return await _gradeRepository.GetGradesForUser(discipline, user);
-    }
-    public async Task<GradesDetailModel> GetGradesDetail(string userId, int disciplineId)
-    {
-		var grades = await this.GetGradesForUser(userId, disciplineId);
-		return new GradesDetailModel{
-			averageScore=grades.Average(g => g.Score),
-			maxScore=grades.Max(g => g.Score),
-			minScore=grades.Min(g => g.Score),
-			numGrades=grades.Count,
-		};
-    }
     public async Task<string> GetFileWithGrades(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
     {
         var user = await _userRepository.GetById(userId);

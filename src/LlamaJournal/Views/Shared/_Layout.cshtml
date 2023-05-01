@@ -32,7 +32,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center">
       <ul class="navbar-nav nav-fill">
         <li class="nav-item active">
-          <a class="nav-link" href="@Url.Action("Index", "PerformanceAnalysis")">Аналіз Успішності</a>
+          <a class="nav-link" href="@Url.Action("Index", "Analysis")">Аналіз Успішності</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="@Url.Action("Index", "ItemManagement")">Підсумкові бали</a>
@@ -52,7 +52,7 @@
   </nav>
 }
 
-@if (ViewBag.Title == "PerformanceAnalysis")
+@if (ViewBag.Title == "Analysis")
 {
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" style="padding-left: 20px;">@ViewBag.Title</a>
@@ -62,7 +62,7 @@
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Вибрати оцінування
         </a>
-        <form method="get" asp-controller="PerformanceAnalysis" asp-action="Index" >
+        <form method="get" asp-controller="Analysis" asp-action="Index" >
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#" > Середнє Арифметичне </a>
             <a class="dropdown-item" href="#"> Успішні предмети </a>

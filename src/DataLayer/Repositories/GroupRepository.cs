@@ -21,6 +21,10 @@ public class GroupRepository : IGroupRepository
     {
 		return await _context.Groups.FirstOrDefaultAsync(g => g.Id == id);
     }
+	public async Task<List<User>> GetUsersInGroup(Group group)
+	{
+		return await _context.Users.Include(u => u.Group).Where(u => u.Group.Id == group.Id).ToListAsync();
+	}
 
     public async Task Add(Group group)
     {
