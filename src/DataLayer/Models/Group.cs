@@ -16,4 +16,5 @@ public class Group
     public Organization Organization { get; set; } = null!;
 
     public ICollection<Discipline> Disciplines { get; set; } = new List<Discipline>();
+    public ICollection<User> Users { get; set; } = new List<User>();
 }

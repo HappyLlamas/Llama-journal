@@ -1,0 +1,32 @@
+@model IList<llama_journal.Models.AnalysisUserModel>
+
+@{
+    ViewBag.Title = "Analysis";
+    Layout = "_Layout";
+}
+
+<head>
+    <title>People List</title>
+	<link href= "~/css/analysis.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<h6 style="text-align: center; padding: 10px">@Model[0].Group</h6>
+<div class="table-container">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Marks</th>
+        </tr>
+        @foreach (var person in Model)
+        {
+            <tr>
+                <td>@person.Id</td>
+                <td>@person.FullName</td>
+                <td>@person.Group</td>
+            </tr>
+        }
+        
+    </table>
+</div>
+<br/>
