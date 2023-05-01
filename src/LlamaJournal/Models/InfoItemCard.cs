@@ -1,15 +1,19 @@
-namespace llama_journal.Controllers;
+// <copyright file="InfoItemCard.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public class InfoItemCard
+namespace LlamaJournal.Models
 {
-    public string Subject { get; set; }
-
-    public string Group { get; set; }
-    
-
-    public InfoItemCard(string subject, string group)
+    public class InfoItemCard
     {
-        Subject = subject;
-        Group = group;
+        public InfoItemCard(string subject, string group)
+        {
+            this.Subject = subject;
+            this.Group = group;
+        }
+
+        public string Subject { get; set; }
+
+        public string Group { get; set; }
     }
 }

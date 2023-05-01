@@ -1,29 +1,37 @@
-using DataLayer.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using BusinnesLayer.Services;
+// <copyright file="ItemManagementController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace llama_journal.Controllers
+using LlamaJournal.Models;
+
+namespace LlamaJournal.Controllers
 {
+    using BusinnesLayer.Services;
+
+    /// <inheritdoc />
     [Authorize(Roles = "Teacher, Admin")]
     public class ItemManagementController : Controller
     {
-        private readonly IUserService _userService;
         private readonly IDisciplineService _disciplineService;
-        private readonly IGradeService _gradeService;
 
-        public ItemManagementController(IUserService userService, IDisciplineService disciplineService, IGradeService gradeService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemManagementController"/> class.
+        /// </summary>
+        /// <param name="disciplineService"> discipline. </param>
+        public ItemManagementController(IDisciplineService disciplineService)
         {
-            _userService = userService;
-			_disciplineService = disciplineService;
-			_gradeService = gradeService;
+            this._disciplineService = disciplineService;
         }
 
+        /// <summary>
+        /// Index.
+        /// </summary>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<IActionResult> Index()
         {
             // дисципліни, які веде викладач
             var userId = "myId";
-            var disciplines = await _disciplineService.GetAllDisciplines(userId);
+            await this._disciplineService.GetAllDisciplines(userId);
             var infoItemCards = new List<InfoItemCard>
             {
                 new InfoItemCard("phycics", "PMI-35"),
@@ -31,20 +39,17 @@ namespace llama_journal.Controllers
                 new InfoItemCard("phycics", "PMI-35"),
                 new InfoItemCard("phycics", "PMI-35"),
             };
-            return View(infoItemCards);
+            return this.View(infoItemCards);
         }
 
-
-        public async void AddGrade(int id)
-        {
-            // добавлення оцінки у бд для конкрентого юзера
-        }
-        
+        // public async void AddGrade(int id)
+        // {
+        //     // добавлення оцінки у бд для конкрентого юзера
+        // }
     }
 }
 
 
-//
 // [HttpGet]
 // public IActionResult DescribeMarks()
 // {
