@@ -32,7 +32,7 @@ namespace LlamaJournal.Controllers
         /// <param name="model"> model. </param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpGet]
-        public async Task<IActionResult> Index(GradesViewModel model)
+        public async Task<IActionResult> Index()
         {
             this._logger.LogInformation("Logged in user id: " + this.User.Identity!.Name);
 
@@ -50,9 +50,5 @@ namespace LlamaJournal.Controllers
             return this.View(cards);
         }
 
-        // public class GradesViewModel
-        // {
-        //     public int disciplineId;
-        // }
     }
 }
