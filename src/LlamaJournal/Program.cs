@@ -28,6 +28,7 @@ builder.Services.AddBusinessLayerServices();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
 	options => 	{
 		options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login");
+		options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/");
 	}
 );
 builder.Services.AddControllersWithViews();

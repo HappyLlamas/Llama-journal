@@ -34,10 +34,9 @@ public class UserRepository : IUserRepository
 
     public async Task CreateUser(string email, string password, RoleEnum role)
     {
-        var user = new User { Email = email, Password = password, Role = role };
+        var user = new User { Id = email, Email = email, Password = password, Role = role };
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
-        return;
     }
 
     public async Task DeleteUser(User user)
