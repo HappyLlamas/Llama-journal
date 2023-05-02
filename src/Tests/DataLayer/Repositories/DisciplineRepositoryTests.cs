@@ -82,11 +82,11 @@
 //     {
 //         Discipline testDiscipline = this.DisciplineRepository.GetById(id: (int)TestDiscipline.Id);
 //         testDiscipline.Name = "Changed";
-//         this.DisciplineRepository.Update(testDiscipline);
+//         this.DisciplineRepository.UpdateUser(testDiscipline);
 //         List<Discipline> testGroups = this.DisciplineRepository.GetAll();
 //         Assert.Null(testGroups.Find(g => g.Name == this.TestDiscipline.Name));
 //         testDiscipline.Name = "Admins";
-//         this.DisciplineRepository.Update(TestDiscipline);
+//         this.DisciplineRepository.UpdateUser(TestDiscipline);
 //         return;
 //     }
 // }

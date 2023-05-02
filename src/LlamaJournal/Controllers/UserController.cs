@@ -45,7 +45,7 @@ namespace llama_journal.Controllers
         {
             
             var user = new User{Id = Guid.NewGuid().ToString(), Email = email, FullName = fullname,
-                Role = RoleEnum.User, Password = password};
+                Role = Enum.Parse<RoleEnum>(role), Password = password};
             await _userService.CreateUser(user);
             
             return View();
@@ -59,7 +59,8 @@ namespace llama_journal.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, string email, string fullname, string role, string group)
         {
-            var user = _userService.GetUser(id);
+            var user = await _userService.GetUser(id);
+            await _userService.EditUser(user);
 
             if (!ModelState.IsValid)
             {
@@ -75,20 +76,12 @@ namespace llama_journal.Controllers
         }
         
         [HttpPost]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var user = _userService.GetUser(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            var user = await _userService.GetUser(id);
+            await _userService.DeleteUser(user);
             return View();
         }
 
     }
-    
 }
-
-
-        
-

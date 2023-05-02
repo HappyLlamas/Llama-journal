@@ -17,13 +17,7 @@
 <div class="center">
 	<form class="w-25 panel" id="loginForm" method="post" asp-controller="UserAccountController" asp-action="Index">
 		<h1>Cтворення</h1>
-		
-		<div class="form-floating">
-			<input class="form-control item" name="id" placeholder="Id" id="id" required>
-			@Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
-			<label for="id">Id</label>
-		</div>
-		
+
 		<div class="form-floating">
 			<input class="form-control item" name="email" placeholder="Електронна пошта" id="email" required>
 			@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -37,10 +31,16 @@
 		</div>
 		
 		<div class="form-floating">
-			<input class="form-control item" name="role" placeholder="роль" id="role" required>
-			@Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
-			<label for="role">Роль</label>
+		    <select class="form-select" name="role" id="role" required>
+		        <option value="">Оберіть роль</option>
+		        <option value="User">Користувач</option>
+		        <option value="Teacher">Викладач</option>
+		        <option value="Admin">Адміністратор</option>
+		    </select>
+		    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+		    <label for="role">Роль</label>
 		</div>
+
 
 		<div class="form-floating">
 			<input class="form-control item" name="group" placeholder="група" id="group" required>

@@ -89,7 +89,8 @@ public class LoginController : Controller
         var role = User.FindFirstValue(ClaimTypes.Role);
 		if (role == RoleEnum.Admin.ToString())
 			return RedirectToAction("AdminCompleteRegistration");
-		return View("CompleteRegistration");
+		
+		return this.View("CompleteRegistration");
     }
 
 	[HttpGet, Authorize]
@@ -101,7 +102,7 @@ public class LoginController : Controller
 	[HttpPost, Authorize]
     public async Task<IActionResult> AdminCompleteRegistration([FromForm] AdminCompleteRegistrationModel model)
     {
-		_logger.LogInformation("In complete registration");
+	    _logger.LogInformation("In complete registration");
 		if (ModelState.IsValid) {
 			try {
 				await _loginService.AdminCompleteRegistration(User.Identity.Name, model.FullName, model.OrganizationName);
@@ -113,7 +114,8 @@ public class LoginController : Controller
 		}
         return View(model);
     }
-
+    
+    
 	[HttpPost, Authorize]
     public async Task<IActionResult> CompleteRegistration([FromForm] CompleteRegistrationModel model)
     {

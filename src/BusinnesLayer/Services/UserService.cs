@@ -41,7 +41,7 @@ public class UserService: IUserService
 
 		user.Group = group;
 
-		await _userRepository.Update(user);
+		await _userRepository.UpdateUser(user);
     }
 
     public async Task SetUserRole(string userId, RoleEnum role)
@@ -53,11 +53,23 @@ public class UserService: IUserService
 
 		user.Role = role;
 
-        await _userRepository.Update(user);
+        await _userRepository.UpdateUser(user);
     }
     public async Task CreateUser(User user)
     {
         await _userRepository.CreateUser(user);
 	}
+    public async Task EditUser(User user)
+    {
+	    if (user == null)
+		    return;
+	    await _userRepository.UpdateUser(user);
+    }
+    public async Task DeleteUser(User user)
+    {
+	    if (user == null)
+		    return;
+	    await _userRepository.DeleteUser(user);
+    }
 }
 

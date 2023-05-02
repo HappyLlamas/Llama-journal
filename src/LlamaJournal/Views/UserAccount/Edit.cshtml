@@ -25,25 +25,25 @@
 		</div>
 		
 		<div class="form-floating">
-			<input class="form-control item" name="email" placeholder="Електронна пошта" id="email" required>
+			<input class="form-control item" name="email" placeholder="Електронна пошта" id="email" >
 			@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 			<label for="email">Електронна пошта</label>
 		</div>
 		
 		<div class="form-floating">
-			<input class="form-control item" name="fullName" placeholder="ПІБ" id="fullname" required>
+			<input class="form-control item" name="fullName" placeholder="ПІБ" id="fullname" >
 			@Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
 			<label for="fullname">ПІБ</label>
 		</div>
 		
 		<div class="form-floating">
-			<input class="form-control item" name="role" placeholder="роль" id="role" required>
+			<input class="form-control item" name="role" placeholder="роль" id="role" >
 			@Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
 			<label for="role">Роль</label>
 		</div>
 
 		<div class="form-floating">
-			<input class="form-control item" name="group" placeholder="група" id="group" required>
+			<input class="form-control item" name="group" placeholder="група" id="group" >
 			@Html.ValidationMessageFor(model => model.Group, "", new { @class = "text-danger" })
 			<label for="group">Група</label>
 		</div>

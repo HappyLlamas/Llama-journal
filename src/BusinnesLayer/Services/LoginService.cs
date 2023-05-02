@@ -29,7 +29,7 @@ public class LoginService: ILoginService
 		// TODO: hash password
 		user.Password = password;
 		user.CompleteRegistration = true;
-        await _userRepository.Update(user);
+        await _userRepository.UpdateUser(user);
     }
 
     public async Task AdminCompleteRegistration(string userId, string fullName, string organizationName)
@@ -43,7 +43,7 @@ public class LoginService: ILoginService
 		user.FullName = fullName;
 		user.CompleteRegistration = true;
 
-		await _userRepository.Update(user);
+		await _userRepository.UpdateUser(user);
     }
 
     public async Task SignUp(string email, string password, string confirmPassword)
@@ -94,6 +94,6 @@ public class LoginService: ILoginService
             throw new ArgumentException("Restore token is incorrect");
 
 		user.Password = password;
-        await _userRepository.Update(user);
+        await _userRepository.UpdateUser(user);
     }
 }
