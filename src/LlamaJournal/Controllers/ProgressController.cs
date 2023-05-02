@@ -1,50 +1,54 @@
-using BusinnesLayer.Services;
-using llama_journal.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+// <copyright file="ProgressController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
+using LlamaJournal.Models;
 
-namespace llama_journal.Controllers
+namespace LlamaJournal.Controllers
 {
+    using BusinnesLayer.Services;
 
-	[Authorize]
+    /// <inheritdoc />
+    [Authorize]
     public class ProgressController : Controller
     {
         private readonly IGradeService _gradeService;
-        private readonly IUserService _userService;
-		private readonly ILogger _logger;
+        private readonly ILogger _logger;
 
-        public ProgressController(IGradeService gradeService, IUserService userService, ILogger<ProgressController> logger)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProgressController"/> class.
+        /// </summary>
+        /// <param name="gradeService"> grade. </param>
+        /// <param name="logger"> logger. </param>
+        public ProgressController(IGradeService gradeService, ILogger<ProgressController> logger)
         {
-            _gradeService = gradeService;
-            _userService = userService;
-			_logger = logger;
+            this._gradeService = gradeService;
+            this._logger = logger;
         }
 
+        /// <summary>
+        /// Index.
+        /// </summary>
+        /// <param name="model"> model. </param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpGet]
-        public async Task<IActionResult> Index(GradesViewModel model)
+        public async Task<IActionResult> Index()
         {
-			_logger.LogInformation("Logged in user id: " + User.Identity.Name);
+            this._logger.LogInformation("Logged in user id: " + this.User.Identity!.Name);
 
-			var grades = await _gradeService.GetGradesForUser(User.Identity.Name);
-			var cards = new List<Card>();
-			foreach(var grade in grades) {
-				cards.Add(new Card(
-					grade.disciplineName,
-					grade.teacherName,
-					grade.totalGrades
-				));
-			}
-			_logger.LogInformation("Count of cards in ProgressIndex: " + cards.Count.ToString());
-            return View(cards);
+            var grades = await this._gradeService.GetGradesForUser(this.User.Identity!.Name ?? string.Empty);
+            var cards = new List<Card>();
+            foreach (var grade in grades)
+            {
+                cards.Add(new Card(
+                    grade.disciplineName,
+                    grade.teacherName,
+                    grade.totalGrades));
+            }
+
+            this._logger.LogInformation("Count of cards in ProgressIndex: " + cards.Count.ToString());
+            return this.View(cards);
         }
 
-
-        public class GradesViewModel
-        {
-            public int disciplineId;
-        }
     }
-
 }
-

@@ -1,32 +1,49 @@
-using BusinnesLayer.Services;
-using Microsoft.AspNetCore.Mvc;
+// <copyright file="UserController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace llama_journal.Controllers
+namespace LlamaJournal.Controllers
 {
+    using BusinnesLayer.Services;
+
+    /// <inheritdoc />
     public class UserController : Controller
     {
         private readonly IUserService _userService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// </summary>
+        /// <param name="userService"> user. </param>
         public UserController(IUserService userService)
         {
-            _userService = userService;
+            this._userService = userService;
         }
 
+        /// <summary>
+        /// Index.
+        /// </summary>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<IActionResult> Index()
         {
-            var users = await _userService.GetUsers();
-            return View(users);
+            var users = await this._userService.GetUsers();
+            return this.View(users);
         }
 
+        /// <summary>
+        /// Details.
+        /// </summary>
+        /// <param name="id"> id. </param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<IActionResult> Details(string id)
         {
-            var user = await _userService.GetUser(id);
-            return View(user);
+            var user = await this._userService.GetUser(id);
+            return this.View(user);
         }
 
         public IActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
         // public IActionResult Edit(string id)
