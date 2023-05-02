@@ -4,11 +4,11 @@
 
     public class AdminCompleteRegistrationModel
     {
-        public AdminCompleteRegistrationModel(string fullName, string organizationName)
-        {
-            this.FullName = fullName;
-            this.OrganizationName = organizationName;
-        }
+        // public AdminCompleteRegistrationModel(string fullName, string organizationName)
+        // {
+        //     this.FullName = fullName;
+        //     this.OrganizationName = organizationName;
+        // }
 
         [Required]
         [Display(Name = "Full Name")]

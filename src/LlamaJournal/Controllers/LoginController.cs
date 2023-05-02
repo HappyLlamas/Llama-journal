@@ -94,6 +94,7 @@ namespace LlamaJournal.Controllers
                 catch (Exception error)
                 {
                     this._logger.LogError(error.Message);
+                    this.TempData["Error"] = error.Message;
                 }
             }
 

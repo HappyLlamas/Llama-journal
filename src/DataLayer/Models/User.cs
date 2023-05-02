@@ -24,8 +24,7 @@ public class User
     [Required]
     public RoleEnum Role { get; set; } = RoleEnum.User;
 
-    [Required]
-    public Group Group { get; set; } = null!;
+    public Group? Group { get; set; }
 
     [Required]
     [DataType(DataType.Password)]

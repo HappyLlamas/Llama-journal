@@ -4,11 +4,11 @@
 
     public class CompleteRegistrationModel
     {
-        public CompleteRegistrationModel(string password, string confirmPassword)
-        {
-            this.Password = password;
-            this.ConfirmPassword = confirmPassword;
-        }
+        // public CompleteRegistrationModel(string password, string confirmPassword)
+        // {
+        //     this.Password = password;
+        //     this.ConfirmPassword = confirmPassword;
+        // }
 
         [Required]
         [DataType(DataType.Password)]
