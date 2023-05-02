@@ -63,6 +63,36 @@ public class GradesService: IGradeService
 
         return result;
     }
+
+    public async Task<List<Grade>> GetGradesForUser(string userId, int disciplineId)
+    {
+        var user = await _userRepository.GetById(userId);
+        var discipline = await _disciplineRepository.GetById(disciplineId);
+
+		if(discipline == null)
+			throw new Exception($"Discipline with id {disciplineId} not found");
+
+		if(user == null)
+			throw new Exception($"User with id {userId} not found");
+
+        return await _gradeRepository.GetGradesForUser(discipline, user);
+    }
+    public async Task<GradesDetailModel> GetGradesDetail(string userId, int disciplineId)
+    {
+		var grades = await this.GetGradesForUser(userId, disciplineId);
+        
+        if (grades.Count == 0)
+        {
+            return new GradesDetailModel();
+        }
+
+		return new GradesDetailModel{
+			averageScore=grades.Average(g => g.Score),
+			maxScore=grades.Max(g => g.Score),
+			minScore=grades.Min(g => g.Score),
+			numGrades=grades.Count,
+		};
+    }
     public async Task<string> GetFileWithGrades(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime)
     {
         var user = await _userRepository.GetById(userId);
@@ -80,26 +110,6 @@ public class GradesService: IGradeService
         string filename = "";
 
         return filename;
-    }
-    public async Task<Dictionary<string, string>> GetGradesForAllUserDisciplines(string userId, DateTime startDatetime, DateTime endDatetime)
-    {
-        var user = await _userRepository.GetById(userId);
-
-		if(user == null)
-			throw new Exception($"User with id {userId} not found");
-
-        var disciplines = await _disciplineRepository.GetAll();
-
-        var result = new Dictionary<string, string>();
-        foreach (var discipline in disciplines) {
-            List<Grade> grades = await _gradeRepository.GetGradesForUserInPeriod(discipline, user, startDatetime, endDatetime);
-            if (grades.Any()) {
-                double average = grades.Average(g => g.Score);
-                result.Add(discipline.Name, average.ToString());
-            }
-        }
-
-        return result;
     }
     public async Task AddGrade(string userId, int score, DateTime date)
     {
