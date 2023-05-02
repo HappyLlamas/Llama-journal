@@ -4,22 +4,42 @@
     ViewBag.Title = "ItemManagement";
     Layout = "_Layout";
 }
+
 <head>
     <link href="~/css/ItemManagement.css" rel="stylesheet"/>
+    <script>
+        function showForm(cardId) {
+            var form = document.getElementById("form-" + cardId);
+            form.style.display = "block";
+        }
+    </script>
 </head>
 
 <div class="cards_info">
     <div class="row_cards_info">
         @foreach (var card in Model)
         {
-            <div class="card" style="padding: 10px; padding-top: 20px;padding-bottom: 20px;">
-                <div class="card-header">
-                    <h5 class="card-title">@card.Subject</h5>
+            <div class="card flex" style="padding: 10px; padding-top: 20px;padding-bottom: 20px"
+                 onclick="showForm('@card.DisciplineId')">
+                <div class="card-header" >
+                    <h5 class="card-title">@card.Group</h5>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">@card.Group</p>
+                <div class="card-body" >
+                    <p class="card-text">@card.Subject - @card.Name</p>
                 </div>
             </div>
+            <form id="form-@card.DisciplineId" method="post" asp-controller="ItemManagement" asp-action="AddGrade" style="display: none;">
+                <label for="numberInput">Оцінка:</label>
+                <input style="margin-left: 55px" type="number" id="numberInput" name="score" required>
+                <br>
+                <label for="textInput">Повідомлення:</label>
+                <input type="text" id="message" name="textInput">
+                <br>
+                <button type="submit" style="margin-left: 55px">Submit</button>
+                <button type="button" style="margin-left: 55px"
+                        onclick="document.getElementById('form-@card.DisciplineId').style.display = 'none'">Вихід</button>
+            </form>
+
         }
     </div>
 </div>

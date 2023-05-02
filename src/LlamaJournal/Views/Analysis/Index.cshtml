@@ -1,4 +1,4 @@
-@model IList<LlamaJournal.Models.AnalysisUserModel>
+@model List<llama_journal.Models.AnalysisUserModel>
 
 @{
     ViewBag.Title = "Analysis";
@@ -14,19 +14,28 @@
 <div class="table-container">
     <table>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Marks</th>
+            <th>Номер</th>
+            <th>Ім'я</th>
+            <th>Роль</th>
         </tr>
         @foreach (var person in Model)
         {
             <tr>
                 <td>@person.Id</td>
                 <td>@person.FullName</td>
-                <td>@person.Group</td>
+                <td>@person.Role</td>
             </tr>
         }
         
     </table>
+    
+    @if (@Model[0].analysisModel != -1)
+    {
+        <div style="text-align: center; padding: 30px; border: 2px solid black; width: 200px; height: 50px; margin: 0 auto;">
+            @Model[0].nameAnalysisModel: @Model[0].analysisModel
+        </div>
+    }
+
+
 </div>
 <br/>

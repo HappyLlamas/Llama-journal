@@ -1,52 +1,55 @@
-// <copyright file="AnalysisController.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+using BusinnesLayer.Models;
+using BusinnesLayer.Services;
+using llama_journal.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
-using LlamaJournal.Models;
 
-namespace LlamaJournal.Controllers
+namespace llama_journal.Controllers;
+
+[Authorize]
+public class AnalysisController: Controller
 {
-    using BusinnesLayer.Services;
+	private readonly IDisciplineService _disciplineService;
+    private readonly IAnalysisService _analysisService;
+	private readonly ILogger _logger;
 
-    /// <inheritdoc />
-    [Authorize]
-    public class AnalysisController : Controller
+    public AnalysisController(IAnalysisService analysisService, ILogger<AnalysisController> logger, 
+	    IDisciplineService disciplineService)
     {
-        private readonly IAnalysisService _analysisService;
-        private readonly ILogger _logger;
+        _analysisService = analysisService;
+		_logger = logger;
+		_disciplineService = disciplineService;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AnalysisController"/> class.
-        /// </summary>
-        /// <param name="analysisService"> analysisService. </param>
-        /// <param name="logger"> logger. </param>
-        public AnalysisController(IAnalysisService analysisService, ILogger<AnalysisController> logger)
-        {
-            this._analysisService = analysisService;
-            this._logger = logger;
-        }
+    [HttpGet]
+	public async Task<IActionResult> Index(string selectedValue="") 
+    {
+		_logger.LogInformation("Index page");
+        var users = await _analysisService.GetUsersForGroup(User.Identity.Name);
 
-        /// <summary>
-        /// Index.
-        /// </summary>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            this._logger.LogInformation("Index page");
-            var users = await this._analysisService.GetUsersForGroup(this.User.Identity!.Name ?? string.Empty);
+		_logger.LogInformation("User group: " + users[0].Group.Name);
+		var result = new List<AnalysisUserModel>(users.Count);
+		var analysis = await _analysisService.GetAnalysis(User.Identity.Name);
 
-            this._logger.LogInformation("User group: " + users[0].Group.Name);
-            var result = new List<AnalysisUserModel>(users.Count);
 
-            foreach (var user in users)
-            {
-                result.Add(new AnalysisUserModel(user));
-            }
 
-            this._logger.LogInformation("Result count: " + result.Count.ToString());
+		foreach (var user in users)
+		{
+			if (selectedValue == "average")
+				result.Add(new AnalysisUserModel(user, analysis.AverageScore, selectedValue));
+			else if (selectedValue == "successful")
+				result.Add(new AnalysisUserModel(user, analysis.PassingGrades, selectedValue));
+			else if (selectedValue == "unsuccessful")
+				result.Add(new AnalysisUserModel(user, analysis.FailingGrades, selectedValue));
+			else
+				result.Add(new AnalysisUserModel(user, -1, selectedValue));
+			}
 
-            return this.View(result);
-        }
+	
+		_logger.LogInformation("Result count: " + result.Count.ToString());
+
+        return this.View(result);
     }
 }
+

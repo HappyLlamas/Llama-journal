@@ -29,7 +29,7 @@ public class LoginService: ILoginService
 		// TODO: hash password
 		user.Password = password;
 		user.CompleteRegistration = true;
-        await _userRepository.Update(user);
+        await _userRepository.UpdateUser(user);
     }
 
     public async Task AdminCompleteRegistration(string userId, string fullName, string organizationName)
@@ -43,7 +43,7 @@ public class LoginService: ILoginService
 		user.FullName = fullName;
 		user.CompleteRegistration = true;
 
-		await _userRepository.Update(user);
+		await _userRepository.UpdateUser(user);
     }
 
     public async Task SignUp(string email, string password, string confirmPassword)
@@ -54,7 +54,8 @@ public class LoginService: ILoginService
 		if (await _userRepository.FindByEmail(email) != null)
 			throw new InvalidDataException("Юзер з таким email вже існує");
 
-	    await _userRepository.CreateUser(email, password, RoleEnum.Admin);
+	    await _userRepository.CreateUser( new User{Id = email,  Email = email,
+		     Role = RoleEnum.Admin,  Password = password});
     }
     public async Task<ClaimsIdentity> Login(String email, String password)
 	{
@@ -93,6 +94,6 @@ public class LoginService: ILoginService
             throw new ArgumentException("Restore token is incorrect");
 
 		user.Password = password;
-        await _userRepository.Update(user);
+        await _userRepository.UpdateUser(user);
     }
 }

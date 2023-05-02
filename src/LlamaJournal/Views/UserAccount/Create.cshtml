@@ -1,0 +1,71 @@
+﻿@model LlamaJournal.Models.CreateUser
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+	string temp = "";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/css/bootstrap.css" rel="stylesheet"/>
+	<link href= "~/css/panel.css" rel="stylesheet" type="text/css"/>
+</head>
+
+
+
+<div class="center">
+	<form class="w-25 panel" id="loginForm" method="post" asp-controller="UserAccountController" asp-action="Index">
+		<h1>Cтворення</h1>
+		
+		<div class="form-floating">
+        	<input class="form-control item" name="id" placeholder="ID" id="id" required>
+        	@Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+        	<label for="id">ID</label>
+        </div>
+
+		<div class="form-floating">
+			<input class="form-control item" name="email" placeholder="Електронна пошта" id="email" required>
+			@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+			<label for="email">Електронна пошта</label>
+		</div>
+		
+		<div class="form-floating">
+			<input class="form-control item" name="fullName" placeholder="ПІБ" id="fullname" required>
+			@Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+			<label for="fullname">ПІБ</label>
+		</div>
+		
+		<div class="form-floating">
+		    <select class="form-select" name="role" id="role" required>
+		        <option value="">Оберіть роль</option>
+		        <option value="User">Користувач</option>
+			    <option value="Teacher">Викладач</option>
+			    <option value="Admin">Адміністратор</option>
+		    </select>
+		    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+		    <label for="role">Роль</label>
+		</div>
+
+		<div class="form-floating">
+		    <select class="form-select" name="group" id="group" required>
+		        <option value="">Оберіть групу</option>
+		        <option value="User">ПМІ-35</option>
+			    <option value="Teacher">ПМІ-24</option>
+			    <option value="Admin">ПМІ-33</option>
+		    </select>
+		    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+		    <label for="role">Роль</label>
+		</div>
+
+		<div class="form-floating">
+			<input class="form-control item" type="password" name="Password" placeholder="Пароль" id="password" required>
+			@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+			<label for="password">Пароль</label>
+		</div>
+		
+		<button class="btn btn-primary btn-block w-100 create-account" type="submit">Створити користувача</button>
+		<a class="card-text h3" href="@Url.Action("Index", "UserAccount")">Назад</a>
+	</form>
+</div>

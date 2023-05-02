@@ -1,3 +1,4 @@
+using System.Data;
 using DataLayer.Repositories;
 using DataLayer.Models;
 using BusinnesLayer.Models;
@@ -13,7 +14,8 @@ public class GradesService: IGradeService
     private readonly IGroupRepository _groupRepository;
 	private readonly ILogger _logger;
 
-    public GradesService(IGradeRepository gradeRepository, IUserRepository userRepository, IDisciplineRepository disciplineRipository, IGroupRepository groupRepository, ILogger<GradesService> logger)
+    public GradesService(IGradeRepository gradeRepository, IUserRepository userRepository,
+	    IDisciplineRepository disciplineRipository, IGroupRepository groupRepository, ILogger<GradesService> logger)
     {
         _gradeRepository = gradeRepository;
         _userRepository = userRepository;
@@ -80,7 +82,7 @@ public class GradesService: IGradeService
     public async Task<GradesDetailModel> GetGradesDetail(string userId, int disciplineId)
     {
 		var grades = await this.GetGradesForUser(userId, disciplineId);
-        
+
         if (grades.Count == 0)
         {
             return new GradesDetailModel();

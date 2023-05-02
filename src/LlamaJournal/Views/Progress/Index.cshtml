@@ -1,11 +1,12 @@
 @model IList<LlamaJournal.Models.Card>
+@inject BusinnesLayer.Services.GradesService GradeService
 @{
     const int rowsSize = 4;
     const int pageSize = rowsSize;
     int sum = 0;
     ViewBag.Title = "Progress";
     Layout = "_Layout";
-    <!-- var grades = await _gradeService.GetGradesForUser(User.Identity.Name); -->
+    var grades = await GradeService.GetGradesForUser(User.Identity.Name);
 }
 
 <head>

@@ -1,17 +1,25 @@
-@model DataLayer.Models.User
+﻿@model List<LlamaJournal.Models.UserCard>
 
 @{
-    ViewBag.Title = "Аккаунт";
+    ViewBag.Title = "Admin";
     Layout = "_Layout";
 }
-<form method="get" asp-controller="UserAccount" asp-action="GetInfo">
 
-    <label asp-for="FullName"></label>
-    <span asp-for="FullName"></span>
+<head>
+    <link href= "~/css/progress.css" rel="stylesheet" type="text/css"/>
+</head>
 
-    <label asp-for="Group"></label>
-    <span asp-for="Group"></span>
+<div class="row_cards_info d-flex">
+    @foreach (var card in Model)
+    {
+        <div class="card mx-3">
+            <div class="card-header">
+                <h5 class="card-title">@card.Member</h5>
+            </div>
+            <div class="card-body">
+                <a class="card-text h3" href="@Url.Action(@card.Action, "UserAccount")">@card.Action</a>
 
-    <label asp-for="Role"></label>
-    <span asp-for="Role"></span>
-</form>
+            </div>
+        </div>
+    }
+</div>

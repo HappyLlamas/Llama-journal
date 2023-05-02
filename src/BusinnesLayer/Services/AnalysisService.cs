@@ -18,25 +18,30 @@ public class AnalysisService: IAnalysisService
 		_userRepository = userRepository;
 		_disciplineRepository = disciplineRepository;
 	}
-    public async Task<GradesDetailModel> GetAnalysis(string userId, int disciplineId)
+    public async Task<AnalysisModel> GetAnalysis(string userId)
     {
 		var user = await _userRepository.GetById(userId);
-        var discipline = await _disciplineRepository.GetById(disciplineId);
-
-		if(discipline == null)
-			throw new Exception($"Discipline with id {disciplineId} not found");
 
 		if(user == null)
 			throw new Exception($"User with id {userId} not found");
+		
+		
+		var disciplines = await _disciplineRepository.GetDisciplines(user: user);
+		var gradesDetailModels = new AnalysisModel();
+		foreach (var discipline in disciplines)
+		{
+			var grades = await _gradeRepository.GetGradesForUser(discipline, user);
+			gradesDetailModels.AverageScore += grades.Sum(g => g.Score);
 
-        var grades = await _gradeRepository.GetGradesForUser(discipline, user);
+			if (grades.Sum(g => g.Score) >= 51)
+				gradesDetailModels.PassingGrades++;
+			else
+				gradesDetailModels.FailingGrades++;
+		}
 
-		return new GradesDetailModel{
-			averageScore=grades.Average(g => g.Score),
-			maxScore=grades.Max(g => g.Score),
-			minScore=grades.Min(g => g.Score),
-			numGrades=grades.Count,
-		};
+		gradesDetailModels.AverageScore /= disciplines.Count;
+
+		return gradesDetailModels;
     }
 	public async Task<List<User>> GetUsersForGroup(string userId)
 	{

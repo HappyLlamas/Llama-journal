@@ -35,16 +35,18 @@
           <a class="nav-link" href="@Url.Action("Index", "Analysis")">Аналіз Успішності</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="@Url.Action("Index", "ItemManagement")">Підсумкові бали</a>
+          <a class="nav-link" href="@Url.Action("Index", "ItemManagement")">Підсумкові бали
+          </a>
         </li>
+        
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Вибрати предмет
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Математика</a>
-            <a class="dropdown-item" href="#">Комп'ютерна інженерія</a>
-            <a class="dropdown-item" href="#">Методи оптимізації</a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Progress", new {stringOption="math"})">Математика</a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Progress", new {stringOption="computerEngineering"})">Комп'ютерна інженерія</a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Progress", new {stringOption="optimizationMmethod"})">Методи оптимізації</a>
         </div>
       </li>
       </ul>
@@ -56,36 +58,26 @@
 {
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" style="padding-left: 20px;">@ViewBag.Title</a>
-     <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center">
-    <ul class="navbar-nav nav-fill">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Вибрати оцінування
-        </a>
-        <form method="get" asp-controller="Analysis" asp-action="Index" >
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#" > Середнє Арифметичне </a>
-            <a class="dropdown-item" href="#"> Успішні предмети </a>
-            <a class="dropdown-item" href="#"> Не успішні предмети </a>
-          </div>
-        </form>
-      </li>
-      
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Вибрати предмет
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Математика</a>
-          <a class="dropdown-item" href="#">Комп'ютерна інженерія</a>
-          <a class="dropdown-item" href="#">Методи оптимізації</a>
-        </div>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="@Url.Action("Index", "Progress")">Прогрес</a>
-      </li>
-    </ul>
-    </div>
+         <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center">
+        <ul class="navbar-nav nav-fill">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Вибрати оцінування
+            </a>
+            <form method="get" asp-controller="Analysis" asp-action="Index" >
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <button class="dropdown-item" type="submit" name="selectedValue" value="average">Середнє Арифметичне</button>
+              <button class="dropdown-item" type="submit" name="selectedValue" value="successful">Успішні предмети</button>
+              <button class="dropdown-item" type="submit" name="selectedValue" value="unsuccessful">Не успішні предмети</button>
+              </div>
+            </form>
+          </li>
+          
+        <li class="nav-item active">
+          <a class="nav-link" href="@Url.Action("Index", "Progress")">Прогрес</a>
+        </li>
+      </ul>
+      </div>
   </nav>
 }
 
@@ -101,7 +93,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">По предметах</a>
-          <a class="dropdown-item" href="#">По викладачах</a>
+          <a class="dropdown-item" href="#">По групі</a>
         </div>
       </li>
       <li class="nav-item">

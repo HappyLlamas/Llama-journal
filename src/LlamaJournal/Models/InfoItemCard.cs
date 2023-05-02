@@ -1,19 +1,22 @@
-// <copyright file="InfoItemCard.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+namespace LlamaJournal.Models;
 
-namespace LlamaJournal.Models
+public class InfoItemCard
 {
-    public class InfoItemCard
+    public long DisciplineId { get; set; }
+
+    public string StudentId { get; set; }
+    public string Name { get; set; }
+    public string Subject { get; set; }
+
+    public string Group { get; set; }
+    
+
+    public InfoItemCard(long disciplineId, string studentId, string name, string subject, string group)
     {
-        public InfoItemCard(string subject, string group)
-        {
-            this.Subject = subject;
-            this.Group = group;
-        }
-
-        public string Subject { get; set; }
-
-        public string Group { get; set; }
+        DisciplineId = disciplineId;
+        Subject = subject;
+        Group = group;
+        StudentId = studentId;
+        Name = name;
     }
 }

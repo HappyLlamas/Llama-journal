@@ -1,54 +1,60 @@
-// <copyright file="ProgressController.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
+using BusinnesLayer.Services;
+using llama_journal.Models;
 using LlamaJournal.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace LlamaJournal.Controllers
+
+namespace llama_journal.Controllers
 {
-    using BusinnesLayer.Services;
 
-    /// <inheritdoc />
-    [Authorize]
+	[Authorize]
     public class ProgressController : Controller
     {
         private readonly IGradeService _gradeService;
-        private readonly ILogger _logger;
+        private readonly IUserService _userService;
+		private readonly ILogger _logger;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProgressController"/> class.
-        /// </summary>
-        /// <param name="gradeService"> grade. </param>
-        /// <param name="logger"> logger. </param>
-        public ProgressController(IGradeService gradeService, ILogger<ProgressController> logger)
+        public ProgressController(IGradeService gradeService, IUserService userService, ILogger<ProgressController> logger)
         {
-            this._gradeService = gradeService;
-            this._logger = logger;
+            _gradeService = gradeService;
+            _userService = userService;
+			_logger = logger;
         }
 
-        /// <summary>
-        /// Index.
-        /// </summary>
-        /// <param name="model"> model. </param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string chooseOption)
         {
-            this._logger.LogInformation("Logged in user id: " + this.User.Identity!.Name);
+			_logger.LogInformation("Logged in user id: " + User.Identity.Name);
 
-            var grades = await this._gradeService.GetGradesForUser(this.User.Identity!.Name ?? string.Empty);
+			var grades = await _gradeService.GetGradesForUser(User.Identity.Name);
             var cards = new List<Card>();
-            foreach (var grade in grades)
+
+            switch (chooseOption)
             {
+                case "math":
+                    grades = grades.Where(g => g.disciplineName == chooseOption).ToList();
+                    break;
+                case "computerEngineering":
+                    grades = grades.Where(g => g.disciplineName == chooseOption).ToList();
+                    break;
+                case "optimizationMmethod":
+                    grades = grades.Where(g => g.disciplineName == chooseOption).ToList();
+                    break;
+            }
+            
+            foreach(var grade in grades) {
                 cards.Add(new Card(
                     grade.disciplineName,
                     grade.teacherName,
-                    grade.totalGrades));
-            }
+                    grade.totalGrades
+				));
+			}
+			_logger.LogInformation("Count of cards in ProgressIndex: " + cards.Count.ToString());
 
-            this._logger.LogInformation("Count of cards in ProgressIndex: " + cards.Count.ToString());
-            return this.View(cards);
+            return View(cards);
         }
-
     }
+
 }
+

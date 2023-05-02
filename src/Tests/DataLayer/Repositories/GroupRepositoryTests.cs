@@ -66,11 +66,11 @@
 //     {
 //         Group testGroup = this.GroupRepository.GetById(id: 0);
 //         testGroup.Name = "Changed";
-//         this.GroupRepository.Update(testGroup);
+//         this.GroupRepository.UpdateUser(testGroup);
 //         List<Group> testGroups = this.GroupRepository.GetGroups();
 //         Assert.Null(testGroups.Find(g => g.Name == this.TestGroup.Name));
 //         testGroup.Name = "Admins";
-//         this.GroupRepository.Update(TestGroup);
+//         this.GroupRepository.UpdateUser(TestGroup);
 //         return;
 //     }
 //

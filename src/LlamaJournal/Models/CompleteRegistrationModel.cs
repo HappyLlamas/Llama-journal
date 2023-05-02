@@ -10,6 +10,11 @@
         //     this.ConfirmPassword = confirmPassword;
         // }
 
+        public CompleteRegistrationModel()
+        {
+            
+        }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

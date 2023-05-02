@@ -5,6 +5,6 @@ namespace BusinnesLayer.Services;
 
 public interface IAnalysisService
 {
-	Task<GradesDetailModel> GetAnalysis(string userId, int disciplineId);
+	Task<AnalysisModel> GetAnalysis(string userId);
 	Task<List<User>> GetUsersForGroup(string userId);
 }
