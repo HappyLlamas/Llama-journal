@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Models;
 
-[Index(nameof(Name), IsUnique = true)]
 public class Group
 {
     [Key, MaxLength(12)]
