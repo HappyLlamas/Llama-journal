@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Configuration;
 
 namespace DataLayer.Models;
 
@@ -9,7 +10,7 @@ public enum RoleEnum {
     Admin = 2,
 }
 
-[Index(nameof(Email), IsUnique = true)]
+[Microsoft.EntityFrameworkCore.Index(nameof(Email), IsUnique = true)]
 public class User
 {
     [Key, MaxLength(50)]
@@ -37,4 +38,5 @@ public class User
     public ICollection<Discipline> TeacherDisciplines { get; set; } = new List<Discipline>();
     public ICollection<Grade> Grades { get; set; } = new List<Grade>();
     
+
 }

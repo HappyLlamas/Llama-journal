@@ -2,6 +2,7 @@ using DataLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BusinnesLayer.Services;
+using LlamaJournal.Models;
 
 namespace llama_journal.Controllers
 {
@@ -44,11 +45,3 @@ namespace llama_journal.Controllers
         
     }
 }
-
-
-//
-// [HttpGet]
-// public IActionResult DescribeMarks()
-// {
-//     return View();
-// }

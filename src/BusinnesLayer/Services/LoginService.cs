@@ -54,7 +54,8 @@ public class LoginService: ILoginService
 		if (_userRepository.FindByEmail(email) != null)
 			throw new InvalidDataException("Юзер з таким email вже існує");
 
-	    await _userRepository.CreateUser(email, password, RoleEnum.Admin);
+	    await _userRepository.CreateUser( new User{Id = new Guid().ToString(),  Email = email, 
+		    FullName= "Admin",  Role = RoleEnum.Admin,  Password = password});
     }
     public async Task<ClaimsIdentity> Login(String email, String password)
 	{

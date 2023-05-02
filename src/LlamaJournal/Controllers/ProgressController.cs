@@ -54,12 +54,6 @@ namespace llama_journal.Controllers
 
             return View(cards);
         }
-
-
-        public class GradesViewModel
-        {
-            public int disciplineId;
-        }
     }
 
 }

@@ -1,4 +1,4 @@
-namespace llama_journal.Controllers;
+namespace LlamaJournal.Models;
 
 public class InfoItemCard
 {

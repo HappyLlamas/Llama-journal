@@ -1,5 +1,6 @@
 using BusinnesLayer.Services;
 using DataLayer.Models;
+using LlamaJournal.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace llama_journal.Controllers
@@ -7,6 +8,12 @@ namespace llama_journal.Controllers
     public class UserAccountController : Controller
     {
         private readonly IUserService _userService;
+        List<UserCard> actions = new List<UserCard>()
+        {
+            new UserCard("User","Create"),
+            new UserCard("User","Edit"),
+            new UserCard("User","Delete"),
+        };
 
         public UserAccountController(IUserService userService)
         {
@@ -15,12 +22,15 @@ namespace llama_journal.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var actions = new List<UserCard>()
-            {
-                new UserCard("User","Create"),
-                new UserCard("User","Edit"),
-                new UserCard("User","Delete"),
-            };
+            
+            var user = await _userService.GetUser(User.Identity.Name);
+            
+            if(!user.CompleteRegistration)
+                return RedirectToAction("CompleteRegistration", "Login");
+            
+            if(user.Role != RoleEnum.Admin)
+                return RedirectToAction("Index", "Login");
+
             return View(actions);
         }
         
@@ -31,10 +41,12 @@ namespace llama_journal.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(string email, string fullname, string role, string password, string group)
+        public async Task<IActionResult> Create(string email, string fullname, string role, string password, string group)
         {
-            // var user = new User(Guid.NewGuid().ToString(), email, fullname, role, password, group);
-            // _userService.CreateUser(user);
+            
+            var user = new User{Id = Guid.NewGuid().ToString(), Email = email, FullName = fullname,
+                Role = RoleEnum.User, Password = password};
+            await _userService.CreateUser(user);
             
             return View();
         }
@@ -75,16 +87,6 @@ namespace llama_journal.Controllers
 
     }
     
-    public class UserCard{
-        public string Action { get; set; }
-        public string Member { get; set; }
-        
-        public UserCard(string member, string action)
-        {
-            Action = action;
-            Member = member;
-        }
-    }
 }
 
 
