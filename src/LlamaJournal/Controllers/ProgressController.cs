@@ -1,5 +1,6 @@
 using BusinnesLayer.Services;
 using llama_journal.Models;
+using LlamaJournal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

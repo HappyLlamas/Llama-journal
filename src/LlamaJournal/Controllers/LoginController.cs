@@ -6,6 +6,7 @@ using System.Security.Claims;
 using llama_journal.Models;
 using Microsoft.AspNetCore.Authorization;
 using DataLayer.Models;
+using LlamaJournal.Models;
 
 
 namespace llama_journal.Controllers
