@@ -1,0 +1,29 @@
+﻿@model LlamaJournal.Models.DeleteUser
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/css/bootstrap.css" rel="stylesheet"/>
+	<link href= "~/css/panel.css" rel="stylesheet" type="text/css"/>
+</head>
+
+
+
+<div class="center">
+	<form class="w-25 panel" id="loginForm" method="post" asp-controller="UserAccountController" asp-action="Index">
+		<h1>Вхід</h1>
+		
+		<div class="form-floating">
+			<input class="form-control item" name="id" placeholder="Id" id="id" required>
+			@Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+			<label for="id">Id</label>
+		</div>
+
+		<button class="btn btn-primary btn-block w-100 create-account" type="submit">Видалити користувача</button>
+	</form>
+</div>

@@ -9,6 +9,8 @@ public interface IGradeService
 	Task EditGrade(long gradeId, int score, string? comment);
     Task<List<GradesPerDiscipline>> GetGradesForUser(string userId, DateTime? start_datetime=null, DateTime? end_datetime=null);
     Task<string> GetFileWithGrades(string userId, int disciplineId, DateTime start_datetime, DateTime end_datetime);
+
+    Task AddGrade(string userId, int score, DateTime date);
     Task<Dictionary<string, string>> GetGradesForAllUserDisciplines(string userId, DateTime startDatetime, DateTime endDatetime);
     Task<List<Grade>> GetGradesForGroup(int disciplineId, int groupId, DateTime start_datetime, DateTime end_datetime);
 }

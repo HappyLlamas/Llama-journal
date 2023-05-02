@@ -33,14 +33,16 @@
     <_ContentIncludedByDefault Remove="Pages\User\Details.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\User\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\User\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PerformanceAnalysis\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\UserAccount\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="Views\User\Create.cshtml" />
-    <AdditionalFiles Include="Views\User\Delete.cshtml" />
-    <AdditionalFiles Include="Views\User\Details.cshtml" />
-    <AdditionalFiles Include="Views\User\Edit.cshtml" />
-    <AdditionalFiles Include="Views\User\Index.cshtml" />
+    <AdditionalFiles Include="Views\UserAccount\Create.cshtml" />
+    <AdditionalFiles Include="Views\UserAccount\Delete.cshtml" />
+    <AdditionalFiles Include="Views\UserAccount\Details.cshtml" />
+    <AdditionalFiles Include="Views\UserAccount\Edit.cshtml" />
+    <AdditionalFiles Include="Views\UserAccount\Index.cshtml" />
   </ItemGroup>
 
 </Project>

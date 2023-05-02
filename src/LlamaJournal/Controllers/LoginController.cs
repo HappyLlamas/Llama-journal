@@ -85,7 +85,7 @@ public class LoginController : Controller
     [HttpGet, Authorize]
     public IActionResult CompleteRegistration()
     {
-		var role = User.FindFirstValue(ClaimTypes.Role);
+        var role = User.FindFirstValue(ClaimTypes.Role);
 		if (role == RoleEnum.Admin.ToString())
 			return RedirectToAction("AdminCompleteRegistration");
 		return View("CompleteRegistration");

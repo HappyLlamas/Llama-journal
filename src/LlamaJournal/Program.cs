@@ -1,3 +1,4 @@
+using BusinnesLayer.Services;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -9,7 +10,7 @@ builder.Host.ConfigureLogging(logging =>
 {
     logging.ClearProviders();
     logging.AddConsole();
-	logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.None);
+    logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.None);
 });
 
 // Add controllers and html templates
@@ -24,11 +25,12 @@ builder.Services.AddDbContext<ModelsContext>(options => options.UseNpgsql(builde
 
 builder.Services.AddDataLayerServices();
 builder.Services.AddBusinessLayerServices();
+builder.Services.AddScoped<GradesService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
-	options => 	{
-		options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login");
-	}
+    options => 	{
+        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login");
+    }
 );
 builder.Services.AddControllersWithViews();
 
@@ -52,7 +54,7 @@ if (builder.Environment.IsDevelopment())
 }
 else
 {
-	app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error");
 }
 
 app.UseStaticFiles();
@@ -62,8 +64,8 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-	endpoints.MapControllerRoute(
-		name: "default",
+    endpoints.MapControllerRoute(
+        name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 

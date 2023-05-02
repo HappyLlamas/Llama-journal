@@ -36,6 +36,7 @@ public class DisciplineService: IDisciplineService
 			throw new Exception($"Discipline with id {disciplineId} not found");
 
 		discipline.Groups.Add(group);
+		group.Disciplines.Add(discipline);
 		await _disciplineRepository.Update(discipline);
     }
     public async Task ChangeDisciplineDescription(int disciplineId, string description)

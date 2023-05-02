@@ -1,6 +1,4 @@
-using DataLayer.Models;
-
-namespace llama_journal.Models;
+namespace BusinnesLayer.Models;
 
 public class AnalysisModel
 {
@@ -19,24 +17,9 @@ public class AnalysisModel
         PassingGradePercentage = (passingGrades + failingGrades)/passingGrades;
         FailingGradePercentage = (passingGrades + failingGrades)/failingGrades;
     }
-}
 
-public class AnalysisUserModel
-{
-	public string Id;
-	public string FullName;
-	public string Group;
-	public RoleEnum Role;
-	public double analysisModel;
-	public string nameAnalysisModel;
-
-	public AnalysisUserModel(User user, double analysisModel, string nameAnalysisModel)
-	{
-		this.analysisModel = analysisModel;
-		this.nameAnalysisModel = nameAnalysisModel;
-		Group = user.Group.Name;
-		Id = user.Id;
-		FullName = user.FullName;
-		Role = user.Role;
-	}
+    public AnalysisModel()
+    {
+        
+    }
 }

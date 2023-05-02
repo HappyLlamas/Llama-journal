@@ -1,0 +1,54 @@
+﻿@model LlamaJournal.Models.EditUser
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Змінна даних</title>
+    <link href="~/lib/css/bootstrap.css" rel="stylesheet"/>
+	<link href= "~/css/panel.css" rel="stylesheet" type="text/css"/>
+</head>
+
+
+
+<div class="center">
+	<form class="w-25 panel" method="post" asp-controller="UserAccountController" asp-action="Index">
+		<h1>Вхід</h1>
+		
+		<div class="form-floating">
+			<input class="form-control item" name="id" placeholder="Id" id="id" required>
+			@Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+			<label for="id">Id</label>
+		</div>
+		
+		<div class="form-floating">
+			<input class="form-control item" name="email" placeholder="Електронна пошта" id="email" required>
+			@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+			<label for="email">Електронна пошта</label>
+		</div>
+		
+		<div class="form-floating">
+			<input class="form-control item" name="fullName" placeholder="ПІБ" id="fullname" required>
+			@Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+			<label for="fullname">ПІБ</label>
+		</div>
+		
+		<div class="form-floating">
+			<input class="form-control item" name="role" placeholder="роль" id="role" required>
+			@Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+			<label for="role">Роль</label>
+		</div>
+
+		<div class="form-floating">
+			<input class="form-control item" name="group" placeholder="група" id="group" required>
+			@Html.ValidationMessageFor(model => model.Group, "", new { @class = "text-danger" })
+			<label for="group">Група</label>
+		</div>
+
+		<button class="btn btn-primary btn-block w-100 create-account" type="submit">Змінити дані користувача</button>
+		<a class="card-text h3" href="@Url.Action("Index", "UserAccount")">Назад</a>
+	</form>
+</div>

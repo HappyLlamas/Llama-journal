@@ -5,7 +5,7 @@ using BusinnesLayer.Services;
 
 namespace llama_journal.Controllers
 {
-    [Authorize(Roles = "Teacher, Admin")]
+    [Authorize]
     public class ItemManagementController : Controller
     {
         private readonly IUserService _userService;
@@ -21,23 +21,25 @@ namespace llama_journal.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // дисципліни, які веде викладач
-            var userId = "myId";
+            var userId = User.Identity.Name;
+            var user = await _userService.GetUser(userId);
             var disciplines = await _disciplineService.GetAllDisciplines(userId);
-            var infoItemCards = new List<InfoItemCard>
+            //await _disciplineService.AddGroupToDiscipline(0,0);
+            var infoItemCards = new List<InfoItemCard>();
+            foreach (var discipline in disciplines)
             {
-                new InfoItemCard("phycics", "PMI-35"),
-                new InfoItemCard("phycics", "PMI-35"),
-                new InfoItemCard("phycics", "PMI-35"),
-                new InfoItemCard("phycics", "PMI-35"),
-            };
+                infoItemCards.Add(new InfoItemCard(discipline.Id, userId,user.FullName,
+                    discipline.Name, user.Group.Name));
+            }
+            infoItemCards.Add(new InfoItemCard(1,"nooo","Ira", "listening", "PMI-34"));
             return View(infoItemCards);
         }
 
-
-        public async void AddGrade(int id)
+        [HttpPost]
+        public async void AddGrade(int disciplineId, string studentId, int score, string message="")
         {
-            // добавлення оцінки у бд для конкрентого юзера
+            var userId = User.Identity.Name;
+            await _gradeService.AddGrade(userId, score, DateTime.Now);
         }
         
     }

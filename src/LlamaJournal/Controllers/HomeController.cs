@@ -23,7 +23,7 @@ namespace llama_journal.Controllers
 			switch(user.Role)
 			{
 				case RoleEnum.Admin:
-					return RedirectToAction("Index", "Progress");
+					return RedirectToAction("Index", "UserAccount");
 				case RoleEnum.Teacher:
 					return RedirectToAction("Index", "Progress");
 				case RoleEnum.User:
