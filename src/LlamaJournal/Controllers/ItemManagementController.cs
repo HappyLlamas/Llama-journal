@@ -5,7 +5,7 @@ using BusinnesLayer.Services;
 
 namespace llama_journal.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Teacher")]
     public class ItemManagementController : Controller
     {
         private readonly IUserService _userService;

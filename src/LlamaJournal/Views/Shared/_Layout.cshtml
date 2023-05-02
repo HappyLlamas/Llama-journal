@@ -35,16 +35,17 @@
           <a class="nav-link" href="@Url.Action("Index", "Analysis")">Аналіз Успішності</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="@Url.Action("Index", "ItemManagement")">Підсумкові бали</a>
+          <a class="nav-link" href="@Url.Action("Index", "ItemManagement")">Підсумкові бали
+          </a>
         </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Вибрати предмет
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Математика</a>
-            <a class="dropdown-item" href="#">Комп'ютерна інженерія</a>
-            <a class="dropdown-item" href="#">Методи оптимізації</a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Progress", new {stringOption="math"})">Математика</a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Progress", new {stringOption="computerEngineering"})">Комп'ютерна інженерія</a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Progress", new {stringOption="optimizationMmethod"})">Методи оптимізації</a>
         </div>
       </li>
       </ul>
@@ -91,7 +92,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">По предметах</a>
-          <a class="dropdown-item" href="#">По викладачах</a>
+          <a class="dropdown-item" href="#">По групі</a>
         </div>
       </li>
       <li class="nav-item">

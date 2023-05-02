@@ -22,20 +22,35 @@ namespace llama_journal.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(GradesViewModel model)
+        public async Task<IActionResult> Index(string chooseOption)
         {
 			_logger.LogInformation("Logged in user id: " + User.Identity.Name);
 
 			var grades = await _gradeService.GetGradesForUser(User.Identity.Name);
-			var cards = new List<Card>();
-			foreach(var grade in grades) {
-				cards.Add(new Card(
-					grade.disciplineName,
-					grade.teacherName,
-					grade.totalGrades
+            var cards = new List<Card>();
+
+            switch (chooseOption)
+            {
+                case "math":
+                    grades = grades.Where(g => g.disciplineName == chooseOption).ToList();
+                    break;
+                case "computerEngineering":
+                    grades = grades.Where(g => g.disciplineName == chooseOption).ToList();
+                    break;
+                case "optimizationMmethod":
+                    grades = grades.Where(g => g.disciplineName == chooseOption).ToList();
+                    break;
+            }
+            
+            foreach(var grade in grades) {
+                cards.Add(new Card(
+                    grade.disciplineName,
+                    grade.teacherName,
+                    grade.totalGrades
 				));
 			}
 			_logger.LogInformation("Count of cards in ProgressIndex: " + cards.Count.ToString());
+
             return View(cards);
         }
 
