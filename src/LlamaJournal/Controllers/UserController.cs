@@ -41,10 +41,10 @@ namespace llama_journal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string email, string fullname, string role, string password, string group)
+        public async Task<IActionResult> Create(string id, string email, string fullname, string role, string password, string group)
         {
             
-            var user = new User{Id = Guid.NewGuid().ToString(), Email = email, FullName = fullname,
+            var user = new User{Id = id, Email = email, FullName = fullname,
                 Role = Enum.Parse<RoleEnum>(role), Password = password};
             await _userService.CreateUser(user);
             

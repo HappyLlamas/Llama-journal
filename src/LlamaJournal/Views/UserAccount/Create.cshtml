@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = null;
+	string temp = "";
 }
 
 <head>
@@ -17,6 +18,12 @@
 <div class="center">
 	<form class="w-25 panel" id="loginForm" method="post" asp-controller="UserAccountController" asp-action="Index">
 		<h1>Cтворення</h1>
+		
+		<div class="form-floating">
+        	<input class="form-control item" name="id" placeholder="ID" id="id" required>
+        	@Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+        	<label for="id">ID</label>
+        </div>
 
 		<div class="form-floating">
 			<input class="form-control item" name="email" placeholder="Електронна пошта" id="email" required>
@@ -34,18 +41,22 @@
 		    <select class="form-select" name="role" id="role" required>
 		        <option value="">Оберіть роль</option>
 		        <option value="User">Користувач</option>
-		        <option value="Teacher">Викладач</option>
-		        <option value="Admin">Адміністратор</option>
+			    <option value="Teacher">Викладач</option>
+			    <option value="Admin">Адміністратор</option>
 		    </select>
 		    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
 		    <label for="role">Роль</label>
 		</div>
 
-
 		<div class="form-floating">
-			<input class="form-control item" name="group" placeholder="група" id="group" required>
-			@Html.ValidationMessageFor(model => model.Group, "", new { @class = "text-danger" })
-			<label for="group">Група</label>
+		    <select class="form-select" name="group" id="group" required>
+		        <option value="">Оберіть групу</option>
+		        <option value="User">ПМІ-35</option>
+			    <option value="Teacher">ПМІ-24</option>
+			    <option value="Admin">ПМІ-33</option>
+		    </select>
+		    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+		    <label for="role">Роль</label>
 		</div>
 
 		<div class="form-floating">
