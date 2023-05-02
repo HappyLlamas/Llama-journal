@@ -8,12 +8,12 @@ namespace LlamaJournal.Models
 
     public class SignupViewModel
     {
-        public SignupViewModel(string email, string password, string confirmPassword)
-        {
-            this.Email = email;
-            this.Password = password;
-            this.ConfirmPassword = confirmPassword;
-        }
+        // public SignupViewModel(string email, string password, string confirmPassword)
+        // {
+        //     this.Email = email;
+        //     this.Password = password;
+        //     this.ConfirmPassword = confirmPassword;
+        // }
 
         [Required]
         [EmailAddress]

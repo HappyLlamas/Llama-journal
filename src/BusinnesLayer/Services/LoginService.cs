@@ -51,11 +51,11 @@ public class LoginService: ILoginService
 		if (password != confirmPassword)
         	throw new InvalidDataException("Паролі не співпадають");
 
-		if (_userRepository.FindByEmail(email) != null)
+		if (await _userRepository.FindByEmail(email) != null)
 			throw new InvalidDataException("Юзер з таким email вже існує");
 
-	    await _userRepository.CreateUser( new User{Id = new Guid().ToString(),  Email = email, 
-		    FullName= "Admin",  Role = RoleEnum.Admin,  Password = password});
+	    await _userRepository.CreateUser( new User{Id = email,  Email = email,
+		     Role = RoleEnum.Admin,  Password = password});
     }
     public async Task<ClaimsIdentity> Login(String email, String password)
 	{

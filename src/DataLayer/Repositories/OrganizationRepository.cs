@@ -15,13 +15,15 @@ public class OrganizationRepository : IOrganizationRepository
 	public async Task<Organization> CreateOrganization(string name, User creator)
 	{
 		var organization = new Organization { Name = name };
-		var group = new Group { Name="Admin", Organization = organization };
+		var admin_group = new Group { Name="Admin", Organization = organization };
+		var teachers_group = new Group { Name="Teachers", Organization = organization };
 
 
 		_context.Organizations.Add(organization);
-		_context.Groups.Add(group);
+		_context.Groups.Add(admin_group);
+		_context.Groups.Add(teachers_group);
 
-		creator.Group = group;
+		creator.Group = admin_group;
 		await _context.SaveChangesAsync();
 		return organization;
 	}
