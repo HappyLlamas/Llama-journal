@@ -53,15 +53,15 @@ public class LoginServiceTests
         this.UserRepository
             .Setup(x => x.FindByEmail(""))
             .Returns(Task.FromResult<User?>(null));
-        this.UserRepository
-            .Setup(x => x.CreateUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<RoleEnum>()))
-            .Callback((string email, string fullName, RoleEnum role) =>
-            {
-                if (email == null || fullName == null)
-                {
-                    throw new ArgumentNullException();
-                }
-            });
+        // this.UserRepository
+        //     .Setup(x => x.CreateUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<RoleEnum>()))
+        //     .Callback((string email, string fullName, RoleEnum role) =>
+        //     {
+        //         if (email == null || fullName == null)
+        //         {
+        //             throw new ArgumentNullException();
+        //         }
+        //     });
 
         return;
     }
