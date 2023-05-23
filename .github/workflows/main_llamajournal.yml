@@ -23,7 +23,7 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build src/LlamaJournal.sln --configuration Release
 
       - name: dotnet publish
         run: dotnet publish src/LlamaJournal.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
