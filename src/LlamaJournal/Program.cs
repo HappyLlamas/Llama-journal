@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
+DotNetEnv.Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Host.ConfigureLogging(logging =>
 {

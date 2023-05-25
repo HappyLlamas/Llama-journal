@@ -39,3 +39,4 @@ msbuild.wrn
 
 appsettings.json
 appsettings.Development.json
+.env
